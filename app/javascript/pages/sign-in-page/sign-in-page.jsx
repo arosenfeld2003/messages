@@ -15,11 +15,7 @@ const SignInPage = () => {
   const handleSignin = (evt) => {
     evt.preventDefault();
 
-    const data = {
-      user: userValues
-    };
-
-    axios.post("http://localhost:3000/users/sign_in", data)
+    axios.post("http://localhost:3000/users/sign_in", {user: userValues})
     .then((res) => {
       console.log(res);
     }).catch((error) => {

@@ -15,11 +15,7 @@ const SignUpPage = () => {
   const handleSignup = (evt) => {
     evt.preventDefault();
 
-    const data = {
-      user: userValues
-    };
-
-    axios.post("http://localhost:3000/users", data)
+    axios.post("http://localhost:3000/users", {user: userValues})
     .then((res) => {
       console.log(res);
     }).catch((error) => {
