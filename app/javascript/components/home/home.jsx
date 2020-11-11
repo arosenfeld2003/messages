@@ -12,14 +12,14 @@ export default () => (
         <hr className="my-4" />
         <Link
           to="/signup"
-          className="btn btn-primary"
+          className="btn btn-primary mr-1"
           role="button"
         >
           Signup
         </Link>
         <Link
           to="/login"
-          className="btn btn-primary"
+          className="btn btn-primary mr-1"
           role="button"
         >
           Login
