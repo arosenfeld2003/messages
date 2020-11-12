@@ -9,7 +9,7 @@ function rootReducer(state, action) {
   console.log(action.type);
   switch (action.type) {
     case 'GET_USER_SUCCESS':
-      return { user: action.json.user }
+      return { user: state.user }
   }
   return state
 }

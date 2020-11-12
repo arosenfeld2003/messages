@@ -14,8 +14,8 @@ function getUser() {
     return axios.post("http://localhost:3000/users/sign_in", {user: this.user})
     .then((res) => {
       console.log(res);
-    }).then(json => {
-      dispatch(getUserSuccess());
+    }).then(res => {
+      dispatch(getUserSuccess(res));
     }).catch((error) => {
       console.log(error);
     })
