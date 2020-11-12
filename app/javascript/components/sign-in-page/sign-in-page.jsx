@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import axios from 'axios-on-rails';
 import { Link } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import "./sign-in-page.scss";
 
 const SignInPage = () => {

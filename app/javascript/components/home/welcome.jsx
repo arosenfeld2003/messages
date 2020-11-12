@@ -4,29 +4,33 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-const GET_THINGS_REQUEST = "GET_THINGS_REQUEST";
+const GET_USER_REQUEST = "GET_USER_REQUEST";
 
-function getThings() {
-  console.log('getThings() Action!!');
+function getUser() {
+  console.log('getUser() Action!!');
   return {
-    type: GET_THINGS_REQUEST
+    type: GET_USER_REQUEST
   }
 }
 
 class Welcome extends React.Component {
   render() {
-    return(
-        <React.Fragment>
-          <button className="getThingsBtn" onClick={() => this.props.getThings()}>Get Things</button>
-        </React.Fragment>
-      )
+    const { user } = this.props;
+    const userInfo = <li>Name: {user.name}, Status: {user.isLoggedIn}</li>
+
+    return (
+      <React.Fragment>
+        <button className="getUserBtn" onClick={() => this.props.getUser()}>Get User</button>
+        <ul> {userInfo} </ul>
+      </React.Fragment>
+    )
   }
 }
 
 const structuredSelector = createStructuredSelector({
-  things: state => state.things,
+  user: state => state.user,
 });
 
-const mapDispatchToProps = { getThings };
+const mapDispatchToProps = { getUser };
 
 export default connect(structuredSelector, mapDispatchToProps)(Welcome)

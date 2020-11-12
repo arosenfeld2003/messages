@@ -1,6 +1,8 @@
 import { createStore } from 'redux';
 
-const initialState = {};
+const initialState = {
+  user: { name: 'test', isLoggedIn: 'Not Logged In' }
+};
 
 function rootReducer(state, action) {
   console.log(action.type);
