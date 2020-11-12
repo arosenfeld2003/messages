@@ -1,18 +1,24 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 const initialState = {
-  user: { name: 'test', isLoggedIn: 'Not Logged In' }
+  user: { email: 'test@123.com', password: '123456' }
 };
 
 function rootReducer(state, action) {
   console.log(action.type);
   switch (action.type) {
-    default:
-      return state
+    case 'GET_USER_SUCCESS':
+      return { user: action.json.user }
   }
+  return state
 }
 
 export default function configureStore() {
-  const store = createStore(rootReducer, initialState);
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(thunk)
+  );
   return store;
 }
