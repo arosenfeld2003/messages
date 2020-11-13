@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import axios from 'axios-on-rails';
 import { Link } from "react-router-dom";
+import FormInput from "../form-input/form-input";
+import Button from "../button/button";
 
 import "./sign-up-page.scss";
 
@@ -31,10 +33,29 @@ const SignUpPage = () => {
     <div className="text-center border border-light p-5">
       <form method="" action="">
         <h2 className="h4 mb-4">Signup</h2>
-        <input className="form-control mb-4" id="email" name="email" placeholder="email" onChange={handleChange}/>
-        <input className="form-control mb-4" id="password" name="password" placeholder="password" onChange={handleChange}/>
-        <input className="form-control mb-4" id="password_confirmation" name="password_confirmation" placeholder="retype password" onChange={handleChange}/>
-        <button className="btn btn-primary btn-block my-4 waves-effect waves-light" type="submit" onClick={handleSignup}>Submit</button>
+        <FormInput
+          id="email"
+          name="email"
+          placeholder="email"
+          handleChange={handleChange}
+        />
+        <FormInput
+          id="password"
+          name="password"
+          placeholder="password"
+          handleChange={handleChange}
+        />
+        <FormInput
+          id="password"
+          name="password"
+          placeholder="password"
+          handleChange={handleChange}
+        />
+        <Button
+          type="submit"
+          className="btn btn-primary btn-block my-4 waves-effect waves-light"
+          onClick={handleSignin}
+        > Submit </Button>
       </form>
       <p>Already have an account?
         <Link to="/login" className="btn btn-link">Login</Link>
