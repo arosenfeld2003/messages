@@ -1,13 +1,16 @@
 import React, {useState} from "react";
 import axios from 'axios-on-rails';
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
+import {onSignUpRequest} from "../../redux/user/user-reducer";
 
 import "./sign-up-page.scss";
 
-const SignUpPage = () => {
+const SignUpPage = (props) => {
 
+  const {handleSignUpRequest, loggedIn} = props;
   const [userValues, setUserValues] = useState({});
 
   const handleChange = (evt) => {
@@ -18,15 +21,13 @@ const SignUpPage = () => {
 
   const handleSignup = (evt) => {
     evt.preventDefault();
+    handleSignUpRequest(userValues);
+  }
 
-    axios.post("http://localhost:3000/users", {user: userValues})
-    .then((res) => {
-      console.log(res);
-    }).catch((error) => {
-      console.log(error);
-    })
-
-    console.log(userValues);
+  if (loggedIn === true) {
+    return (
+      <Redirect to="/" />
+    )
   }
 
   return <div className="sign-up-page">
@@ -65,4 +66,14 @@ const SignUpPage = () => {
 
 }
 
-export default SignUpPage;
+const mapStateToProps = (state) => ({
+  loggedIn: state.user.logged_in
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  handleSignUpRequest: (userValues) => {
+    dispatch(onSignUpRequest(userValues));
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

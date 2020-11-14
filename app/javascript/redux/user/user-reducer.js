@@ -1,4 +1,4 @@
-import {setCurrentUser} from "./user-actions";
+import {setCurrentUser, setLoggedIn} from "./user-actions";
 import axios from "axios";
 import userTypes from "./user-types";
 
@@ -6,6 +6,18 @@ const INITIAL_STATE = {
   // currentUser will be object {email: test@gmail.com}
   currentUser: null,
   logged_in: false
+}
+
+const onSignUpRequest = (userValues) => {
+  return (dispatch) => {
+    axios.post("http://localhost:3000/users", {user: userValues})
+    .then((res) => {
+      dispatch(setCurrentUser(res.data));
+      dispatch(setLoggedIn(true));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -25,4 +37,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer};
+export {userReducer, onSignUpRequest};
