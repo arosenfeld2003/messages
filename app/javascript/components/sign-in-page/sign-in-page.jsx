@@ -1,13 +1,18 @@
 import React, {useState} from "react";
 import axios from 'axios-on-rails';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
+
+import {onLoginRequest} from "../../redux/user/user-reducer";
+
 import "./sign-in-page.scss";
 
-const SignInPage = () => {
+const SignInPage = (props) => {
+
+  const {handleLoginRequest, isLoggedIn} = props;
 
   const [userValues, setUserValues] = useState({});
 
@@ -19,15 +24,13 @@ const SignInPage = () => {
 
   const handleSignin = (evt) => {
     evt.preventDefault();
+    handleLoginRequest(userValues);
+  }
 
-    axios.post("http://localhost:3000/users/sign_in", {user: userValues})
-    .then((res) => {
-      console.log(res);
-    }).catch((error) => {
-      console.log(error);
-    })
-
-    console.log(userValues);
+  if (isLoggedIn === true) {
+    return (
+      <Redirect to="/" />
+    )
   }
 
   return <div className="sign-in-page">
@@ -62,4 +65,14 @@ const SignInPage = () => {
 
 }
 
-export default SignInPage;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.logged_in
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  handleLoginRequest: (userValues) => {
+    dispatch(onLoginRequest(userValues));
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

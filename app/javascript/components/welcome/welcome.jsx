@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Welcome = () => (
-  <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
+const Welcome = () => {
+  return <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
     <div className="jumbotron jumbotron-fluid bg-transparent">
       <div className="container secondary-color">
-        <h1 className="display-4">SignUp</h1>
+        <h1 className="display-4">Welcome</h1>
         <p className="lead">
           my_newspaper homepage
         </p>
@@ -27,6 +27,6 @@ const Welcome = () => (
       </div>
     </div>
   </div>
-);
+};
 
 export default Welcome;

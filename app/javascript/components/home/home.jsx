@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios-on-rails';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const Home = (props) => {
   const {currentUser} = props;

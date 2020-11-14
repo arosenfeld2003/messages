@@ -10,7 +10,7 @@ import "./sign-up-page.scss";
 
 const SignUpPage = (props) => {
 
-  const {handleSignUpRequest, loggedIn} = props;
+  const {handleSignUpRequest, isLoggedIn} = props;
   const [userValues, setUserValues] = useState({});
 
   const handleChange = (evt) => {
@@ -24,7 +24,7 @@ const SignUpPage = (props) => {
     handleSignUpRequest(userValues);
   }
 
-  if (loggedIn === true) {
+  if (isLoggedIn === true) {
     return (
       <Redirect to="/" />
     )
@@ -67,7 +67,7 @@ const SignUpPage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  loggedIn: state.user.logged_in
+  isLoggedIn: state.user.logged_in
 })
 
 const mapDispatchToProps = (dispatch) => ({
