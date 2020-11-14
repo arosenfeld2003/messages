@@ -1,0 +1,12 @@
+import userTypes from "./user-types";
+
+export const setCurrentUser = (user) => ({
+  type: userTypes.SET_CURRENT_USER,
+  payload: user
+});
+
+//status true or false
+export const setLoggedIn = (status) => ({
+  type: userTypes.SET_LOGGED_IN,
+  payload: status
+})

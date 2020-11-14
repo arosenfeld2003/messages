@@ -54,7 +54,7 @@ const SignUpPage = () => {
         <Button
           type="submit"
           className="btn btn-primary btn-block my-4 waves-effect waves-light"
-          onClick={handleSignin}
+          onClick={handleSignup}
         > Submit </Button>
       </form>
       <p>Already have an account?

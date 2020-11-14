@@ -1,24 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
+import {combineReducers} from "redux";
 import thunk from 'redux-thunk';
+import logger from "redux-logger";
+import {userReducer} from "./user/user-reducer";
 
-const initialState = {
-  user: { email: 'test@123.com', password: '123456' }
-};
+const rootReducer = combineReducers({
+  user: userReducer
+});
 
-function rootReducer(state, action) {
-  console.log(action.type);
-  switch (action.type) {
-    case 'GET_USER_SUCCESS':
-      return { user: state.user }
-  }
-  return state
-}
+const middlewares = [logger, thunk];
 
-export default function configureStore() {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(thunk)
-  );
-  return store;
-}
+const store = createStore(rootReducer, applyMiddleware(...middlewares));
+
+export default store;
