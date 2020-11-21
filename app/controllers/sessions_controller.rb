@@ -14,11 +14,9 @@ class SessionsController < Devise::SessionsController
     end
   end
 
-  def logged_in?
+  def logged_in
     if current_user
-      render json: {
-        user: current_user
-      }
+      render json: current_user
     else
       render json: {
         message: 'no such user'

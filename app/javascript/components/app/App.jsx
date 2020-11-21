@@ -6,9 +6,11 @@ import SignInPage from "../sign-in-page/sign-in-page";
 import Welcome from "../welcome/welcome";
 import { connect } from "react-redux";
 import { browserHistory } from 'react-router';
+import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 const App = (props) => {
   const {isLoggedIn} = props;
+
   return <div className="main">
       <Router history={browserHistory}>
         <Switch>
