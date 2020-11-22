@@ -1,4 +1,5 @@
 class SessionsController < Devise::SessionsController
+  before_action :authenticate_user!
 
   # POST /v1/login
   def create
@@ -13,21 +14,31 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+  def logged_in
+    if current_user
+      render json: current_user
+    else
+      render json: {
+        message: 'no such user'
+      }
+    end
+  end
+
   def destroy
     sign_out(@user)
     render :json=> {:success=>true}
   end
 
 
-    private
+  private
 
-    def invalid_login_attempt
-      warden.custom_failure!
-      render json: {error: 'invalid login attempt'}, status: :unprocessable_entity
-    end
+  def invalid_login_attempt
+    warden.custom_failure!
+    render json: {error: 'invalid login attempt'}, status: :unprocessable_entity
+  end
 
-    def user_params
-       params.require(:user).permit(:email, :password)
-    end
+  def user_params
+     params.require(:user).permit(:email, :password)
+  end
 
 end
