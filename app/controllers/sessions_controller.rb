@@ -1,5 +1,4 @@
 class SessionsController < Devise::SessionsController
-  before_action :authenticate_user!
 
   # POST /v1/login
   def create
@@ -11,16 +10,6 @@ class SessionsController < Devise::SessionsController
       render json: @user
     else
       invalid_login_attempt
-    end
-  end
-
-  def logged_in
-    if current_user
-      render json: current_user
-    else
-      render json: {
-        message: 'no such user'
-      }
     end
   end
 
