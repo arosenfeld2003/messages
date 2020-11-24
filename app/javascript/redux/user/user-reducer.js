@@ -27,6 +27,7 @@ const onLoginRequest = (userValues) => {
       dispatch(setCurrentUser(res.data));
       dispatch(setLoggedIn(true));
     }).catch((error) => {
+      window.alert('Invalid Login Info');
       console.log(error);
     })
   }
