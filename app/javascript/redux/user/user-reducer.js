@@ -32,18 +32,6 @@ const onLoginRequest = (userValues) => {
   }
 }
 
-const onLoggedInRequest = () => {
-  return (dispatch) => {
-    axios.get("http://localhost:3000/users/logged_in")
-    .then((res) => {
-      dispatch(setCurrentUser(res.data));
-      dispatch(setLoggedIn(true));
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-}
-
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -61,4 +49,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLoggedInRequest};
+export {userReducer, onSignUpRequest, onLoginRequest};
