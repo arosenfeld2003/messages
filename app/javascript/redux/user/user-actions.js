@@ -10,3 +10,8 @@ export const setLoggedIn = (status) => ({
   type: userTypes.SET_LOGGED_IN,
   payload: status
 })
+
+export const setLogginError = (status) => ({
+  type: userTypes.SET_LOGGIN_ERROR,
+  payload: status
+})
