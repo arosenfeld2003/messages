@@ -41,12 +41,14 @@ const SignInPage = (props) => {
         <FormInput
           id="email"
           name="email"
+          class="form-control mb-4"
           placeholder="email"
           handleChange={handleChange}
         />
         <FormInput
           id="password"
           name="password"
+          class="form-control mb-4"
           placeholder="password"
           handleChange={handleChange}
         />
