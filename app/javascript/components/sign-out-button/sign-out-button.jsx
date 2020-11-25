@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {onLogoutRequest} from "../../redux/user/user-reducer"
+import React from "react";
+import {onLogoutRequest} from "../../redux/user/user-reducer";
 
-const SignoutButton = ({currentUser}) => {
-  return <button className="signout btn-dark" onClick={onLogoutRequest}>Sign Out</button>
+const SignoutButton = () => {
+  return <button className="signout btn-dark" onClick={onLogoutRequest}></button>
 }
 
 export default SignoutButton;

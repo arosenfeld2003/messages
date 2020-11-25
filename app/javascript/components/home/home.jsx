@@ -3,7 +3,7 @@ import axios from "axios-on-rails";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { SignoutButton } from "../sign-out-button/sign-out-button";
+import SignoutButton from "../sign-out-button/sign-out-button";
 
 const Home = (props) => {
   const {isLoggedIn, currentUser} = props
@@ -20,9 +20,12 @@ const Home = (props) => {
         <div className="main-text">Welcome</div>
         <div className="user-info__email">{currentUser.email}</div>
       </div>
-      <button className="signout">{SignoutButton}</button>
     </header>
+    <div>
+      <SignoutButton>Log Out</SignoutButton>
+    </div>
   </div>
+
 }
 
 const mapStateToProps = (state) => ({
