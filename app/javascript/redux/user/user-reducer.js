@@ -34,6 +34,18 @@ const onLoginRequest = (userValues) => {
   }
 }
 
+const onLogoutRequest = () => {
+  return (dispatch) => {
+    axios.delete("http://localhost:3000/users/sign_out")
+    .then((res) => {
+      dispatch(setCurrentUser(null));
+      dispatch(setLoggedIn(false));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -56,4 +68,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest};
+export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest};
