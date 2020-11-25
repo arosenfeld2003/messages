@@ -37,18 +37,21 @@ const SignUpPage = (props) => {
         <FormInput
           id="email"
           name="email"
+          className="form-control mb-4"
           placeholder="email"
           handleChange={handleChange}
         />
         <FormInput
           id="password"
           name="password"
+          className="form-control mb-4"
           placeholder="password"
           handleChange={handleChange}
         />
         <FormInput
           id="password"
           name="password"
+          className="form-control mb-4"
           placeholder="password"
           handleChange={handleChange}
         />

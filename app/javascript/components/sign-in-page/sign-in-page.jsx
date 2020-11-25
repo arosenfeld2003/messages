@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
+import Error from "../error/error";
 
 import {onLoginRequest} from "../../redux/user/user-reducer";
 
@@ -12,7 +13,7 @@ import "./sign-in-page.scss";
 
 const SignInPage = (props) => {
 
-  const {handleLoginRequest, isLoggedIn} = props;
+  const {handleLoginRequest, isLoggedIn, logginError} = props;
 
   const [userValues, setUserValues] = useState({});
 
@@ -41,12 +42,14 @@ const SignInPage = (props) => {
         <FormInput
           id="email"
           name="email"
+          className="form-control mb-4"
           placeholder="email"
           handleChange={handleChange}
         />
         <FormInput
           id="password"
           name="password"
+          className="form-control mb-4"
           placeholder="password"
           handleChange={handleChange}
         />
@@ -56,7 +59,7 @@ const SignInPage = (props) => {
           onClick={handleSignin}
         > Submit </Button>
       </form>
-
+      {logginError && <Error>Wrong login or password</Error>}
       <p>Don't have an account?
         <Link to="/signup" className="btn btn-link">Register</Link>
       </p>
@@ -66,7 +69,8 @@ const SignInPage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.logged_in
+  isLoggedIn: state.user.logged_in,
+  logginError: state.user.loggin_error
 })
 
 const mapDispatchToProps = (dispatch) => ({

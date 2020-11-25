@@ -1,11 +1,12 @@
-import {setCurrentUser, setLoggedIn} from "./user-actions";
+import {setCurrentUser, setLoggedIn, setLogginError} from "./user-actions";
 import axios from "axios";
 import userTypes from "./user-types";
 
 const INITIAL_STATE = {
   // currentUser will be object {email: test@gmail.com}
   currentUser: null,
-  logged_in: false
+  logged_in: false,
+  loggin_error: false
 }
 
 const onSignUpRequest = (userValues) => {
@@ -27,19 +28,7 @@ const onLoginRequest = (userValues) => {
       dispatch(setCurrentUser(res.data));
       dispatch(setLoggedIn(true));
     }).catch((error) => {
-      window.alert('Invalid Login Info');
-      console.log(error);
-    })
-  }
-}
-
-const onLoggedInRequest = () => {
-  return (dispatch) => {
-    axios.get("http://localhost:3000/users/logged_in")
-    .then((res) => {
-      dispatch(setCurrentUser(res.data));
-      dispatch(setLoggedIn(true));
-    }).catch((error) => {
+      dispatch(setLogginError(true));
       console.log(error);
     })
   }
@@ -57,9 +46,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         logged_in: action.payload
       }
+    case userTypes.SET_LOGGIN_ERROR:
+      return {
+        ...state,
+        loggin_error: action.payload
+      }
     default:
       return state;
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLoggedInRequest};
+export {userReducer, onSignUpRequest, onLoginRequest};

@@ -10,13 +10,24 @@ const rootReducer = combineReducers({
 
 const middlewares = [logger, thunk];
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(...middlewares),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  )
-);
+let store;
+
+if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+  store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(...middlewares),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    )
+  );
+} else {
+  store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(...middlewares)
+    )
+  );
+}
 
 export default store;
 
