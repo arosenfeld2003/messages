@@ -3,7 +3,6 @@ import axios from "axios";
 import userTypes from "./user-types";
 
 const INITIAL_STATE = {
-  // currentUser will be object {email: test@gmail.com}
   currentUser: null,
   logged_in: false,
   loggin_error: false
