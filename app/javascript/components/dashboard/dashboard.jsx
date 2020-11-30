@@ -1,8 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+
+  const handleClick = () => {
+    alert("Clicked!";)
+  }
+
   return <div className="dashboard">
     <h2 className="h2">Dashboard</h2>
+    <Button
+      type="button"
+      className="btn btn-primary btn-block my-4 waves-effect waves-light"
+      onClick={handleClick}
+    >Search user</Button>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">User1</li>
       <li class="list-group-item">User2</li>
@@ -13,4 +24,4 @@ const Dashboard = () => {
   </div>
 }
 
-export default Dashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
