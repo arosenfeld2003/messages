@@ -3,7 +3,6 @@ import axios from "axios";
 import userTypes from "./user-types";
 
 const INITIAL_STATE = {
-  // currentUser will be object {email: test@gmail.com}
   currentUser: null,
   logged_in: false,
   loggin_error: false
@@ -35,11 +34,15 @@ const onLoginRequest = (userValues) => {
 }
 
 const onLogoutRequest = () => {
+  console.log('Logging Out...')
   return (dispatch) => {
+    console.log(state.currentUser);
     axios.delete("http://localhost:3000/users/sign_out")
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
+      console.log(state.currentUser);
+      console.log(state.logged_in);
     }).catch((error) => {
       console.log(error);
     })

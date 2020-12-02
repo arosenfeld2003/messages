@@ -5,5 +5,16 @@ const SignoutButton = () => {
   return <button className="signout btn-dark" onClick={onLogoutRequest}></button>
 }
 
-export default SignoutButton;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.logged_in,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  handleLogoutRequest: () => {
+    dispatch(onLogoutRequest());
+  },
+  dispatch
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignoutButton);
 

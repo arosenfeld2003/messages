@@ -3,7 +3,8 @@ import axios from "axios-on-rails";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import SignoutButton from "../sign-out-button/sign-out-button";
+// import from "../sign-out-button/sign-out-button";
+import {onLogoutRequest} from "../../redux/user/user-reducer";
 
 const Home = (props) => {
   const {isLoggedIn, currentUser} = props
@@ -22,7 +23,9 @@ const Home = (props) => {
       </div>
     </header>
     <div>
-      <SignoutButton>Log Out</SignoutButton>
+      <button onClick={onLogoutRequest}>
+        Sign Out
+      </button>
     </div>
   </div>
 
