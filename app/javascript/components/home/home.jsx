@@ -7,9 +7,9 @@ import { Redirect } from "react-router-dom";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
 
 const Home = (props) => {
-  const {isLoggedIn, currentUser} = props
+  const {isLoggedIn, currentUser, handleLogoutRequest} = props
 
-  if (!isLoggedIn) {
+  if (!currentUser) {
     return (
       <Redirect to='/welcome'/>
     )
@@ -23,12 +23,11 @@ const Home = (props) => {
       </div>
     </header>
     <div>
-      <button onClick={onLogoutRequest}>
+      <button onClick={handleLogoutRequest}>
         Sign Out
       </button>
     </div>
   </div>
-
 }
 
 const mapStateToProps = (state) => ({
@@ -37,8 +36,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleLogoutRequest: (userValues) => {
-    dispatch(onLogOutRequest(userValues));
+  handleLogoutRequest: () => {
+    dispatch(onLogoutRequest());
   }
 })
 
