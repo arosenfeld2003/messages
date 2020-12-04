@@ -8,14 +8,14 @@ const INITIAL_STATE = {
 }
 
 const loadUsers = () => {
-  return (dispatch) => ({
+  return (dispatch) => {
     axios.get("http://localhost:3000/users")
     .then((res) => {
       dispatch(setListOfItems(res.data));
     }).catch((error) => {
       console.log(error);
     })
-  })
+  }
 }
 
 const dashboardReducer = (state = INITIAL_STATE, action) => {

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const Dashboard = (props) => {
 
   const handleClick = () => {
-    alert("Clicked!";)
+    alert("Clicked!");
   }
 
   return <div className="dashboard">
@@ -24,4 +24,10 @@ const Dashboard = (props) => {
   </div>
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+const mapStateToProps = (state) => ({
+
+})
+
+
+
+export default connect(mapStateToProps, null)(Dashboard);

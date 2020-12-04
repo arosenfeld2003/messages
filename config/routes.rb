@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "registrations", sessions: 'sessions'}
+  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions"}
   devise_scope :user do
-    get '/logged_in', :to => 'sessions#logged_in'
+    get 'logged_in' => 'sessions#logged_in?'
   end
   root 'home#index'
 

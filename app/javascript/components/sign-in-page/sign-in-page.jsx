@@ -6,7 +6,6 @@ import { createStructuredSelector } from "reselect";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 import Error from "../error/error";
-
 import {onLoginRequest} from "../../redux/user/user-reducer";
 
 import "./sign-in-page.scss";

@@ -33,12 +33,26 @@ const onLoginRequest = (userValues) => {
   }
 }
 
+const onLogoutRequest = () => {
+  return (dispatch) => {
+    axios.get("http://localhost:3000/users/sign_out")
+    .then((res) => {
+      dispatch(setCurrentUser(null));
+      dispatch(setLoggedIn(false));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const onLoggedInRequest = () => {
   return (dispatch) => {
-    axios.get("http://localhost:3000/users/logged_in")
+    axios.get("http://localhost:3000/logged_in")
     .then((res) => {
-      dispatch(setCurrentUser(res.data));
-      dispatch(setLoggedIn(true));
+      if (res.data.logged_in === true) {
+        dispatch(setCurrentUser(res.data.user));
+        dispatch(setLoggedIn(true));
+      }
     }).catch((error) => {
       console.log(error);
     })
@@ -67,4 +81,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest};
+export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest};

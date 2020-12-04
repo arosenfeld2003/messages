@@ -1,4 +1,5 @@
 class SessionsController < Devise::SessionsController
+  include Devise::Controllers::Helpers
   before_action :authenticate_user!
 
   # POST /v1/login
@@ -14,14 +15,18 @@ class SessionsController < Devise::SessionsController
     end
   end
 
-  def logged_in
-    if current_user
-      render json: current_user
-    else
-      render json: {
-        message: 'no such user'
-      }
-    end
+  def logged_in?
+      if current_user
+        render json: {
+          logged_in: true,
+          user: current_user
+        }
+      else
+        render json: {
+          logged_in: false,
+          message: 'no such user'
+        }
+      end
   end
 
   def destroy

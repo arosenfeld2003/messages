@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "../home/home";
 import SignUpPage from "../sign-up-page/sign-up-page";
@@ -6,11 +6,15 @@ import SignInPage from "../sign-in-page/sign-in-page";
 import Welcome from "../welcome/welcome";
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
-import {onLoggedInRequest} from "../../redux/user/user-reducer";
 import {Dashboard} from "../../components/dashboard/dashboard";
+import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 const App = (props) => {
-  const {isLoggedIn} = props;
+  const {isLoggedIn, handleLoggedIn} = props;
+
+  useEffect(() => {
+    handleLoggedIn();
+  });
 
   return <div className="main">
       <Router history={browserHistory}>
@@ -29,4 +33,10 @@ const mapStateToProps = (state) => ({
   isLoggedIn: state.user.logged_in
 })
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = (dispatch) => ({
+  handleLoggedIn: () => {
+    dispatch(onLoggedInRequest());
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

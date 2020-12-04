@@ -1,11 +1,19 @@
 import React, {useState} from "react";
-import axios from 'axios-on-rails';
+import axios from "axios-on-rails";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+// import from "../sign-out-button/sign-out-button";
+import {onLogoutRequest} from "../../redux/user/user-reducer";
 
 const Home = (props) => {
-  const {currentUser} = props;
+  const {isLoggedIn, currentUser, handleLogoutRequest} = props
+
+  if (!currentUser) {
+    return (
+      <Redirect to='/welcome'/>
+    )
+  }
 
   return <div className="home-page">
     <header>
@@ -14,11 +22,23 @@ const Home = (props) => {
         <div className="user-info__email">{currentUser.email}</div>
       </div>
     </header>
+    <div>
+      <button onClick={handleLogoutRequest}>
+        Sign Out
+      </button>
+    </div>
   </div>
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  isLoggedIn: state.user.logged_in
 })
 
-export default connect(mapStateToProps, null)(Home);
+const mapDispatchToProps = (dispatch) => ({
+  handleLogoutRequest: () => {
+    dispatch(onLogoutRequest());
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
