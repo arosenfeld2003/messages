@@ -1,5 +1,6 @@
 import {setCurrentUser, setLoggedIn, setLogginError} from "./user-actions";
 import axios from "axios";
+import API from "../../api";
 import userTypes from "./user-types";
 
 const INITIAL_STATE = {
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
 
 const onSignUpRequest = (userValues) => {
   return (dispatch) => {
-    axios.post("http://localhost:3000/users", {user: userValues})
+    API.post("users", {user: userValues})
     .then((res) => {
       dispatch(setCurrentUser(res.data));
       dispatch(setLoggedIn(true));
@@ -22,7 +23,7 @@ const onSignUpRequest = (userValues) => {
 
 const onLoginRequest = (userValues) => {
   return (dispatch) => {
-    axios.post("http://localhost:3000/users/sign_in", {user: userValues})
+    API.post("users/sign_in", {user: userValues})
     .then((res) => {
       dispatch(setCurrentUser(res.data));
       dispatch(setLoggedIn(true));
@@ -35,10 +36,24 @@ const onLoginRequest = (userValues) => {
 
 const onLogoutRequest = () => {
   return (dispatch) => {
-    axios.get("http://localhost:3000/users/sign_out")
+    API.get("users/sign_out")
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
+const onLoggedInRequest = () => {
+  return (dispatch) => {
+    API.get("logged_in")
+    .then((res) => {
+      if (res.data.logged_in === true) {
+        dispatch(setCurrentUser(res.data.user));
+        dispatch(setLoggedIn(true));
+      }
     }).catch((error) => {
       console.log(error);
     })
@@ -67,4 +82,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest};
+export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest};

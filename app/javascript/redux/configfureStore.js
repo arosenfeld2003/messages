@@ -3,9 +3,11 @@ import {combineReducers} from "redux";
 import thunk from 'redux-thunk';
 import logger from "redux-logger";
 import {userReducer} from "./user/user-reducer";
+import dashboardReducer from "./dashboard/dashboard-reducer";
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  dashboard: dashboardReducer
 });
 
 const middlewares = [logger, thunk];
@@ -30,4 +32,3 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 }
 
 export default store;
-
