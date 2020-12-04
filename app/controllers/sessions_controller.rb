@@ -1,5 +1,4 @@
 class SessionsController < Devise::SessionsController
-  include Devise::Controllers::Helpers
   before_action :authenticate_user!
 
   # POST /v1/login

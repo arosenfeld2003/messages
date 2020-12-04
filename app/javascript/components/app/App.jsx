@@ -12,10 +12,6 @@ import {onLoggedInRequest} from "../../redux/user/user-reducer";
 const App = (props) => {
   const {isLoggedIn, handleLoggedIn} = props;
 
-  useEffect(() => {
-    handleLoggedIn();
-  });
-
   return <div className="main">
       <Router history={browserHistory}>
         <Switch>
