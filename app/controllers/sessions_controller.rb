@@ -8,6 +8,8 @@ class SessionsController < Devise::SessionsController
 
     if @user.valid_password?(user_params[:password])
       sign_in :user, @user
+      @token = JWT.encode({user_id: @user.id}, Rails.application.secrets.secret_key_base)
+      p @token
       render json: @user
     else
       invalid_login_attempt
