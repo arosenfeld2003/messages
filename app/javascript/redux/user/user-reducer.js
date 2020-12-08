@@ -25,7 +25,7 @@ const onLoginRequest = (userValues) => {
   return (dispatch) => {
     API.post("users/sign_in", {user: userValues})
     .then((res) => {
-      dispatch(setCurrentUser(res.data));
+      dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
     }).catch((error) => {
       dispatch(setLogginError(true));
