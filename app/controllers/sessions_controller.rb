@@ -10,12 +10,11 @@ class SessionsController < Devise::SessionsController
       sign_in :user, @user
       # set time and check if jwt not expired time.now < exp
       @iat = Time.now
-      p @iat
 
       #add 2 hours 
       @exp = @iat + 7200 
-      p @exp
-      @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, ENV["SECRET_KEY"])
+      
+      @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, Rails.application.secrets.secret_key_base) # for production use ENV["SECRET_KEY"]
       p @token
       render json: {
         user: @user,

@@ -1,0 +1,2 @@
+class TokenList < ApplicationRecord
+end
