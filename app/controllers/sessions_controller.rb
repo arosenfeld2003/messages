@@ -15,7 +15,7 @@ class SessionsController < Devise::SessionsController
       @exp = @iat + 7200 
       
       @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, Rails.application.secrets.secret_key_base) # for production use ENV["SECRET_KEY"]
-      p @token
+
       render json: {
         user: @user,
         token: @token

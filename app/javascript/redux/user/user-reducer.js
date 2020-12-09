@@ -13,8 +13,10 @@ const onSignUpRequest = (userValues) => {
   return (dispatch) => {
     API.post("users", {user: userValues})
     .then((res) => {
-      dispatch(setCurrentUser(res.data));
+      dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
+      localStorage.setItem("token", res.data.token);
+      console.log(localStorage.getItem("token"));
     }).catch((error) => {
       console.log(error);
     })
@@ -27,6 +29,8 @@ const onLoginRequest = (userValues) => {
     .then((res) => {
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
+      localStorage.setItem("token", res.data.token);
+      console.log(localStorage.getItem("token"));
     }).catch((error) => {
       dispatch(setLogginError(true));
       console.log(error);
