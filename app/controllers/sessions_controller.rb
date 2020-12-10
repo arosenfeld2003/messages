@@ -1,6 +1,8 @@
 class SessionsController < Devise::SessionsController
   before_action :authenticate_user!
 
+  @token = nil
+
   # POST /v1/login
   def create
     @user = User.find_by_email(user_params[:email])
@@ -18,7 +20,7 @@ class SessionsController < Devise::SessionsController
       
       #add token in db (table Tokens)
       add_token_in_db(@user, @token, @exp, @iat)
-      
+
       render json: {
         user: @user,
         token: @token
@@ -52,7 +54,7 @@ class SessionsController < Devise::SessionsController
 
   def invalid_login_attempt
     warden.custom_failure!
-    render json: {error: 'invalid login attempt'}, :status=>401
+    render json: {error: 'Invalid username or password'}, :status=>401
   end
 
   def user_params

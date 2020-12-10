@@ -44,6 +44,7 @@ const onLogoutRequest = () => {
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
+      localStorage.removeItem("token");
     }).catch((error) => {
       console.log(error);
     })
