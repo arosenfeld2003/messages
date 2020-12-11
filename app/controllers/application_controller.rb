@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
     current_time = Time.now.to_i
 
     tokens = Token.where("exp < :max", max: current_time)
+    tokens.destroy_all
     tokens.each do |token|
       p token
     end
