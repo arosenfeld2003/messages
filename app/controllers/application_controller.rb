@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       if decoded_token[0]["exp"] > current_time.to_i && token_exist_in_db(token)
         @user = User.find(decoded_token[0]["sub"])
       else
-        p "Token expired!"
+        p "Token expired or doesn't exist in db!"
       end
 
       
