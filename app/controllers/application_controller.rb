@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
+    
     if auth_header 
       token = auth_header
       begin
@@ -25,9 +26,17 @@ class ApplicationController < ActionController::Base
         nil 
       end
 
-      @user = User.find(decoded_token[0]["sub"])
-      p decoded_token
-      p @user
+      #check that token doesn't expire yet
+      current_time = Time.now
+      if decoded_token[0]["exp"] > current_time.to_i 
+        @user = User.find(decoded_token[0]["sub"])
+        p decoded_token
+        p @user
+      else
+        p "Token expired!"
+      end
+
+      
     end
   end
 
