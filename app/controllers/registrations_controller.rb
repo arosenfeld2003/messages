@@ -3,7 +3,20 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user
+      @iat = Time.now
+
+      #add 2 hours 
+      @exp = @iat + 7200 
+      
+      @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, Rails.application.secrets.secret_key_base) # for production use ENV["SECRET_KEY"]
+
+      #add token in db (table Tokens)
+      add_token_in_db(@user, @token, @exp, @iat)
+      
+      render json: {
+        user: @user,
+        token: @token
+      }
     else
       warden.custom_failure!
       render json: { error: 'signup error' }, status: :unprocessable_entity

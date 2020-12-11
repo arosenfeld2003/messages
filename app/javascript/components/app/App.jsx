@@ -10,15 +10,19 @@ import {Dashboard} from "../../components/dashboard/dashboard";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 const App = (props) => {
-  const {isLoggedIn, handleLoggedIn} = props;
+  const {isLoggedIn, handleLoggedIn, currentUser} = props;
+
+  useEffect(() => {
+    handleLoggedIn();
+  }, [handleLoggedIn])
 
   return <div className="main">
       <Router history={browserHistory}>
         <Switch>
-          <Route exact path='/' render={() => isLoggedIn ? <Home /> : <Redirect to='/welcome'/>} />
+          <Route exact path='/' render={() => currentUser ? <Home /> : <Redirect to='/welcome'/>} />
           <Route exact path="/signup" component={SignUpPage} />
           <Route exact path="/login" component={SignInPage} />
-          <Route exact path='/welcome' component={Welcome}/>
+          <Route exact path='/welcome' render={() => currentUser ? <Redirect to='/'/> : <Welcome />} />
           <Route exact path='/dashboard' component={Dashboard}/>
         </Switch>
       </Router>
@@ -26,7 +30,8 @@ const App = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.user.logged_in
+  isLoggedIn: state.user.logged_in,
+  currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({
