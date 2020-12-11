@@ -29,6 +29,8 @@ const onLoginRequest = (userValues) => {
     .then((res) => {
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
+
+      //save token in localStorage
       localStorage.setItem("token", res.data.token);
       console.log(localStorage.getItem("token"));
     }).catch((error) => {
@@ -44,6 +46,8 @@ const onLogoutRequest = () => {
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
+
+      //remove token in localStorage
       localStorage.removeItem("token");
     }).catch((error) => {
       console.log(error);
@@ -53,15 +57,21 @@ const onLogoutRequest = () => {
 
 const onLoggedInRequest = () => {
   return (dispatch) => {
-    API.get("logged_in")
-    .then((res) => {
-      if (res.data.logged_in === true) {
-        dispatch(setCurrentUser(res.data.user));
-        dispatch(setLoggedIn(true));
-      }
-    }).catch((error) => {
-      console.log(error);
-    })
+    const token = localStorage.getItem("token");
+    if(token) {
+      API.get("logged_in", {
+        headers: {
+          Authorization: token
+        }})
+      .then((res) => {
+        if (res.data.logged_in === true) {
+          dispatch(setCurrentUser(res.data.user));
+          dispatch(setLoggedIn(true));
+        }
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
   }
 }
 

@@ -15,4 +15,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    if auth_header 
+      token = auth_header
+      begin
+        decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: "HS256")
+        # decoded_token = [{"sub"=>1, "iat"=>1607669676, "exp"=>1607676876}, {"alg"=>"HS256"}]        
+      rescue JWT::DecodeError 
+        nil 
+      end
+
+      @user = User.find(decoded_token[0]["sub"])
+      p decoded_token
+      p @user
+    end
+  end
+
+  def auth_header    
+    request.headers["Authorization"]
+  end
+
 end
