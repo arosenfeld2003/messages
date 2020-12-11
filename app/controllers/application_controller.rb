@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :clear_tokens_in_db
 
   protect_from_forgery with: :null_session
 
@@ -44,6 +45,16 @@ class ApplicationController < ActionController::Base
 
   def auth_header    
     request.headers["Authorization"]
+  end
+
+  def clear_tokens_in_db
+    current_time = Time.now.to_i
+
+    tokens = Token.where("exp < :max", max: current_time)
+    tokens.each do |token|
+      p token
+    end
+    
   end
 
 end
