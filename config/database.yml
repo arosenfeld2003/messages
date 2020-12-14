@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: my_newspaper_development
-  username: postgres
+  # username: postgres
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -59,7 +59,7 @@ development:
 test:
   <<: *default
   database: my_newspaper_test
-  username: postgres
+  # username: postgres
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,5 +83,5 @@ test:
 production:
   <<: *default
   database: my_newspaper_production
-  username: my_newspaper
-  password: <%= ENV['MY_NEWSPAPER_DATABASE_PASSWORD'] %>
+  # username: my_newspaper
+  # password: <%= ENV['MY_NEWSPAPER_DATABASE_PASSWORD'] %>

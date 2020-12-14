@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 2020_12_09_200222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "token_lists", force: :cascade do |t|
+    t.string "user_id"
+    t.string "token"
+    t.integer "iat"
+    t.integer "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.string "user_id"
     t.string "token"
