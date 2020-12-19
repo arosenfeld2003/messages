@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import store from "../redux/configfureStore";
 import { BrowserRouter } from 'react-router-dom';
 
+import "../global_styles.scss";
+
 document.addEventListener("DOMContentLoaded", () => {
   render(
     <Provider store={store}>

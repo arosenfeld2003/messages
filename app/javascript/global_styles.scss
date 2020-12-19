@@ -1,0 +1,11 @@
+@import "./variables";
+
+body {
+    background-color: $main-background;
+    font-family: $main-text-font;
+}
+
+.logo {
+    font-size: 21px;
+    font-family: $main-title-font;
+}
