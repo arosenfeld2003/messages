@@ -46,6 +46,30 @@ const Home = (props) => {
         </div>
       </div>
     </div>
+
+    {
+      // replace with a component
+    }
+    <div>
+      <form method="" action="" >
+        <h2 className="h4 mb-4">Tweet</h2>
+        <FormInput
+          tweet=""
+          className="form-control mb-4"
+          placeholder="What's Up Tweety Bird?"
+        />
+        <Button
+          type="submit"
+          className="btn btn-primary btn-block my-4 waves-effect waves-light"
+        > Submit </Button>
+      </form>
+    </div>
+
+    <div>
+      <button onClick={handleLogoutRequest}>
+        Sign Out
+      </button>
+    </div>
   </div>
 }
 
