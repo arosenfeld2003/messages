@@ -9,6 +9,8 @@ import { browserHistory } from "react-router";
 import {Dashboard} from "../../components/dashboard/dashboard";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
+import "./app.scss";
+
 const App = (props) => {
   const {isLoggedIn, handleLoggedIn, currentUser} = props;
 

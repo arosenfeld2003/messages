@@ -1,13 +1,10 @@
 import React, {useState} from "react";
-import axios from "axios-on-rails";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import from "../sign-out-button/sign-out-button";
-import {onLogoutRequest} from "../../redux/user/user-reducer";
+import Header from "../header/header";
 
 const Home = (props) => {
-  const {isLoggedIn, currentUser, handleLogoutRequest} = props
+  const {currentUser} = props;
 
   if (!currentUser) {
     return (
@@ -16,16 +13,38 @@ const Home = (props) => {
   }
 
   return <div className="home-page">
-    <header>
-      <div className="user-info">
-        <div className="main-text">Welcome</div>
-        <div className="user-info__email">{currentUser.email}</div>
+    <Header />
+    <div className="main-content">
+      <div className="container">
+        <div className="row">
+          <div className="col-3 p-3">
+            <div class="card bg-white">
+              <img class="card-img-top" src="..." alt="Card image cap" />
+              <div class="card-body">
+                <h5 class="card-title">{currentUser.email}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Your posts</li>
+                <li class="list-group-item">Followers</li>
+                <li class="list-group-item">Following</li>
+              </ul>
+            </div>
+          </div>
+          <div className="col p-3">
+          <div class="col-sm">
+            <h3>Newsfeed</h3>
+            <div class="card bg-white">
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="card-link text-secondary">Read more...</a>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
       </div>
-    </header>
-    <div>
-      <button onClick={handleLogoutRequest}>
-        Sign Out
-      </button>
     </div>
   </div>
 }
