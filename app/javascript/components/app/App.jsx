@@ -21,10 +21,9 @@ const App = (props) => {
   return <div className="main">
       <Router history={browserHistory}>
         <Switch>
-          <Route exact path='/' render={() => currentUser ? <Home /> : <Redirect to='/welcome'/>} />
-          <Route exact path="/signup" component={SignUpPage} />
-          <Route exact path="/login" component={SignInPage} />
-          <Route exact path='/welcome' render={() => currentUser ? <Redirect to='/'/> : <Welcome />} />
+          <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
+          <Route exact path='/signup' component={SignUpPage} />
+          <Route exact path='/login' component={SignInPage} />
           <Route exact path='/dashboard' component={Dashboard}/>
         </Switch>
       </Router>
