@@ -1,33 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
+import Header from "../header/header";
 
-const Dashboard = (props) => {
+import "./dashboard.scss";
+
+const Dashboard = () => {
 
   const handleClick = () => {
     alert("Clicked!");
   }
 
   return <div className="dashboard">
-    <h2 className="h2">Dashboard</h2>
-    <Button
-      type="button"
-      className="btn btn-primary btn-block my-4 waves-effect waves-light"
-      onClick={handleClick}
-    >Search user</Button>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">User1</li>
-      <li class="list-group-item">User2</li>
-      <li class="list-group-item">User3</li>
-      <li class="list-group-item">User4</li>
-      <li class="list-group-item">User5</li>
-    </ul>
+    <Header />
+    <div className="main-content">
+      <div className="container">
+        <div className="row">
+          
+        </div>
+      </div>
+    </div>
   </div>
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-
-
-export default connect(mapStateToProps, null)(Dashboard);
+export default Dashboard;

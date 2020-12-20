@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Header from "../header/header";
+import FormInput from "../form-input/form-input";
+import Button from "../button/button";
 
 const Home = (props) => {
   const {currentUser} = props;
@@ -18,27 +20,27 @@ const Home = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-3 p-3">
-            <div class="card bg-white">
-              <img class="card-img-top" src="..." alt="Card image cap" />
-              <div class="card-body">
-                <h5 class="card-title">{currentUser.email}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div className="card bg-white">
+              <img className="card-img-top" src="..." alt="Card image cap" />
+              <div className="card-body">
+                <h5 className="card-title">{currentUser.email}</h5>
+                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Your posts</li>
-                <li class="list-group-item">Followers</li>
-                <li class="list-group-item">Following</li>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">Your posts</li>
+                <li className="list-group-item">Followers</li>
+                <li className="list-group-item">Following</li>
               </ul>
             </div>
           </div>
           <div className="col p-3">
-          <div class="col-sm">
+          <div className="col-sm">
             <h3>Newsfeed</h3>
-            <div class="card bg-white">
-              <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="card-link text-secondary">Read more...</a>
+            <div className="card bg-white">
+              <div className="card-body">
+                <h5 className="card-title">Special title treatment</h5>
+                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" className="card-link text-secondary">Read more...</a>
               </div>
             </div>
           </div>
@@ -63,12 +65,6 @@ const Home = (props) => {
           className="btn btn-primary btn-block my-4 waves-effect waves-light"
         > Submit </Button>
       </form>
-    </div>
-
-    <div>
-      <button onClick={handleLogoutRequest}>
-        Sign Out
-      </button>
     </div>
   </div>
 }

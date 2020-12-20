@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
+import AdminPanel from "../admin-panel/admin-panel";
 
 import "./header.scss";
 
@@ -19,13 +21,14 @@ const Header = (props) => {
                 <div className="col text-right">
                     <Button 
                         type="button"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-link text-secondary"
                         onClick={handleLogoutRequest}>Sign Out</Button>
                 </div>
             </div>
         </div>
       </div>
     </div>
+    <AdminPanel />
   </header>
 }
 

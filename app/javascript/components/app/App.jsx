@@ -6,7 +6,7 @@ import SignInPage from "../sign-in-page/sign-in-page";
 import Welcome from "../welcome/welcome";
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
-import {Dashboard} from "../../components/dashboard/dashboard";
+import Dashboard from "../dashboard/dashboard";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 import "./app.scss";
@@ -19,7 +19,7 @@ const App = (props) => {
   }, [handleLoggedIn])
 
   return <div className="main">
-      <Router history={browserHistory}>
+      <Router>
         <Switch>
           <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
           <Route exact path='/signup' component={SignUpPage} />

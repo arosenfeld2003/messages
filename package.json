@@ -12,7 +12,9 @@
     "setupFilesAfterEnv": [
       "./test/javascript/setupTests.js"
     ],
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.5",
@@ -24,6 +26,7 @@
     "axios-on-rails": "0.0.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.3",
+    "bootstrap-icons": "^1.2.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "history": "^5.0.0",
