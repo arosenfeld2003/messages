@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :clear_tokens_in_db
+  #before_action :clear_tokens_in_db
 
   protect_from_forgery with: :null_session
 
@@ -33,7 +33,13 @@ class ApplicationController < ActionController::Base
 
       #check that token doesn't expire yet and exist in db
       current_time = Time.now
-      if decoded_token[0]["exp"] > current_time.to_i && token_exist_in_db(token)
+      #if decoded_token[0]["exp"] > current_time.to_i && token_exist_in_db(token)
+        #@user = User.find(decoded_token[0]["sub"])
+      #else
+        #p "Token expired or doesn't exist in db!"
+      #end
+
+      if decoded_token[0]["exp"] > current_time.to_i
         @user = User.find(decoded_token[0]["sub"])
       else
         p "Token expired or doesn't exist in db!"
