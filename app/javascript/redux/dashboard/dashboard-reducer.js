@@ -1,7 +1,7 @@
 import dashboardTypes from "./dashboard-types";
 import axios from "axios";
 
-import {setListOfItems} from "./dashboard-action";
+// import {setListOfItems} from "./dashboard-action";
 
 const INITIAL_STATE = {
   usersList: []

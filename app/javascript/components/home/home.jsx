@@ -3,11 +3,13 @@ import axios from "axios-on-rails";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import from "../sign-out-button/sign-out-button";
+import SignoutButton from "../sign-out-button/sign-out-button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
+import NewTweet from "../tweet/newTweet";
+import FormInput from '../form-input/form-input';
 
 const Home = (props) => {
-  const {isLoggedIn, currentUser, handleLogoutRequest} = props
+  const {isLoggedIn, currentUser, handleLogoutRequest} = props;
 
   if (!currentUser) {
     return (
@@ -23,25 +25,14 @@ const Home = (props) => {
       </div>
     </header>
 
-    {
-      // replace with a component
-    }
     <div>
-      <form method="" action="" >
-        <h2 className="h4 mb-4">Tweet</h2>
-        <FormInput
-          tweet=""
-          className="form-control mb-4"
-          placeholder="What's Up Tweety Bird?"
-        />
-        <Button
-          type="submit"
-          className="btn btn-primary btn-block my-4 waves-effect waves-light"
-        > Submit </Button>
-      </form>
+      <NewTweet/>
     </div>
 
     <div>
+      {/*
+        <SignoutButton/>
+      */}
       <button onClick={handleLogoutRequest}>
         Sign Out
       </button>
