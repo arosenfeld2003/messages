@@ -15,3 +15,8 @@ export const setLogginError = (status) => ({
   type: userTypes.SET_LOGGIN_ERROR,
   payload: status
 })
+
+export const setUserProfile = (profile) => ({
+  type: userTypes.SET_USER_PROFILE,
+  payload: profile
+})

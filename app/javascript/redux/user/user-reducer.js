@@ -1,12 +1,12 @@
-import {setCurrentUser, setLoggedIn, setLogginError} from "./user-actions";
-import axios from "axios";
+import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
 const INITIAL_STATE = {
   currentUser: null,
   logged_in: false,
-  loggin_error: false
+  loggin_error: false,
+  profile: null
 }
 
 const onSignUpRequest = (userValues) => {
@@ -75,6 +75,20 @@ const onLoggedInRequest = () => {
   }
 }
 
+const onSearchUserProfile = (userEmail) => {
+  return (dispatch) => {
+    API.post("profile", {user: {
+      email: userEmail
+    }})
+    .then((res) => {
+        console.log(res.data);
+        dispatch(setUserProfile(res.data))
+    }).catch((error) => {
+        console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -92,9 +106,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loggin_error: action.payload
       }
+    case userTypes.SET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      }
     default:
       return state;
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest};
+export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest, onSearchUserProfile};
