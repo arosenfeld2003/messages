@@ -38,7 +38,11 @@ class RegistrationsController < Devise::RegistrationsController
   @profile = User.find_by_email(user_params[:email])
 
   if @profile
-    render json: @profile
+    render json: {
+      id: @profile.id,
+      email: @profile.email,
+      created_at: @profile.created_at.to_formatted_s(:long)
+  }
   else
     warden.custom_failure!
     render :json=> {error: "User not found"}, :status=>404

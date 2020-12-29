@@ -5,7 +5,7 @@ import Profile from "../profile/profile";
 
 import "./dashboard.scss";
 
-const Dashboard = () => {
+const Dashboard = ({user}) => {
 
   const handleClick = () => {
     alert("Clicked!");
@@ -17,7 +17,9 @@ const Dashboard = () => {
       <div className="container">
         <div className="row p-3">
           <div className="col-4">
-            <Profile />
+            <Profile
+              user={user}
+            />
           </div>
         </div>
       </div>
@@ -25,4 +27,8 @@ const Dashboard = () => {
   </div>
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  user: state.user.profile
+})
+
+export default connect(mapStateToProps, null)(Dashboard);
