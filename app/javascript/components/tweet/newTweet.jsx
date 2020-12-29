@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {onNewTweet} from '../../redux/tweet/tweet-reducer';
 import { connect } from "react-redux";
 import FormInput from '../form-input/form-input';
+import { sendNewTweet } from '../../redux/tweet/tweet-actions';
 
 const NewTweet  = () => {
 
+  const [newTweet] = useState({});
 
-  const handleChange = (evt) => {
-    sendNewTweet(evt);
+  const handleChange = (tweetText) => {
+    // evt.preventDefault();
+    sendNewTweet(tweetText);
   };
 
   return <form method="" action="" onSubmit={handleChange}>
@@ -23,12 +26,13 @@ const NewTweet  = () => {
 }
 
 const mapStateToProps = (state) => ({
-  userFeed: state.user.feed,
+  newTweet: state.newTweet,
+  userFeed: state.user.feed
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendNewTweet: () => {
-    dispatch(onNewTweet());
+  sendNewTweet: (tweetText) => {
+    dispatch(onNewTweet(tweetText));
   }
 })
 
