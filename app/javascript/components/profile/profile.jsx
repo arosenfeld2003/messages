@@ -13,7 +13,8 @@ const Profile = ({user}) => {
 
     return <div className="card" style={{width: "100%"}}>
         <div className="card-body">
-        <h4 className="card-title">{user.email}</h4>
+        <h4 className="card-title">User's Name</h4>
+        <p className="card-text"><em>{user.email}</em></p>
         <p className="card-text"><em>Created at: {user.created_at}</em></p>
         <div className="row">
             <div className="col-4">
