@@ -1,4 +1,4 @@
-import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile} from "./user-actions";
+import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   currentUser: null,
   logged_in: false,
   loggin_error: false,
-  profile: null
+  profile: null,
+  createNewUserFromAdmin: null
 }
 
 const onSignUpRequest = (userValues) => {
@@ -16,7 +17,6 @@ const onSignUpRequest = (userValues) => {
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
       localStorage.setItem("token", res.data.token);
-      console.log(localStorage.getItem("token"));
     }).catch((error) => {
       console.log(error);
     })
@@ -32,7 +32,6 @@ const onLoginRequest = (userValues) => {
 
       //save token in localStorage
       localStorage.setItem("token", res.data.token);
-      console.log(localStorage.getItem("token"));
     }).catch((error) => {
       dispatch(setLogginError(true));
       console.log(error);
@@ -89,6 +88,19 @@ const onSearchUserProfile = (userEmail) => {
   }
 }
 
+const onCreateNewUser = (userValues) => {
+  return (dispatch) => {
+    API.post("users", {user: userValues})
+    .then((res) => {
+      if (res.data.user) {
+        dispatch(setNewUserFromAdmin(res.data.user))
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -111,9 +123,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         profile: action.payload
       }
+    case userTypes.CREATE_NEW_USER_FROM_ADMIN_STATUS:
+      return {
+        ...state,
+        createNewUserFromAdmin: action.payload
+      }
     default:
       return state;
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest, onSearchUserProfile};
+export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest, onSearchUserProfile, onCreateNewUser};

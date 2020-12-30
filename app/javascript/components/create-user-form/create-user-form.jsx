@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 import { connect } from "react-redux";
-import {onSignUpRequest} from "../../redux/user/user-reducer";
+import {onCreateNewUser} from "../../redux/user/user-reducer";
 
 const CreateUserForm = (props) => {
 
@@ -54,7 +54,7 @@ const CreateUserForm = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
     handleSignUpRequest: (userValues) => {
-        dispatch(onSignUpRequest(userValues));
+        dispatch(onCreateNewUser(userValues));
     }
 })
 
