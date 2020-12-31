@@ -4,20 +4,26 @@ import { connect } from "react-redux";
 import FormInput from '../form-input/form-input';
 import { sendNewTweet } from '../../redux/tweet/tweet-actions';
 
-const NewTweet  = () => {
+const PostNewTweet  = (props) => {
+  const {sendNewTweet, currentUser} = props;
+  const [newTweet, setNewTweet] = useState({});
 
-  const [newTweet] = useState({});
+  const handleChange = (evt) => {
+    const { target } = evt;
+    const { name, value } = target;
+    setNewTweet({ ...newTweet, [name]: value });
+  }
 
-  const handleChange = (tweetText) => {
-    // evt.preventDefault();
-    sendNewTweet(tweetText);
-  };
+  const handleNewTweet = (evt) => {
+    evt.preventDefault();
+    sendNewTweet(newTweet, currentUser);
+  }
 
   return <form method="" action="" onSubmit={handleChange}>
     <h2 className="h4 mb-4">Signup</h2>
     <FormInput
-      id="tweet"
-      name="tweet"
+      id="newTweet"
+      name="newTweet"
       className="form-control mb-4"
       placeholder="What's Up Tweety Bird?"
     />
@@ -26,14 +32,15 @@ const NewTweet  = () => {
 }
 
 const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
   newTweet: state.newTweet,
   userFeed: state.user.feed
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendNewTweet: (tweetText) => {
-    dispatch(onNewTweet(tweetText));
+  handleNewTweet: (newTweet) => {
+    dispatch(onNewTweet(tweetText, currentUser));
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTweet);
+export default connect(mapStateToProps, mapDispatchToProps)(PostNewTweet);

@@ -7,11 +7,12 @@ const INITIAL_STATE = {
 
 }
 
-const onNewTweet = (tweetText) => {
+const onNewTweet = (newTweet) => {
   return (dispatch) => {
-    API.post("tweets", {body: tweetText})
+    API.post("tweets", {tweet: newTweet})
     .then((res) => {
-      dispatch(sendNewTweet(tweetText));
+      console.log(res.data.tweet);
+      dispatch(sendNewTweet(tweet.data));
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -26,7 +27,7 @@ const onDeleteTweet = (tweet) => {
 
 const tweetReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
-    case tweetTypes.NEW_TWEET:
+    case tweetTypes.POST_NEW_TWEET:
       return {
         ...state,
         newTweet: action.payload
