@@ -1,18 +1,19 @@
 import tweetTypes from './tweet-types';
-import {sendNewTweet} from './tweet-actions';
-import axios from "axios";
-import API from "../../api";
+import {postNewTweet} from './tweet-actions';
+import axios from 'axios';
+import API from '../../api';
 
 const INITIAL_STATE = {
-
+  newTweet: null,
 }
 
 const onNewTweet = (newTweet) => {
   return (dispatch) => {
-    API.post("tweets", {tweet: newTweet})
+    API.post("tweets", newTweet)
     .then((res) => {
-      console.log(res.data.tweet);
-      dispatch(sendNewTweet(tweet.data));
+      console.log(newTweet);
+      console.log(res);
+      dispatch(postNewTweet(newTweet));
       console.log(res);
     }).catch((error) => {
       console.log(error);
@@ -21,10 +22,6 @@ const onNewTweet = (newTweet) => {
 }
 
 
-const onDeleteTweet = (tweet) => {
-
-}
-
 const tweetReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case tweetTypes.POST_NEW_TWEET:
@@ -32,14 +29,9 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         newTweet: action.payload
       }
-    case tweetTypes.DELETE_TWEET:
-      return {
-        ...state,
-        deletedTweet: action.payload
-      }
     default:
       return state;
   }
 }
 
-export {tweetReducer, onNewTweet, onDeleteTweet};
+export {tweetReducer, onNewTweet};
