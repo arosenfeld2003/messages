@@ -11,12 +11,12 @@ const SubmitNewTweet  = (props) => {
   const handleChange = (evt) => {
     const { target } = evt;
     const { name, value } = target;
-    setNewTweet({ ...newTweet, [name]: value });
+    setNewTweet({ [name]: value, user: currentUser });
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleNewTweet(newTweet, currentUser);
+    handleNewTweet(newTweet);
   }
 
   return <form method="" action="">
@@ -34,6 +34,7 @@ const SubmitNewTweet  = (props) => {
 
 const mapStateToProps = (state) => ({
   newTweet: state.newTweet,
+  currentUser: state.user.currentUser,
 })
 
 const mapDispatchToProps = (dispatch) => ({

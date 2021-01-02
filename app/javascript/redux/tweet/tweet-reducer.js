@@ -11,10 +11,8 @@ const onNewTweet = (newTweet) => {
   return (dispatch) => {
     API.post("tweets", newTweet)
     .then((res) => {
-      console.log(newTweet);
       console.log(res);
       dispatch(postNewTweet(newTweet));
-      console.log(res);
     }).catch((error) => {
       console.log(error);
     })
