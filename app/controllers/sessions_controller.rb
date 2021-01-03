@@ -41,7 +41,7 @@ class SessionsController < Devise::SessionsController
       }
     else
       render json: {message: "Please log in"}, status: :unauthorized
-    end 
+    end
   end
 
   def destroy
