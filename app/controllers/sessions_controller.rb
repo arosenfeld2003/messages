@@ -5,8 +5,11 @@ class SessionsController < Devise::SessionsController
 
   # POST /v1/login
   def create
-    @user = User.find_by_email(user_params[:email])
-    return invalid_login_attempt unless @user
+    # @user = User.find_by_email(user_params[:email])
+    @user = User.find_by(:handle == user_params[:handle])
+    @user = User.find_by_email(@user.email)
+    # return invalid_login_attempt unless @user
+    return invalid_login_attempt unless (@user.handle == user_params[:handle])
 
     if @user.valid_password?(user_params[:password])
       sign_in :user, @user
@@ -55,7 +58,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def user_params
-     params.require(:user).permit(:email, :password)
+     params.require(:user).permit(:handle, :password)
   end
 
 end

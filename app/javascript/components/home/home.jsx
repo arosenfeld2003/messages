@@ -21,7 +21,7 @@ const Home = (props) => {
     <header>
       <div className="user-info">
         <div className="main-text">Welcome</div>
-        <div className="user-info__email">{currentUser.email}</div>
+        <div className="user-info__handle">{currentUser.handle}</div>
       </div>
     </header>
 

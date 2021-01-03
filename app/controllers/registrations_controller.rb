@@ -2,6 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(user_params)
+    p @user
     if @user.save
       @iat = Time.now
 
@@ -46,6 +47,6 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def user_params
-     params.require(:user).permit(:email, :password, :password_confirmation)
+     params.require(:user).permit(:email, :handle, :password, :password_confirmation)
   end
 end
