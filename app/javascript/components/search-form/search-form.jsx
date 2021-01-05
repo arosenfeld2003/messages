@@ -22,15 +22,16 @@ const SearchForm = (props) => {
       }
 
     return <div className="search-form">
-        <form className="form-inline">
+        <h2 className="h4 mb-4">Find user profile</h2>
+        <form className="form-inline" style={{width:"100%"}}>
             <FormInput
                 id="email"
                 name="email"
-                className="form-control mr-sm-2"
+                className="form-control mr-sm-2 input-lg"
                 placeholder="find user by email..."
                 handleChange={handleChange}
             />
-            <button className="btn btn-outline-info my-2 my-sm-0" type="submit" onClick={(e) => {
+            <button className="btn btn-primary my-2 my-sm-0" type="submit" onClick={(e) => {
                 handleSignin(e);
             }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
