@@ -4,6 +4,7 @@ import Header from "../header/header";
 import Profile from "../profile/profile";
 import CreateUserForm from "../create-user-form/create-user-form";
 import SearchForm from "../search-form/search-form";
+import Total from "../total/total";
 
 import "./dashboard.scss";
 
@@ -31,6 +32,7 @@ const Dashboard = ({user}) => {
                 />
               </div>
             </div>
+            <Total />
           </div>
           <div className="col-6">
             <CreateUserForm />
