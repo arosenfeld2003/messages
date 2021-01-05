@@ -92,8 +92,24 @@ const onCreateNewUser = (userValues) => {
   return (dispatch) => {
     API.post("users", {user: userValues})
     .then((res) => {
+      dispatch(setNewUserFromAdmin(null))
+      
       if (res.data.user) {
         dispatch(setNewUserFromAdmin(res.data.user))
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
+const onDeleteUser = (userId) => {
+  return (dispatch) => {
+    API.delete("profile", {data: {id: userId}})
+    .then((res) => {
+      console.log(res);
+      if(res.status === 201) {
+        dispatch(setUserProfile(null))
       }
     }).catch((error) => {
       console.log(error);
@@ -133,4 +149,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest, onSearchUserProfile, onCreateNewUser};
+export {
+  userReducer,
+  onSignUpRequest,
+  onLoginRequest,
+  onLogoutRequest,
+  onLoggedInRequest,
+  onSearchUserProfile,
+  onCreateNewUser,
+  onDeleteUser
+};

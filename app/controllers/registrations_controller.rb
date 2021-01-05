@@ -49,8 +49,18 @@ class RegistrationsController < Devise::RegistrationsController
   end
 end
 
+def destroy_profile
+  @profile = User.find(params[:id])
+
+  if @profile.destroy
+    render :json=> { success: 'user was successfully deleted' }, :status=>201
+  else
+    render :json=> { error: 'user could not be deleted' }, :status=>422
+  end
+end
+
   def destroy
-    @user = User.find_by_email(user_params[:email])
+    @user = User.find(params[:id])
     if @user.destroy
       render :json=> { success: 'user was successfully deleted' }, :status=>201
     else

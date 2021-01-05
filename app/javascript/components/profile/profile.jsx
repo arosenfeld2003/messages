@@ -1,6 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
+import {onDeleteUser} from "../../redux/user/user-reducer";
+import Button from "../button/button";
 
-const Profile = ({user}) => {
+const Profile = (props) => {
+
+    const {user, onDeleteProfile} = props;
+
+    const handleDeleteProfile = () => {
+        onDeleteProfile(user.id)
+    }
 
     if (!user) {
         return <div className="row">
@@ -55,8 +64,17 @@ const Profile = ({user}) => {
             </div>
         </div>
         <a href="#" className="btn btn-dark">See Profile</a>
+        <Button type="button"
+        className="btn btn-dark"
+        onClick={handleDeleteProfile}>Delete profile</Button>
         </div>
     </div>
 }
 
-export default Profile;
+const mapDispatchToProps = (dispatch) => ({
+    onDeleteProfile: (userId) => {
+        dispatch(onDeleteUser(userId));
+    }
+})
+
+export default connect(null, mapDispatchToProps)(Profile);

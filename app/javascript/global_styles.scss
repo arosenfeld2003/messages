@@ -9,3 +9,11 @@ body {
     font-size: 21px;
     font-family: $main-title-font;
 }
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

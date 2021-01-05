@@ -6,7 +6,7 @@ import {onSignUpRequest} from "../../redux/user/user-reducer";
 
 const SignUpForm = (props) => {
 
-    const {handleSignUpRequest} = props;
+    const {handleSignUpRequest, createNewUserFromAdmin} = props;
     const [userValues, setUserValues] = useState({});
 
     const handleChange = (evt) => {
@@ -48,6 +48,12 @@ const SignUpForm = (props) => {
         className="btn btn-primary btn-block my-4 waves-effect waves-light"
         onClick={handleSignup}
         > Submit </Button>
+
+        <div className={`banner ${createNewUserFromAdmin !== null ? "show" : ""}`}>
+            <div class="alert alert-primary" role="alert">
+                User succesfully created!
+            </div>
+        </div>
     </form>
 }
 
@@ -57,4 +63,8 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(null, mapDispatchToProps)(SignUpForm);
+const mapStateToProps = (state) => ({
+    createNewUserFromAdmin: state.user.createNewUserFromAdmin
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

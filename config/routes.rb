@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'logged_in' => 'sessions#logged_in?'
     post 'profile' => 'registrations#get_profile'
+    delete 'profile' => 'registrations#destroy_profile'
   end
 
   root 'home#index'
