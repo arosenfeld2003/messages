@@ -90,7 +90,7 @@ const onSearchUserProfile = (userEmail) => {
 
 const onCreateNewUser = (userValues) => {
   return (dispatch) => {
-    API.post("users", {user: userValues})
+    API.post("admin/users", {user: userValues})
     .then((res) => {
       dispatch(setNewUserFromAdmin(null))
       

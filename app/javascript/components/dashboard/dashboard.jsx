@@ -32,7 +32,6 @@ const Dashboard = ({user}) => {
                 />
               </div>
             </div>
-            <Total />
           </div>
           <div className="col-6">
             <CreateUserForm />

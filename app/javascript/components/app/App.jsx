@@ -5,8 +5,8 @@ import SignUpPage from "../sign-up-page/sign-up-page";
 import SignInPage from "../sign-in-page/sign-in-page";
 import Welcome from "../welcome/welcome";
 import { connect } from "react-redux";
-import { browserHistory } from "react-router";
 import Dashboard from "../dashboard/dashboard";
+import EditProfilePage from "../edit-profile-page/edit-profile-page";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 import "./app.scss";
@@ -25,6 +25,7 @@ const App = (props) => {
           <Route exact path='/signup' component={SignUpPage} />
           <Route exact path='/login' component={SignInPage} />
           <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/dashboard/profile/edit/:id' component={EditProfilePage}/>
         </Switch>
       </Router>
   </div>
