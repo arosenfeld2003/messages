@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {onDeleteUser} from "../../redux/user/user-reducer";
 import Button from "../button/button";
+import { Link } from "react-router-dom";
 
 const Profile = (props) => {
 
@@ -68,6 +69,7 @@ const Profile = (props) => {
         className="btn btn-dark"
         onClick={handleDeleteProfile}>Delete profile</Button>
         </div>
+        <Link to={`profile/edit/${user.id}`} className="btn btn-dark">Edit Profile</Link>
     </div>
 }
 

@@ -117,6 +117,17 @@ const onDeleteUser = (userId) => {
   }
 }
 
+const onUpdateUserFromAdmin = (userId, userValues) => {
+  return (dispatch) => {
+    API.put(`profile/${userId}`, {user: userValues})
+    .then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -157,5 +168,6 @@ export {
   onLoggedInRequest,
   onSearchUserProfile,
   onCreateNewUser,
-  onDeleteUser
+  onDeleteUser,
+  onUpdateUserFromAdmin
 };

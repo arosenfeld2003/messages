@@ -37,7 +37,7 @@ const SignUpForm = (props) => {
         handleChange={handleChange}
         />
         <FormInput
-        id="password"
+        id="confirm-password"
         name="password"
         className="form-control mb-4"
         placeholder="password"
