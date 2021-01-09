@@ -2,20 +2,28 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {onDeleteUser} from "../../redux/user/user-reducer";
 import Button from "../button/button";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 
 const Profile = (props) => {
 
-    const {user, onDeleteProfile} = props;
+    const {user, onDeleteProfile, onChangeUpdateStatus} = props;
+    const history = useHistory();
 
     const handleDeleteProfile = () => {
         onDeleteProfile(user.id)
     }
 
+    const handleEditProfile = () => {
+        onChangeUpdateStatus(null);
+        let path = `dashboard/profile/edit/${user.id}`;
+        history.push(path);
+    }
+
     if (!user) {
         return <div className="row">
             <div className="col">
-                <p className="lead"><em>No user found.</em></p>
+                <p className="lead"><em>No user found yet.</em></p>
             </div>
         </div>
 
@@ -68,14 +76,19 @@ const Profile = (props) => {
         <Button type="button"
         className="btn btn-dark"
         onClick={handleDeleteProfile}>Delete profile</Button>
+        <Button type="button"
+        className="btn btn-dark"
+        onClick={handleEditProfile}>Edit Profile</Button>
         </div>
-        <Link to={`dashboard/profile/edit/${user.id}`} className="btn btn-dark">Edit Profile</Link>
     </div>
 }
 
 const mapDispatchToProps = (dispatch) => ({
     onDeleteProfile: (userId) => {
         dispatch(onDeleteUser(userId));
+    },
+    onChangeUpdateStatus: (status) => {
+        dispatch(setProfileUpdateStatus(status));
     }
 })
 

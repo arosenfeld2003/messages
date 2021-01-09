@@ -127,7 +127,6 @@ const onUpdateUserFromAdmin = (userId, userValues) => {
         dispatch(setUserProfile(res.data));
       }
     }).catch((error) => {
-      alert("User not update!");
       dispatch(setProfileUpdateStatus(false));
     })
   }
