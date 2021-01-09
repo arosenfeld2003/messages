@@ -69,7 +69,7 @@ const Profile = (props) => {
         className="btn btn-dark"
         onClick={handleDeleteProfile}>Delete profile</Button>
         </div>
-        <Link to={`profile/edit/${user.id}`} className="btn btn-dark">Edit Profile</Link>
+        <Link to={`dashboard/profile/edit/${user.id}`} className="btn btn-dark">Edit Profile</Link>
     </div>
 }
 

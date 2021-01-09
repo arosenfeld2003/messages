@@ -1,4 +1,4 @@
-import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin} from "./user-actions";
+import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   logged_in: false,
   loggin_error: false,
   profile: null,
-  createNewUserFromAdmin: null
+  createNewUserFromAdmin: null,
+  profileUpdateStatus: null
 }
 
 const onSignUpRequest = (userValues) => {
@@ -83,7 +84,7 @@ const onSearchUserProfile = (userEmail) => {
         console.log(res.data);
         dispatch(setUserProfile(res.data))
     }).catch((error) => {
-        console.log(error);
+      alert("User not found!");
     })
   }
 }
@@ -121,9 +122,13 @@ const onUpdateUserFromAdmin = (userId, userValues) => {
   return (dispatch) => {
     API.put(`profile/${userId}`, {user: userValues})
     .then((res) => {
-      console.log(res);
+      if(res.data) {
+        dispatch(setProfileUpdateStatus(true));
+        dispatch(setUserProfile(res.data));
+      }
     }).catch((error) => {
-      console.log(error);
+      alert("User not update!");
+      dispatch(setProfileUpdateStatus(false));
     })
   }
 }
@@ -154,6 +159,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         createNewUserFromAdmin: action.payload
+      }
+    case userTypes.PROFILE_UPDATE_STATUS:
+      return {
+        ...state,
+        profileUpdateStatus: action.payload
       }
     default:
       return state;

@@ -25,3 +25,8 @@ export const setNewUserFromAdmin = (user) => ({
   type: userTypes.CREATE_NEW_USER_FROM_ADMIN_STATUS,
   payload: user
 })
+
+export const setProfileUpdateStatus = (status) => ({
+  type: userTypes.PROFILE_UPDATE_STATUS,
+  payload: status
+})
