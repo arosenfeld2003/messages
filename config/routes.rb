@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   end
   root 'home#index'
 
-  get '*path', to: 'home#index'
+  # get '*path', to: 'home#index'
 
   post '/tweets' => 'tweets#create'
+  get '/feed' => 'tweets#get_user_feed'
 
 end

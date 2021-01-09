@@ -11,8 +11,15 @@ class TweetsController < ApplicationController
     if @new_tweet.save
       render json: {newTweet: @new_tweet}
     else
-      # we need better error message
+      # we need better error message?
       render json: {message: "Error: Tweet Not Posted"}, status: :unauthorized
     end
   end
+
+  def get_user_feed
+    @user_feed = Tweet.where(:handle == params[:handle])
+    p @user_feed.as_json
+    render json: @user_feed
+  end
+
 end

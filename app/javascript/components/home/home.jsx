@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import SignoutButton from "../sign-out-button/sign-out-button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
 import SubmitNewTweet from "../tweet/newTweet";
+import Feed from "../tweet/feed";
 import FormInput from '../form-input/form-input';
 
 const Home = (props) => {
@@ -28,6 +29,11 @@ const Home = (props) => {
     <div>
       <SubmitNewTweet/>
     </div>
+
+    <div>
+      <Feed/>
+    </div>
+
 
     <div>
       {/*

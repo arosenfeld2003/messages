@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {onNewTweet} from '../../redux/tweet/tweet-reducer';
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import FormInput from '../form-input/form-input';
-import { postNewTweet } from '../../redux/tweet/tweet-actions';
+// import {postNewTweet} from '../../redux/tweet/tweet-actions';
+import {UpdateFeed} from './feed';
 
 const SubmitNewTweet  = (props) => {
   const {handleNewTweet, currentUser} = props;

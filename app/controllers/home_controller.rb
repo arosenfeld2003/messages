@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
   def index
-    @feed = Tweet.where(User_id: current_user)
+    # @feed = Tweet.where(:handle == params[:handle])
+    # p @feed
+    # render json: @feed
   end
 
   def create
-    @tweet = Tweet.new(user_params)
+
   end
 end
