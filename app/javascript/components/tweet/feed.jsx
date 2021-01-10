@@ -3,13 +3,9 @@ import {connect} from "react-redux";
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 
 const UpdateFeed = (props) => {
-  const {currentUser, fetchUserFeed} = props;
-  const [userFeed, setUserFeed] = useState({});
-  // const [userFeed] = useState(fetchUserFeed(currentUser));
-  // we need the result of the API call from 'getUserFeed' reducer
+  const {currentUser, fetchUserFeed, userFeed} = props;
   const loadUserFeed = function () {
-    const currentFeed = props.fetchUserFeed(currentUser) || [];
-    setUserFeed({ userFeed: currentFeed });
+    fetchUserFeed(currentUser) || [];
   }
 
   useEffect(() => {
@@ -18,23 +14,25 @@ const UpdateFeed = (props) => {
 
   return (
     <div>
-    {/* State is not being updated with userFeed */}
-      <p>Total Tweets: {userFeed.length}</p>
+      <h3>Feed</h3>
+      <ul>
+        {userFeed[0] !=  undefined ?
+          userFeed.map(tweet => (
+            <li key={tweet.id}>{tweet.body}</li>
+          )) : ''}
+      </ul>
     </div>
-  );
+  )
 }
 
-
 const mapStateToProps = (state) => ({
-  userFeed: state.userFeed,
+  userFeed: state.user.userFeed,
   currentUser: state.user.currentUser,
-  userFeed: state.userFeed
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // available as props.fetchUserFeed()
-    fetchUserFeed: () => dispatch(onGetUserFeed())
+    fetchUserFeed: (currentUser) => dispatch(onGetUserFeed(currentUser))
   }
 }
 

@@ -85,7 +85,7 @@ const onGetUserFeed = (currentUser) => {
     API.get("feed", currentUser)
     .then((res) => {
       console.log(res);
-      dispatch(getUserFeed(res));
+      dispatch(getUserFeed(res.data));
     }).catch((error) => {
       console.log(error);
     })
@@ -109,10 +109,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loggin_error: action.payload
       }
-    case userTypes.SET_USER_FEED:
+    case userTypes.GET_USER_FEED:
       return {
         ...state,
-        userFeed: action.payload.data
+        userFeed: action.payload
       }
     default:
       return state;
