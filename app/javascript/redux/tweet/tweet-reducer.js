@@ -19,6 +19,17 @@ const onNewTweet = (newTweet) => {
   }
 }
 
+const onDeleteTweet = (tweet) => {
+  return (dispatch) => {
+    API.delete("tweets", tweet)
+    .then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const tweetReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case tweetTypes.POST_NEW_TWEET:
@@ -26,14 +37,14 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         newTweet: action.payload
       }
-    case tweetTypes.GET_USER_FEED:
+    case tweetTypes.DELETE_TWEET:
       return {
         ...state,
-        userFeed: action.payload
+        deletedTweet: action.payload
       }
     default:
       return state;
   }
 }
 
-export {tweetReducer, onNewTweet};
+export {tweetReducer, onNewTweet, onDeleteTweet};

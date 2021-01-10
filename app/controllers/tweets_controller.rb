@@ -16,6 +16,11 @@ class TweetsController < ApplicationController
     end
   end
 
+  def delete
+    p params
+    # @tweet = Tweet.find_by(:id == params[:id])
+  end
+
   def get_user_feed
     @user_feed = Tweet.where(:handle == params[:handle])
     render json: @user_feed

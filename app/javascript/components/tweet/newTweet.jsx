@@ -18,6 +18,7 @@ const SubmitNewTweet  = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleNewTweet(newTweet);
+    // Reload page to refresh the feed.
     window.location.reload();
   }
 

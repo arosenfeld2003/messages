@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # get '*path', to: 'home#index'
 
   post '/tweets' => 'tweets#create'
+  delete '/tweets' => 'tweets#delete'
+  
   get '/feed' => 'tweets#get_user_feed'
 
 end

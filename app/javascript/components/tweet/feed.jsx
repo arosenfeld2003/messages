@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
 import { onGetUserFeed } from '../../redux/user/user-reducer';
+import DeleteTweetButton from './delete-tweet-button';
 
 const UpdateFeed = (props) => {
   const {currentUser, fetchUserFeed, userFeed} = props;
@@ -18,7 +19,11 @@ const UpdateFeed = (props) => {
       <ul>
         {userFeed[0] !=  undefined ?
           userFeed.map(tweet => (
-            <li key={tweet.id}>{tweet.body}</li>
+            <li key={tweet.id}>
+              {tweet.body}
+              <DeleteTweetButton/>
+            </li>
+
           )) : ''}
       </ul>
     </div>
