@@ -1,5 +1,5 @@
 import tweetTypes from './tweet-types';
-import {postNewTweet, getUserFeed} from './tweet-actions';
+import {postNewTweet, getUserFeed, deleteTweet} from './tweet-actions';
 import axios from 'axios';
 import API from '../../api';
 
@@ -19,11 +19,13 @@ const onNewTweet = (newTweet) => {
   }
 }
 
-const onDeleteTweet = (tweet) => {
+const onDeleteTweet = (tweetId) => {
   return (dispatch) => {
-    API.delete("tweets", tweet)
+    console.log(tweetId);
+    API.delete("tweets", {data: tweetId})
     .then((res) => {
       console.log(res);
+      dispatch(deleteTweet(res));
     }).catch((error) => {
       console.log(error);
     })
@@ -40,7 +42,7 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
     case tweetTypes.DELETE_TWEET:
       return {
         ...state,
-        deletedTweet: action.payload
+        deleteTweet: action.payload
       }
     default:
       return state;

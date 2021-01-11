@@ -5,8 +5,8 @@ export const postNewTweet = (tweetText) => ({
   payload: tweetText
 });
 
-export const deleteTweet = (tweet) => ({
+export const deleteTweet = (tweetId) => ({
   type: tweetTypes.DELETE_TWEET,
-  payload: deletedTweet
+  payload: deleteTweet
 });
 

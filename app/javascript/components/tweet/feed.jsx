@@ -19,7 +19,7 @@ const UpdateFeed = (props) => {
       <ul>
         {userFeed[0] !=  undefined ?
           userFeed.map(tweet => (
-            <li key={tweet.id}>
+            <li key={tweet.id} id={tweet.id}>
               {tweet.body}
               <DeleteTweetButton/>
             </li>
