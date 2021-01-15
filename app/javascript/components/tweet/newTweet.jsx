@@ -15,29 +15,17 @@ const SubmitNewTweet  = (props) => {
     const { name, value } = target;
     setNewTweet({ [name]: value, user: currentUser });
     setCharCount(target.value.length);
-    // console.log(newTweet.newTweet);
-    // const len = target.value.length;
-    // console.log(charsRemaining);
-    /*
-      after each keypress newTweet is set to the value before the keypress
-      e.g.
-        't' ==> ''
-        'te' ==> 't'
-        'tes' ==> te
-        'test' ==> 'tes'
-
-        when 'send tweet' button is pressed ==> 'test'
-    */
   }
 
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-
+    // debugger;
+    // console.log(newTweet.newTweet.length);
     // only submit a tweet with text
-    if (newTweet.length > 0) {
+    if (newTweet.newTweet.length > 0) {
       handleNewTweet(newTweet);
       // Reload page to refresh the feed.
-      window.location.reload();
+      // window.location.reload();
     }
   }
 

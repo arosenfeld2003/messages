@@ -16,16 +16,25 @@ const UpdateFeed = (props) => {
   return (
     <div>
       <h3>Feed</h3>
-      <ul>
+
+
         {userFeed[0] !=  undefined ?
           userFeed.map(tweet => (
-            <li key={tweet.id} id={tweet.id}>
-              {tweet.body}
+            <div className="card" key={tweet.id} id={tweet.id} style={{width: 18 + 'rem'}}>
+              <div className="card-body">
+                <h5 className="card-title">Name/Handle/Time</h5>
+                <p className="card-text">{tweet.body}</p>
+                <a href="#" className="card-link">Comment</a>
+                <a href="#" className="card-link">Retweet</a>
+                <a href="#" className="card-link">Like</a>
+              </div>
               <DeleteTweetButton/>
-            </li>
-
+            </div>
           )) : ''}
-      </ul>
+
+
+
+
     </div>
   )
 }
