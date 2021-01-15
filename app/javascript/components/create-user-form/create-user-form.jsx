@@ -21,7 +21,7 @@ const CreateUserForm = (props) => {
         handleSignUpRequest(userValues);
     }
 
-    return <form method="" action="">
+    return <form method="" action="" className="create-user-form p-3">
         <h2 className="h4 mb-4">Add new user</h2>
         <FormInput
         id="email"

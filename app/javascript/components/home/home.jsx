@@ -1,18 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Header from "../header/header";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
+import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 const Home = (props) => {
-  const {currentUser} = props;
-
-  if (!currentUser) {
-    return (
-      <Redirect to='/welcome'/>
-    )
-  }
+  const {currentUser, handleLoggedIn} = props;
 
   return <div className="home-page">
     <Header />
@@ -76,6 +71,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleLogoutRequest: () => {
     dispatch(onLogoutRequest());
+  },
+  handleLoggedIn: () => {
+    dispatch(onLoggedInRequest());
   }
 })
 

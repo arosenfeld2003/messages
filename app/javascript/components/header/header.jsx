@@ -18,7 +18,7 @@ const Header = (props) => {
         <div className="col-6 p-3">
             <div className="row">
                 <div className="col text-right">
-                  <Link to="/dashboard" className="btn btn-outline-info my-2 my-sm-0">Dashboard</Link>
+                  <Link to="/dashboard" className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
                     <Button 
                         type="button"
                         className="btn btn-link text-secondary"

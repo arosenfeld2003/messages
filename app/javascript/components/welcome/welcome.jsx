@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-const Welcome = () => {
+const Welcome = (props) => {
+
   return <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
     <div className="jumbotron jumbotron-fluid bg-transparent">
       <div className="container secondary-color">
@@ -29,4 +32,8 @@ const Welcome = () => {
   </div>
 };
 
-export default Welcome;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps, null)(Welcome);

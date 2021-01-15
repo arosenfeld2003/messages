@@ -38,9 +38,8 @@ const EditProfilePage = (props) => {
     return <div className="edit-profile-page">
       <Header />
       <div className="container">
-        <h1>Edit Profile</h1>
         <div className="row">
-            <div className="col-md-9 personal-info">
+            <div className="col-6 personal-info">
 
               {
                 profileUpdateStatus === false ? <div className="alert alert-info alert-dismissable">
@@ -101,6 +100,9 @@ const EditProfilePage = (props) => {
                   </div>
                 </div>
               </form>
+            </div>
+            <div className="col-6">
+              Users profile here
             </div>
         </div>
       </div>
