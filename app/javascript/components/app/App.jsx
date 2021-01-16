@@ -24,7 +24,9 @@ const App = (props) => {
           <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
           <Route exact path='/signup' component={SignUpPage} />
           <Route exact path='/login' component={SignInPage} />
-          <Route exact path='/dashboard' component={Dashboard}/>
+          {
+            // <Route exact path='/dashboard' component={Dashboard}/>
+          }
         </Switch>
       </Router>
   </div>

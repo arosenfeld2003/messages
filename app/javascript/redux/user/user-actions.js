@@ -15,3 +15,8 @@ export const setLogginError = (status) => ({
   type: userTypes.SET_LOGGIN_ERROR,
   payload: status
 })
+
+export const getUserFeed = (userFeed) => ({
+  type: userTypes.GET_USER_FEED,
+  payload: userFeed
+})

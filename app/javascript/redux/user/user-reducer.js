@@ -1,4 +1,9 @@
-import {setCurrentUser, setLoggedIn, setLogginError} from "./user-actions";
+import {
+  setCurrentUser, 
+  setLoggedIn,
+  setLogginError,
+  getUserFeed
+} from "./user-actions";
 import axios from "axios";
 import API from "../../api";
 import userTypes from "./user-types";
@@ -6,7 +11,8 @@ import userTypes from "./user-types";
 const INITIAL_STATE = {
   currentUser: null,
   logged_in: false,
-  loggin_error: false
+  loggin_error: false,
+  userFeed: {},
 }
 
 const onSignUpRequest = (userValues) => {
@@ -29,7 +35,6 @@ const onLoginRequest = (userValues) => {
     .then((res) => {
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
-
       //save token in localStorage
       localStorage.setItem("token", res.data.token);
       console.log(localStorage.getItem("token"));
@@ -75,6 +80,18 @@ const onLoggedInRequest = () => {
   }
 }
 
+const onGetUserFeed = (currentUser) => {
+  return (dispatch) => {
+    API.get("feed", currentUser)
+    .then((res) => {
+      console.log(res);
+      dispatch(getUserFeed(res.data));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -92,9 +109,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loggin_error: action.payload
       }
+    case userTypes.GET_USER_FEED:
+      return {
+        ...state,
+        userFeed: action.payload
+      }
     default:
       return state;
   }
 }
 
-export {userReducer, onSignUpRequest, onLoginRequest, onLogoutRequest, onLoggedInRequest};
+export {
+  userReducer,
+  onSignUpRequest,
+  onLoginRequest,
+  onLogoutRequest,
+  onLoggedInRequest,
+  onGetUserFeed
+};

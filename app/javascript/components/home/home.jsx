@@ -1,10 +1,14 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import Header from "../header/header";
+import SignoutButton from "../sign-out-button/sign-out-button";
+import {onLogoutRequest} from "../../redux/user/user-reducer";
+import SubmitNewTweet from "../tweet/newTweet";
+import Feed from "../tweet/feed";
+import FormInput from '../form-input/form-input';
 
 const Home = (props) => {
-  const {currentUser} = props;
+  const {isLoggedIn, currentUser, handleLogoutRequest} = props;
 
   if (!currentUser) {
     return (
@@ -47,25 +51,19 @@ const Home = (props) => {
       </div>
     </div>
 
-    {
-      // replace with a component
-    }
     <div>
-      <form method="" action="" >
-        <h2 className="h4 mb-4">Tweet</h2>
-        <FormInput
-          tweet=""
-          className="form-control mb-4"
-          placeholder="What's Up Tweety Bird?"
-        />
-        <Button
-          type="submit"
-          className="btn btn-primary btn-block my-4 waves-effect waves-light"
-        > Submit </Button>
-      </form>
+      <SubmitNewTweet/>
     </div>
 
     <div>
+      <Feed/>
+    </div>
+
+
+    <div>
+      {/*
+        <SignoutButton/>
+      */}
       <button onClick={handleLogoutRequest}>
         Sign Out
       </button>

@@ -1,5 +1,6 @@
-import React from "react";
-import {onLogoutRequest} from "../../redux/user/user-reducer";
+import React from 'react';
+import {onLogoutRequest} from '../../redux/user/user-reducer';
+import {connect} from 'react-redux';
 
 const SignoutButton = () => {
   return <button className="signout btn-dark" onClick={onLogoutRequest}></button>
