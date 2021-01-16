@@ -16,6 +16,21 @@ export const setLogginError = (status) => ({
   payload: status
 })
 
+export const setUserProfile = (profile) => ({
+  type: userTypes.SET_USER_PROFILE,
+  payload: profile
+})
+
+export const setNewUserFromAdmin = (user) => ({
+  type: userTypes.CREATE_NEW_USER_FROM_ADMIN_STATUS,
+  payload: user
+})
+
+export const setProfileUpdateStatus = (status) => ({
+  type: userTypes.PROFILE_UPDATE_STATUS,
+  payload: status
+})
+
 export const getUserFeed = (userFeed) => ({
   type: userTypes.GET_USER_FEED,
   payload: userFeed

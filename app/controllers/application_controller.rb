@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       token = auth_header
       begin
         decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: "HS256")
-        # decoded_token = [{"sub"=>1, "iat"=>1607669676, "exp"=>1607676876}, {"alg"=>"HS256"}]        
+        #decoded_token = [{"sub"=>1, "iat"=>1607669676, "exp"=>1607676876}, {"alg"=>"HS256"}]        
       rescue JWT::DecodeError 
         nil 
       end
@@ -34,6 +34,12 @@ class ApplicationController < ActionController::Base
       #check that token doesn't expire yet and exist in db
       current_time = Time.now
       if decoded_token[0]["exp"] > current_time.to_i && token_exist_in_db(token)
+        @user = User.find(decoded_token[0]["sub"])
+      else
+        p "Token expired or doesn't exist in db!"
+      end
+
+      if decoded_token[0]["exp"] > current_time.to_i
         @user = User.find(decoded_token[0]["sub"])
       else
         p "Token expired or doesn't exist in db!"
