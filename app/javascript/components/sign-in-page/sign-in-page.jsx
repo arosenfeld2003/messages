@@ -39,10 +39,10 @@ const SignInPage = (props) => {
       <form method="" action="" >
         <h2 className="h4 mb-4">Login</h2>
         <FormInput
-          id="email"
-          name="email"
+          id="handle"
+          name="handle"
           className="form-control mb-4"
-          placeholder="email"
+          placeholder="user_handle"
           handleChange={handleChange}
         />
         <FormInput

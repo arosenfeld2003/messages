@@ -31,6 +31,13 @@ const CreateUserForm = (props) => {
         handleChange={handleChange}
         />
         <FormInput
+        id="handle"
+        name="handle"
+        className="form-control mb-4"
+        placeholder="user_name"
+        handleChange={handleChange}
+        />
+        <FormInput
         id="password"
         name="password"
         className="form-control mb-4"

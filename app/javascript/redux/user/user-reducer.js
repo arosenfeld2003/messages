@@ -1,4 +1,4 @@
-import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus} from "./user-actions";
+import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus, getUserFeed} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
@@ -8,7 +8,8 @@ const INITIAL_STATE = {
   loggin_error: false,
   profile: null,
   createNewUserFromAdmin: null,
-  profileUpdateStatus: null
+  profileUpdateStatus: null,
+  userFeed: {},
 }
 
 const onSignUpRequest = (userValues) => {
@@ -30,7 +31,6 @@ const onLoginRequest = (userValues) => {
     .then((res) => {
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
-
       //save token in localStorage
       localStorage.setItem("token", res.data.token);
     }).catch((error) => {
@@ -118,6 +118,18 @@ const onDeleteUser = (userId) => {
   }
 }
 
+const onGetUserFeed = (currentUser) => {
+  return (dispatch) => {
+    API.get("feed", currentUser)
+    .then((res) => {
+      console.log(res);
+      dispatch(getUserFeed(res.data));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const onUpdateUserFromAdmin = (userId, userValues) => {
   return (dispatch) => {
     API.put(`profile/${userId}`, {user: userValues})
@@ -164,6 +176,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         profileUpdateStatus: action.payload
       }
+    case userTypes.GET_USER_FEED:
+      return {
+        ...state,
+        userFeed: action.payload
+      }
     default:
       return state;
   }
@@ -178,5 +195,6 @@ export {
   onSearchUserProfile,
   onCreateNewUser,
   onDeleteUser,
-  onUpdateUserFromAdmin
+  onUpdateUserFromAdmin,
+  onGetUserFeed
 };

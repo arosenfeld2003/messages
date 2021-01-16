@@ -30,3 +30,8 @@ export const setProfileUpdateStatus = (status) => ({
   type: userTypes.PROFILE_UPDATE_STATUS,
   payload: status
 })
+
+export const getUserFeed = (userFeed) => ({
+  type: userTypes.GET_USER_FEED,
+  payload: userFeed
+})

@@ -16,6 +16,7 @@ class AdministrationController < ApplicationController
             render json: {
                 id: @profile.id,
                 email: @profile.email,
+                handle: @profile.handle,
                 created_at: @profile.created_at.to_formatted_s(:long)
             }
         else
@@ -36,7 +37,7 @@ class AdministrationController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation)
+        params.require(:user).permit(:email, :handle, :password, :password_confirmation)
     end
 
 end
