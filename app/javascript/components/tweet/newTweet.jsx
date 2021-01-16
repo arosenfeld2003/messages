@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {onNewTweet} from '../../redux/tweet/tweet-reducer';
 import {connect} from "react-redux";
 import TweetInput from '../tweet-input/tweet-input';
-// import {postNewTweet} from '../../redux/tweet/tweet-actions';
-// import {UpdateFeed} from './feed';
 
 const SubmitNewTweet  = (props) => {
   const {handleNewTweet, currentUser} = props;
@@ -18,14 +16,12 @@ const SubmitNewTweet  = (props) => {
   }
 
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
-    // debugger;
-    // console.log(newTweet.newTweet.length);
+    evt.preventDefault();
     // only submit a tweet with text
     if (newTweet.newTweet.length > 0) {
       handleNewTweet(newTweet);
       // Reload page to refresh the feed.
-      // window.location.reload();
+      window.location.reload();
     }
   }
 

@@ -13,28 +13,38 @@ const UpdateFeed = (props) => {
     loadUserFeed()
   }, [])
 
+  /*
+    {…}
+​    config: Object { url: "feed", method: "get", baseURL: "http://localhost:3000/", … }
+    data: (13) […]
+      0: {…}
+        body: "Hello?"
+        created_at: "2021-01-10T00:35:25.476Z"
+        handle: "axlerosenfeld"
+        id: 3
+        updated_at: "2021-01-10T00:35:25.476Z"
+        user_id: 1
+  */
+
   return (
     <div>
       <h3>Feed</h3>
-
-
-        {userFeed[0] !=  undefined ?
-          userFeed.map(tweet => (
-            <div className="card" key={tweet.id} id={tweet.id} style={{width: 18 + 'rem'}}>
-              <div className="card-body">
-                <h5 className="card-title">Name/Handle/Time</h5>
-                <p className="card-text">{tweet.body}</p>
-                <a href="#" className="card-link">Comment</a>
-                <a href="#" className="card-link">Retweet</a>
-                <a href="#" className="card-link">Like</a>
-              </div>
-              <DeleteTweetButton/>
+      {
+        userFeed[0] !=  undefined ? userFeed.map(tweet => (
+          <div className="card" key={tweet.id} id={tweet.id} style={{width: 18 + 'rem'}}>
+            <div className="card-header">
+              <a href="#">@{tweet.handle}</a>, {tweet.created_at.slice(0, 10)}
             </div>
-          )) : ''}
-
-
-
-
+            <div className="card-body">
+              <p className="card-text">{tweet.body}</p>
+              <a href="#" className="card-link">Comment</a>
+              <a href="#" className="card-link">Retweet</a>
+              <a href="#" className="card-link">Like</a>
+            </div>
+            <DeleteTweetButton/>
+          </div>
+        )) : ''
+      }
     </div>
   )
 }

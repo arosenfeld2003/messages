@@ -7,7 +7,7 @@ const TweetInput = ({id, name, placeholder, handleChange, className}) => {
     className={className}
     id={id} name={name}
     placeholder={placeholder}
-    onKeyUpCapture={handleChange}
+    onKeyUp={handleChange}
   />;
 }
 
