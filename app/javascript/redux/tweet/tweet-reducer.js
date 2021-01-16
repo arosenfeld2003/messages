@@ -1,7 +1,7 @@
 import tweetTypes from './tweet-types';
-import {postNewTweet, getUserFeed, deleteTweet} from './tweet-actions';
-import axios from 'axios';
+import { deleteTweet } from './tweet-actions';
 import API from '../../api';
+import { onGetUserFeed } from "../user/user-reducer";
 
 const INITIAL_STATE = {
   newTweet: null,
@@ -9,10 +9,13 @@ const INITIAL_STATE = {
 }
 
 const onNewTweet = (newTweet) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     API.post("tweets", newTweet)
     .then((res) => {
       console.log(res);
+      if (res) {
+        dispatch(onGetUserFeed(getState().user.currentUser));
+      }
     }).catch((error) => {
       console.log(error);
     })
@@ -20,12 +23,15 @@ const onNewTweet = (newTweet) => {
 }
 
 const onDeleteTweet = (tweetId) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     console.log(tweetId);
     API.delete("tweets", {data: tweetId})
     .then((res) => {
       console.log(res);
       dispatch(deleteTweet(res));
+      if (res) {
+        dispatch(onGetUserFeed(getState().user.currentUser));
+      }
     }).catch((error) => {
       console.log(error);
     })
