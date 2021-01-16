@@ -26,17 +26,23 @@ const SubmitNewTweet  = (props) => {
   }
 
   return <form method="" action="">
-    <h2 className="h4 mb-4">Send Tweet</h2>
-    <TweetInput
-      required
-      id="newTweet"
-      name="newTweet"
-      className="form-control mb-4"
-      placeholder="What's on your mind?"
-      handleChange={handleChange}
-    />
-    <div className="text-left mt-1" id="counter">{charCount} / 140 </div>
-    <button type="submit" onClick={handleSubmit}>Send Tweet</button>
+    <div className="card" style={{width: 18 + 'rem'}}>
+      <div className="card-header">
+        Post New Tweet
+      </div>
+      <TweetInput
+        required
+        id="newTweet"
+        name="newTweet"
+        className="form-control mb-4"
+        placeholder="What's on your mind?"
+        handleChange={handleChange}
+      />
+      <div className="card-footer">
+        <div className="text-left mt-1" id="counter">{charCount} / 140 </div>
+        <button type="submit" onClick={handleSubmit}>Send Tweet</button>
+      </div>
+    </div>
   </form>
 }
 

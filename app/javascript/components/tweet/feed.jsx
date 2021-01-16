@@ -41,7 +41,9 @@ const UpdateFeed = (props) => {
               <a href="#" className="card-link">Retweet</a>
               <a href="#" className="card-link">Like</a>
             </div>
-            <DeleteTweetButton/>
+            {currentUser.handle === tweet.handle &&
+              <DeleteTweetButton/>
+            }
           </div>
         )) : ''
       }
