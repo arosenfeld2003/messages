@@ -17,7 +17,9 @@ const Home = (props) => {
   }
 
   return <div className="home-page">
-    <Header />
+    {
+      // <Header />
+    }
     <div className="main-content">
       <div className="container">
         <div className="row">
