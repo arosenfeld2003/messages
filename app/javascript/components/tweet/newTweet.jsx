@@ -20,8 +20,6 @@ const SubmitNewTweet  = (props) => {
     // only submit a tweet with text
     if (newTweet.newTweet.length > 0) {
       handleNewTweet(newTweet);
-      // Reload page to refresh the feed.
-      //window.location.reload();
     }
   }
 
