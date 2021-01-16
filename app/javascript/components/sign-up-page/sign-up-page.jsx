@@ -5,13 +5,24 @@ import { Link, Redirect } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 import {onSignUpRequest} from "../../redux/user/user-reducer";
-import SignUpForm from "../sign-up-form/sign-up-form";
 
 import "./sign-up-page.scss";
 
 const SignUpPage = (props) => {
 
-  const {isLoggedIn} = props;
+  const {handleSignUpRequest, isLoggedIn} = props;
+  const [userValues, setUserValues] = useState({});
+
+  const handleChange = (evt) => {
+    const { target } = evt;
+    const { name, value } = target;
+    setUserValues({ ...userValues, [name]: value });
+  };
+
+  const handleSignup = (evt) => {
+    evt.preventDefault();
+    handleSignUpRequest(userValues);
+  }
 
   if (isLoggedIn === true) {
     return (
@@ -21,7 +32,35 @@ const SignUpPage = (props) => {
 
   return <div className="sign-up-page">
     <div className="text-center border border-light p-5">
-      <SignUpForm />
+      <form method="" action="">
+        <h2 className="h4 mb-4">Signup</h2>
+        <FormInput
+          id="email"
+          name="email"
+          className="form-control mb-4"
+          placeholder="email"
+          handleChange={handleChange}
+        />
+        <FormInput
+          id="password"
+          name="password"
+          className="form-control mb-4"
+          placeholder="password"
+          handleChange={handleChange}
+        />
+        <FormInput
+          id="password"
+          name="password"
+          className="form-control mb-4"
+          placeholder="password"
+          handleChange={handleChange}
+        />
+        <Button
+          type="submit"
+          className="btn btn-primary btn-block my-4 waves-effect waves-light"
+          onClick={handleSignup}
+        > Submit </Button>
+      </form>
       <p>Already have an account?
         <Link to="/login" className="btn btn-link">Login</Link>
       </p>
@@ -34,4 +73,10 @@ const mapStateToProps = (state) => ({
   isLoggedIn: state.user.logged_in
 })
 
-export default connect(mapStateToProps, null)(SignUpPage);
+const mapDispatchToProps = (dispatch) => ({
+  handleSignUpRequest: (userValues) => {
+    dispatch(onSignUpRequest(userValues));
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

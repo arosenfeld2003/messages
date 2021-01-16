@@ -4,6 +4,7 @@ import { onUpdateUserFromAdmin } from "../../redux/user/user-reducer";
 import FormInput from "../form-input/form-input";
 import Header from "../header/header";
 import { Redirect, useHistory } from "react-router-dom";
+import Profile from "../profile/profile";
 
 const EditProfilePage = (props) => {
 
@@ -38,8 +39,8 @@ const EditProfilePage = (props) => {
     return <div className="edit-profile-page">
       <Header />
       <div className="container">
-        <div className="row">
-            <div className="col-6 personal-info">
+        <div className="row p-3">
+            <div className="col-8 personal-info">
 
               {
                 profileUpdateStatus === false ? <div className="alert alert-info alert-dismissable">
@@ -101,8 +102,10 @@ const EditProfilePage = (props) => {
                 </div>
               </form>
             </div>
-            <div className="col-6">
-              Users profile here
+            <div className="col-4">
+                <Profile
+                  user={user}
+                />
             </div>
         </div>
       </div>

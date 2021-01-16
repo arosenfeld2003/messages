@@ -9,6 +9,10 @@ import {onLoggedInRequest} from "../../redux/user/user-reducer";
 const Home = (props) => {
   const {currentUser, handleLoggedIn} = props;
 
+  if (!currentUser) {
+    <Redirect to="/welcome" />
+  }
+
   return <div className="home-page">
     <Header />
     <div className="main-content">

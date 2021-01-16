@@ -32,7 +32,7 @@ const Profile = (props) => {
 
     return <div class="profile-card-4 text-center">
             <div class="profile-content">
-                <div class="profile-name">John Doe
+                <div class="profile-name">User Name
                     <p>{user.email}</p>
                 </div>
                 <div class="profile-description">Created at: <strong>{user.created_at}</strong></div>
@@ -56,13 +56,13 @@ const Profile = (props) => {
                 <div className="row">
                     <div className="col">
                     <div class="btn-group-vertical">
-                        <a href="#" className="btn btn-outline-secondary">See Profile</a>
+                        <a href="#" className="btn btn-outline-primary">See Profile</a>
                         <Button type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={handleDeleteProfile}>Delete profile</Button>
-                        <Button type="button"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-primary"
                         onClick={handleEditProfile}>Edit Profile</Button>
+                        <Button type="button"
+                        className="btn btn-outline-danger"
+                        onClick={handleDeleteProfile}>Delete profile</Button>
                     </div>
                     </div>
                 </div>
