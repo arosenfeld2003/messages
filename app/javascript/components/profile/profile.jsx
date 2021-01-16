@@ -8,7 +8,7 @@ import "./profile.scss";
 
 const Profile = (props) => {
 
-    const {user, onDeleteProfile, onChangeUpdateStatus} = props;
+    const {user, onDeleteProfile, onChangeUpdateStatus, profileForAdmin} = props;
     const history = useHistory();
 
     const handleDeleteProfile = () => {
@@ -30,34 +30,34 @@ const Profile = (props) => {
 
     }
 
-    return <div class="profile-card-4 text-center">
-            <div class="profile-content">
-                <div class="profile-name">
+    return <div className="profile-card-4 text-center">
+            <div className="profile-content">
+                <div className="profile-name">
                     {user.handle}
                     <p>{user.email}</p>
                 </div>
-                <div class="profile-description">Created at: <strong>{user.created_at}</strong></div>
-                <div class="row">
-                    <div class="col">
-                        <div class="profile-overview">
+                <div className="profile-description">Created at: <strong>{user.created_at}</strong></div>
+                <div className="row">
+                    <div className="col">
+                        <div className="profile-overview">
                             <p>TWEETS</p>
                             <h4>1300</h4></div>
                     </div>
-                    <div class="col">
-                        <div class="profile-overview">
+                    <div className="col">
+                        <div className="profile-overview">
                             <p>FOLLOWERS</p>
                             <h4>250</h4></div>
                     </div>
-                    <div class="col">
-                        <div class="profile-overview">
+                    <div className="col">
+                        <div className="profile-overview">
                             <p>FOLLOWING</p>
                             <h4>168</h4></div>
                     </div>
                 </div>
                 {
-                    user ? <div className="row">
+                    profileForAdmin ? <div className="row">
                     <div className="col">
-                    <div class="btn-group-vertical">
+                    <div className="btn-group-vertical">
                         <a href="#" className="btn btn-outline-primary">See Profile</a>
                         <Button type="button"
                         className="btn btn-outline-primary"
@@ -74,6 +74,10 @@ const Profile = (props) => {
         </div>
 }
 
+const mapStateToProps = (state) => ({
+    profileForAdmin: state.user.profile
+})
+
 const mapDispatchToProps = (dispatch) => ({
     onDeleteProfile: (userId) => {
         dispatch(onDeleteUser(userId));
@@ -83,4 +87,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(null, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
