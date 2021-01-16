@@ -28,10 +28,10 @@ const UpdateFeed = (props) => {
 
   return (
     <div>
-      <h3>Feed</h3>
+      <h3 className="profile-name">Feed</h3>
       {
         userFeed[0] !=  undefined ? userFeed.map(tweet => (
-          <div className="card" key={tweet.id} id={tweet.id} style={{width: 18 + 'rem'}}>
+          <div className="card profile-card-4" key={tweet.id} id={tweet.id} style={{width: 18 + 'rem'}}>
             <div className="card-header">
               <a href="#">@{tweet.handle}</a>, {tweet.created_at.slice(0, 10)}
             </div>
@@ -41,7 +41,9 @@ const UpdateFeed = (props) => {
               <a href="#" className="card-link">Retweet</a>
               <a href="#" className="card-link">Like</a>
             </div>
-            <DeleteTweetButton/>
+            {currentUser.handle === tweet.handle &&
+              <DeleteTweetButton/>
+            }
           </div>
         )) : ''
       }

@@ -14,7 +14,9 @@ const Home = (props) => {
   }
 
   return <div className="home-page">
-    <Header />
+    {
+      <Header />
+    }
     <div className="main-content">
       <div className="container">
         <div className="row">
@@ -22,13 +24,10 @@ const Home = (props) => {
             <Profile user={currentUser} />
           </div>
           <div className="col p-3">
-            <div>
-              <SubmitNewTweet/>
-            </div>
-
-            <div>
-              <Feed/>
-            </div>
+            <Feed/>
+          </div>
+          <div className="col p-3">
+            <SubmitNewTweet/>
           </div>
         </div>
       </div>
