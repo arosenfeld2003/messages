@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
     console.log(tweetId)
     dispatch(onDeleteTweet(tweetId));
     // Reload page to refresh the feed.
-    window.location.reload();
+    //window.location.reload();
   }
 })
 

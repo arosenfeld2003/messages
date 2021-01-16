@@ -21,7 +21,7 @@ const SubmitNewTweet  = (props) => {
     if (newTweet.newTweet.length > 0) {
       handleNewTweet(newTweet);
       // Reload page to refresh the feed.
-      window.location.reload();
+      //window.location.reload();
     }
   }
 
