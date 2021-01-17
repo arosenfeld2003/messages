@@ -12,12 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /C/Ruby26-x64/include/ruby-2.6.0
+topdir = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = C:/Ruby26-x64/include/ruby-2.6.0/x64-mingw32
+arch_hdrdir = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin19
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/C/Ruby26-x64
+prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -31,9 +31,9 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20201107-30640-226e4d
-sitelibdir = $(DESTDIR)./.gem.20201107-30640-226e4d
-sitedir = $(rubylibprefix)/site_ruby
+sitearchdir = $(DESTDIR)./.gem.20210116-65937-17oucpo
+sitelibdir = $(DESTDIR)./.gem.20210116-65937-17oucpo
+sitedir = $(DESTDIR)/Library/Ruby/Site
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 sitearchincludedir = $(includedir)/$(sitearch)
@@ -41,20 +41,20 @@ archincludedir = $(includedir)/$(arch)
 sitearchlibdir = $(libdir)/$(sitearch)
 archlibdir = $(libdir)/$(arch)
 ridir = $(datarootdir)/$(RI_BASE_NAME)
-mandir = $(datarootdir)/man
+mandir = $(DESTDIR)/usr/share/man
 localedir = $(datarootdir)/locale
 libdir = $(exec_prefix)/lib
 psdir = $(docdir)
 pdfdir = $(docdir)
 dvidir = $(docdir)
 htmldir = $(docdir)
-infodir = $(datarootdir)/info
+infodir = $(DESTDIR)/usr/share/info
 docdir = $(datarootdir)/doc/$(PACKAGE)
 oldincludedir = $(DESTDIR)/usr/include
-includedir = $(prefix)/include
+includedir = $(DESTDIR)/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk$(prefix)/include
 localstatedir = $(prefix)/var
 sharedstatedir = $(prefix)/com
-sysconfdir = $(DESTDIR)
+sysconfdir = $(DESTDIR)/Library/Ruby/Site
 datadir = $(datarootdir)
 datarootdir = $(prefix)/share
 libexecdir = $(exec_prefix)/libexec
@@ -64,12 +64,12 @@ archdir = $(rubyarchdir)
 
 
 CC_WRAPPER = 
-CC = x86_64-w64-mingw32-gcc
-CXX = x86_64-w64-mingw32-g++
-LIBRUBY = lib$(RUBY_SO_NAME).dll.a
+CC = xcrun clang
+CXX = xcrun clang++
+LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
-LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static $(MAINLIBS)
+LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static -framework Security -framework Foundation $(MAINLIBS)
 empty =
 OUTFLAG = -o $(empty)
 COUTFLAG = -o $(empty)
@@ -78,34 +78,34 @@ CSRCFLAG = $(empty)
 RUBY_EXTCONF_H = 
 cflags   = $(optflags) $(debugflags) $(warnflags)
 cxxflags = $(optflags) $(debugflags) $(warnflags)
-optflags = -O3 -fno-omit-frame-pointer
-debugflags = -ggdb3
-warnflags = -Wall -Wextra -Wdeclaration-after-statement -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wrestrict -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable
+optflags = 
+debugflags = -g
+warnflags = 
 cppflags = 
 CCDLFLAGS = 
-CFLAGS   = $(CCDLFLAGS) -O3 -fno-fast-math -fstack-protector-strong $(ARCH_FLAG)
+CFLAGS   = $(CCDLFLAGS)  -g -Os -pipe -DHAVE_GCC_ATOMIC_BUILTINS $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
-DEFS     = -D_FILE_OFFSET_BITS=64
-CPPFLAGS =  -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -D_WIN32_WINNT=0x0600 -D__MINGW_USE_VC2005_COMPAT $(DEFS) $(cppflags)
-CXXFLAGS = $(CCDLFLAGS) -march=x86-64 -mtune=generic -O2 -pipe $(ARCH_FLAG)
-ldflags  = -L. -pipe -s -fstack-protector-strong
-dldflags = -pipe -s -fstack-protector-strong -Wl,--enable-auto-image-base,--enable-auto-import $(DEFFILE) 
-ARCH_FLAG = 
+DEFS     = 
+CPPFLAGS =  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
+CXXFLAGS = $(CCDLFLAGS)  -g -Os -pipe  $(ARCH_FLAG)
+ldflags  = -L. -L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.Internal.sdk/usr/local/lib
+dldflags = -arch x86_64             -undefined dynamic_lookup -multiply_defined suppress 
+ARCH_FLAG =  -arch x86_64
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
-LDSHARED = $(CC) -shared
-LDSHAREDXX = $(CXX) -shared
-AR = ar
-EXEEXT = .exe
+LDSHARED = $(CC) -dynamic -bundle
+LDSHAREDXX = $(CXX) -dynamic -bundle
+AR = libtool -static
+EXEEXT = 
 
 RUBY_INSTALL_NAME = $(RUBY_BASE_NAME)
-RUBY_SO_NAME = x64-msvcrt-ruby260
-RUBYW_INSTALL_NAME = $(RUBYW_BASE_NAME)
+RUBY_SO_NAME = ruby.2.6
+RUBYW_INSTALL_NAME = 
 RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x64-mingw32
-sitearch = x64-msvcrt
+arch = universal-darwin19
+sitearch = $(arch)
 ruby_version = 2.6.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
 RUBY = $(ruby)
@@ -113,8 +113,8 @@ ruby_headers = $(hdrdir)/ruby.h $(hdrdir)/ruby/backward.h $(hdrdir)/ruby/ruby.h 
 
 RM = rm -f
 RM_RF = $(RUBY) -run -e rm -- -rf
-RMDIRS = rmdir --ignore-fail-on-non-empty -p
-MAKEDIRS = /usr/bin/mkdir -p
+RMDIRS = rmdir -p
+MAKEDIRS = mkdir -p
 INSTALL = /usr/bin/install -c
 INSTALL_PROG = $(INSTALL) -m 0755
 INSTALL_DATA = $(INSTALL) -m 644
@@ -126,9 +126,9 @@ TOUCH = exit >
 preload = 
 libpath = . $(libdir)
 LIBPATH =  -L. -L$(libdir)
-DEFFILE = $(TARGET)-$(arch).def
+DEFFILE = 
 
-CLEANFILES = mkmf.log $(DEFFILE)
+CLEANFILES = mkmf.log
 DISTCLEANFILES = 
 DISTCLEANDIRS = 
 
@@ -136,7 +136,7 @@ extout =
 extout_prefix = 
 target_prefix = /byebug
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi  
+LIBS = $(LIBRUBYARG_SHARED)   
 ORIG_SRCS = breakpoint.c byebug.c context.c locker.c threads.c
 SRCS = $(ORIG_SRCS) 
 OBJS = breakpoint.o byebug.o context.o locker.o threads.o
@@ -145,7 +145,7 @@ LOCAL_HDRS =
 TARGET = byebug
 TARGET_NAME = byebug
 TARGET_ENTRY = Init_$(TARGET_NAME)
-DLLIB = $(TARGET).so
+DLLIB = $(TARGET).bundle
 EXTSTATIC = 
 STATIC_LIB = 
 
@@ -255,15 +255,12 @@ site-install-rb: install-rb
 	$(ECHO) translating $(<)
 	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -S $(CSRCFLAG)$<
 
-$(TARGET_SO): $(DEFFILE) $(OBJS) Makefile
+$(TARGET_SO): $(OBJS) Makefile
 	$(ECHO) linking shared-object byebug/$(DLLIB)
 	-$(Q)$(RM) $(@)
 	$(Q) $(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
+	$(Q) $(POSTLINK)
 
 
-
-$(DEFFILE): 
-	$(ECHO) generating $(@)
-	$(Q) (echo EXPORTS && echo $(TARGET_ENTRY)) > $@
 
 $(OBJS): $(HDRS) $(ruby_headers)
