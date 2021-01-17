@@ -1,9 +1,11 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import Profile from "../profile/profile";
 import CreateUserForm from "../create-user-form/create-user-form";
 import SearchForm from "../search-form/search-form";
+import { userTypes } from "../../types/types";
 
 import "./dashboard.scss";
 
@@ -35,6 +37,10 @@ const Dashboard = ({user}) => {
       </div>
     </div>
   </div>
+}
+
+Dashboard.propTypes = {
+  user: PropTypes.shape({userTypes})
 }
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,5 @@
+import PropTypes from "prop-types";
 import React, {useState} from "react";
-
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 import { connect } from "react-redux";
@@ -29,6 +29,7 @@ const CreateUserForm = (props) => {
         className="form-control mb-4"
         placeholder="email"
         handleChange={handleChange}
+        value={userValues.email}
         />
         <FormInput
         id="handle"
@@ -57,6 +58,10 @@ const CreateUserForm = (props) => {
         onClick={handleSignup}
         > Submit </Button>
     </form>
+}
+
+CreateUserForm.propTypes = {
+  handleSignUpRequest: PropTypes.func
 }
 
 const mapDispatchToProps = (dispatch) => ({
