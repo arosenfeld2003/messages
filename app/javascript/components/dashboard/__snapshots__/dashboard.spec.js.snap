@@ -214,10 +214,10 @@ exports[`<Dashboard /> unit test Should render component dashboard with user 1`]
                       <div
                         className="col"
                       >
-                        <Connect(Profile)
+                        <Connect(ProfileCard)
                           user={null}
                         >
-                          <Profile
+                          <ProfileCard
                             onChangeUpdateStatus={[Function]}
                             onDeleteProfile={[Function]}
                             profileForAdmin={null}
@@ -240,8 +240,8 @@ exports[`<Dashboard /> unit test Should render component dashboard with user 1`]
                                 </p>
                               </div>
                             </div>
-                          </Profile>
-                        </Connect(Profile)>
+                          </ProfileCard>
+                        </Connect(ProfileCard)>
                       </div>
                     </div>
                   </div>

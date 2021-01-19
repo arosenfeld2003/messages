@@ -23,7 +23,7 @@ describe("<ProfilePage /> component renders correct", () => {
 
     const tree = mount(<Provider store={mockStore}>
         <Router>
-          <ProfilePage profile={userMockData} />
+          <ProfilePage  />
         </Router>
       </Provider>
     )

@@ -1,27 +1,13 @@
 import React from "react";
-import SubmitNewTweet from "../tweet/newTweet";
-import Feed from "../tweet/feed";
-import Profile from "../profile/profile";
+import Header from "../header/header";
+import ProfileContent from "../profile-content/profile-content";
 
 const ProfilePage = (props) => {
-  const {profile} = props;
+  const profile = props.location.state.profile;
 
   return <div className="profile-page">
-  <div className="main-content">
-    <div className="container">
-      <div className="row">
-        <div className="col-4 p-3">
-          <Profile user={profile} />
-        </div>
-        <div className="col p-3">
-          <Feed/>
-        </div>
-        <div className="col p-3">
-          <SubmitNewTweet/>
-        </div>
-      </div>
-    </div>
-  </div>
+    <Header />
+    <ProfileContent profile={profile}/>
 </div>
 
 }
