@@ -29,7 +29,6 @@ const CreateUserForm = (props) => {
         className="form-control mb-4"
         placeholder="email"
         handleChange={handleChange}
-        value={userValues.email}
         />
         <FormInput
         id="handle"

@@ -38,11 +38,13 @@ exports[`<Dashboard /> unit test Should render component dashboard with user 1`]
       <Connect(Dashboard)
         user={
           Object {
-            "created_at": "2021-01-16T20:20:20.983Z",
-            "email": "mila@gmail.com",
-            "handle": "mila_a",
-            "id": 1,
-            "updated_at": "2021-01-16T20:20:20.983Z",
+            "user": Object {
+              "created_at": "2021-01-16T20:20:20.983Z",
+              "email": "mila@gmail.com",
+              "handle": "mila_a",
+              "id": 1,
+              "updated_at": "2021-01-16T20:20:20.983Z",
+            },
           }
         }
       >

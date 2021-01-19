@@ -75,10 +75,10 @@ const onLoggedInRequest = () => {
   }
 }
 
-const onSearchUserProfile = (userEmail) => {
+const onSearchUserProfile = (searchValue) => {
   return (dispatch) => {
-    API.post("profile", {user: {
-      email: userEmail
+    API.post(`profile`, {user: {
+      email: searchValue
     }})
     .then((res) => {
         console.log(res.data);

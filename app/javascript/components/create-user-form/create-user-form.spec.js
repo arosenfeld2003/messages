@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { rootReducer } from "../../redux/configfureStore";
 import thunk from 'redux-thunk';
-import renderer from 'react-test-renderer';
 
 import CreateUserForm from "./create-user-form";
 
@@ -24,7 +23,7 @@ describe('<CreateUserForm /> unit test', () => {
 
     beforeEach(() => {
         wrapper = mount(<Provider store={mockStore}>
-            <CreateUserForm/>
+            <CreateUserForm />
         </Provider>
         );
     });
