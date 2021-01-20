@@ -4,9 +4,10 @@ import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
 
 const UpdateFeed = (props) => {
-  const {currentUser, fetchUserFeed, userFeed} = props;
+  const {user, fetchUserFeed, userFeed} = props;
+  console.log(user);
   const loadUserFeed = function () {
-    fetchUserFeed(currentUser) || [];
+    fetchUserFeed(user) || [];
   }
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const UpdateFeed = (props) => {
               <a href="#" className="card-link">Retweet</a>
               <a href="#" className="card-link">Like</a>
             </div>
-            {currentUser.handle === tweet.handle &&
+            {user.handle === tweet.handle &&
               <DeleteTweetButton/>
             }
           </div>
@@ -52,8 +53,8 @@ const UpdateFeed = (props) => {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.user.currentUser,
   userFeed: state.user.userFeed,
-  currentUser: state.user.currentUser,
 })
 
 const mapDispatchToProps = (dispatch) => {

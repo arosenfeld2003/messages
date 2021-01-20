@@ -21,10 +21,10 @@ const Home = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-4 p-3">
-            <Profile user={currentUser} />
+            <Profile user={currentUser}/>
           </div>
           <div className="col p-3">
-            <Feed/>
+            <Feed user={currentUser}/>
           </div>
           <div className="col p-3">
             <SubmitNewTweet/>

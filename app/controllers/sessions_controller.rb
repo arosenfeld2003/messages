@@ -6,8 +6,8 @@ class SessionsController < Devise::SessionsController
   # POST /v1/login
   def create
     # @user = User.find_by_email(user_params[:email])
-    @user = User.find_by(:handle == user_params[:handle])
-    @user = User.find_by_email(@user.email)
+    @user = User.find_by(handle: user_params[:handle])
+    # @user = User.find_by_email(@user.email)
     # return invalid_login_attempt unless @user
     return invalid_login_attempt unless (@user.handle == user_params[:handle])
 

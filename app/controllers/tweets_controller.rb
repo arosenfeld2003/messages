@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    @user = User.find_by(:handle == params[:handle])
+    @user = User.find_by(handle: params[:user][:handle])
     # throw error if not currentUser ??
     @new_tweet = @user.tweets.build(
       body: params[:newTweet],
@@ -24,7 +24,7 @@ class TweetsController < ApplicationController
   end
 
   def get_user_feed
-    @user_feed = Tweet.where(:handle == params[:handle])
+    @user_feed = Tweet.where(handle: params[:handle])
     render json: @user_feed
   end
 
