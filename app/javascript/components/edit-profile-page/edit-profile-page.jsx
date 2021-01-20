@@ -4,7 +4,7 @@ import { onUpdateUserFromAdmin } from "../../redux/user/user-reducer";
 import FormInput from "../form-input/form-input";
 import Header from "../header/header";
 import { Redirect, useHistory } from "react-router-dom";
-import Profile from "../profile/profile";
+import ProfileCard from "../profile-card/profile-card";
 
 const EditProfilePage = (props) => {
 
@@ -103,7 +103,7 @@ const EditProfilePage = (props) => {
               </form>
             </div>
             <div className="col-4">
-                <Profile
+                <ProfileCard
                   user={user}
                 />
             </div>

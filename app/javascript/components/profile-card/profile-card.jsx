@@ -4,9 +4,10 @@ import {onDeleteUser} from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
-import "./profile.scss";
+import { Redirect } from "react-router-dom";
+import "./profile-card.scss";
 
-const Profile = (props) => {
+const ProfileCard = (props) => {
 
     const {user, onDeleteProfile, onChangeUpdateStatus, profileForAdmin} = props;
     const history = useHistory();
@@ -19,6 +20,14 @@ const Profile = (props) => {
         onChangeUpdateStatus(null);
         let path = `dashboard/profile/edit/${user.id}`;
         history.push(path);
+    }
+
+    const handleProfilePage = () => {
+        let path = `dashboard/profile/${user.id}`;
+        history.push({ 
+            pathname: path,
+            state: { profile: user }
+        });
     }
 
     if (!user) {
@@ -58,7 +67,9 @@ const Profile = (props) => {
                     profileForAdmin ? <div className="row">
                     <div className="col">
                     <div className="btn-group-vertical">
-                        <a href="#" className="btn btn-outline-primary">See Profile</a>
+                        <Button type="button"
+                        className="btn btn-outline-primary"
+                        onClick={handleProfilePage}>See Profile</Button>
                         <Button type="button"
                         className="btn btn-outline-primary"
                         onClick={handleEditProfile}>Edit Profile</Button>
@@ -87,4 +98,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileCard);

@@ -11,6 +11,7 @@ class AdministrationController < ApplicationController
 
     def get_profile
         @profile = User.find_by_email(user_params[:email])
+        p @profile
         
         if @profile
             render json: {

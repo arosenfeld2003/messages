@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :clear_tokens_in_db
+  #before_action :clear_tokens_in_db
 
   protect_from_forgery with: :null_session
 
