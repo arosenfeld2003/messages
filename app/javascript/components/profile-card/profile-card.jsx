@@ -24,7 +24,7 @@ const ProfileCard = (props) => {
 
     const handleProfilePage = () => {
         let path = `dashboard/profile/${user.id}`;
-            history.push({ 
+        history.push({ 
             pathname: path,
             state: { profile: user }
         });
