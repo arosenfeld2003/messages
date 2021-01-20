@@ -42,6 +42,20 @@ const SignUpPage = (props) => {
           handleChange={handleChange}
         />
         <FormInput
+          id="firstname"
+          name="firstname"
+          className="form-control mb-4"
+          placeholder="First Name"
+          handleChange={handleChange}
+        />
+        <FormInput
+          id="lastname"
+          name="lastname"
+          className="form-control mb-4"
+          placeholder="Last Name"
+          handleChange={handleChange}
+        />
+        <FormInput
           id="handle"
           name="handle"
           className="form-control mb-4"

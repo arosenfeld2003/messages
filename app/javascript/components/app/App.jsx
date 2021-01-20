@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "../home/home";
 import SignUpPage from "../sign-up-page/sign-up-page";
 import SignInPage from "../sign-in-page/sign-in-page";
 import Welcome from "../welcome/welcome";
-import { connect } from "react-redux";
 import Dashboard from "../dashboard/dashboard";
 import EditProfilePage from "../edit-profile-page/edit-profile-page";
+import UserInfoPage from "../user-info/user-info-page";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
 
 import "./app.scss";
@@ -26,6 +27,7 @@ const App = (props) => {
           <Route exact path='/login' component={SignInPage} />
           <Route exact path='/dashboard' component={Dashboard}/>
           <Route exact path='/dashboard/profile/edit/:id' component={EditProfilePage}/>
+          <Route exact path='/users/:id' component={UserInfoPage}/>
         </Switch>
       </Router>
   </div>

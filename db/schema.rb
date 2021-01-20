@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_050753) do
+ActiveRecord::Schema.define(version: 2021_01_19_041254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "friends", force: :cascade do |t|
+  create_table "relationships", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "follower_id"
     t.integer "followed_id"
-    t.index ["follower_id", "followed_id"], name: "index_friends_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2021_01_17_050753) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "handle"
+    t.string "firstname"
+    t.string "lastname"
     t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

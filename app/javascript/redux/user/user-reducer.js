@@ -46,7 +46,6 @@ const onLogoutRequest = () => {
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
-
       //remove token in localStorage
       localStorage.removeItem("token");
     }).catch((error) => {
@@ -66,6 +65,7 @@ const onLoggedInRequest = () => {
       .then((res) => {
         if (res.data.logged_in === true) {
           dispatch(setCurrentUser(res.data.user));
+          dispatch(getUserFeed(res.data.user));
           dispatch(setLoggedIn(true));
         }
       }).catch((error) => {
@@ -81,8 +81,8 @@ const onSearchUserProfile = (userEmail) => {
       email: userEmail
     }})
     .then((res) => {
-        console.log(res.data);
-        dispatch(setUserProfile(res.data))
+      console.log(res.data);
+      dispatch(setUserProfile(res.data))
     }).catch((error) => {
       alert("User not found!");
     })
