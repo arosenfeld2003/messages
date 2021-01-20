@@ -24,11 +24,7 @@ const Profile = (props) => {
   if (!user) {
     return <div className="row">
       <div className="col">
-<<<<<<< HEAD
         <p className="lead text-muted"><small><em>No user found yet.</em></small></p>
-=======
-          <p className="lead text-muted"><small><em>No user found yet.</em></small></p>
->>>>>>> load-userfeed-bugfix
       </div>
     </div>
   }
@@ -36,13 +32,8 @@ const Profile = (props) => {
   return <div className="profile-card-4 text-center">
     <div className="profile-content">
       <div className="profile-name">
-<<<<<<< HEAD
         {user.handle}
         <p>{user.email}</p>
-=======
-          {user.handle}
-          <p>{user.email}</p>
->>>>>>> load-userfeed-bugfix
       </div>
       <div className="profile-description">Created at: <strong>{user.created_at}</strong></div>
       <div className="row">
@@ -51,40 +42,6 @@ const Profile = (props) => {
             <p>TWEETS</p>
             <h4>1300</h4>
           </div>
-<<<<<<< HEAD
-        </div>
-        <div className="col">
-          <div className="profile-overview">
-            <p>FOLLOWERS</p>
-            <h4>250</h4>
-          </div>
-        </div>
-        <div className="col">
-          <div className="profile-overview">
-            <p>FOLLOWING</p>
-            <h4>168</h4>
-          </div>
-        </div>
-      </div>
-      {
-        profileForAdmin ? <div className="row">
-        <div className="col">
-          <div className="btn-group-vertical">
-            <a href="#" className="btn btn-outline-primary">See Profile</a>
-            <Button type="button"
-              className="btn btn-outline-primary"
-              onClick={handleEditProfile}>
-                Edit Profile
-            </Button>
-            <Button type="button"
-              className="btn btn-outline-danger"
-              onClick={handleDeleteProfile}>
-                Delete profile
-            </Button>
-          </div>
-        </div>
-      </div> : ""
-=======
         </div>
         <div className="col">
           <div className="profile-overview">
@@ -113,7 +70,6 @@ const Profile = (props) => {
             </div>
           </div>
         </div> : ""
->>>>>>> load-userfeed-bugfix
       }
     </div>
   </div>
