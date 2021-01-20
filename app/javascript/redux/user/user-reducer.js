@@ -29,6 +29,7 @@ const onLoginRequest = (userValues) => {
   return (dispatch) => {
     API.post("users/sign_in", {user: userValues})
     .then((res) => {
+      console.log(res);
       dispatch(setCurrentUser(res.data.user));
       dispatch(setLoggedIn(true));
       //save token in localStorage
@@ -120,7 +121,7 @@ const onDeleteUser = (userId) => {
 
 const onGetUserFeed = (currentUser) => {
   return (dispatch) => {
-    API.get("feed", currentUser)
+    API.get("feed", {params: {handle: currentUser.handle}})
     .then((res) => {
       console.log(res);
       dispatch(getUserFeed(res.data));

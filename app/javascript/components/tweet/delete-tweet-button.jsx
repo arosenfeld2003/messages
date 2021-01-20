@@ -5,18 +5,10 @@ import {connect} from "react-redux";
 const DeleteTweetButton = (props) => {
 
   const {handleDeleteRequest, deletedTweetId} = props;
-  // const [tweetId, setTweetId] = useState(undefined);
-
-  // const handleDelete = (evt) => {
-  //   console.log(evt.target.parentElement.id);
-  //   setTweetId(evt.target.parentElement.id);
-  //   console.log(tweetId);
-  //   handleDeleteRequest(tweetId);
-  // };
 
   return <button className="delete-tweet btn-light" onClick={(e) => {
       const tweetId = {id: e.target.parentElement.id};
-      console.log(tweetId);
+      // console.log(tweetId);
       handleDeleteRequest(tweetId);
     }}>
     Delete Tweet
