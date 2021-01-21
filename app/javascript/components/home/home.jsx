@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Header from "../header/header";
 import Feed from "../tweet/feed";
 import ProfileCard from "../profile-card/profile-card";
+import SearchForm from "../search-form/search-form";
 import SubmitNewTweet from "../tweet/newTweet";
 
 const Home = (props) => {
@@ -19,7 +20,8 @@ const Home = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-4 p-3">
-            <ProfileCard user={currentUser} />
+            <SearchForm />
+            <ProfileCard />
           </div>
           <div className="col p-3">
             <Feed user={currentUser}/>
