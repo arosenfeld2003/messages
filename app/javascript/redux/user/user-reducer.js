@@ -1,4 +1,4 @@
-import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus, getUserFeed} from "./user-actions";
+import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus, getUserFeed, setProfileFeed} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   createNewUserFromAdmin: null,
   profileUpdateStatus: null,
   userFeed: {},
+  profileFeed: []
 }
 
 const onSignUpRequest = (userValues) => {
@@ -145,6 +146,17 @@ const onUpdateUserFromAdmin = (userId, userValues) => {
   }
 }
 
+const onGetProfileFeed = (profile) => {
+  return (dispatch) => {
+    API.get("feed", {params: {handle: profile.handle}})
+    .then((res) => {
+      dispatch(setProfileFeed(res.data));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -182,6 +194,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userFeed: action.payload
       }
+    case userTypes.SET_PROFILE_FEED:
+      return {
+        ...state,
+        profileFeed: action.payload
+      }
     default:
       return state;
   }
@@ -197,5 +214,6 @@ export {
   onCreateNewUser,
   onDeleteUser,
   onUpdateUserFromAdmin,
-  onGetUserFeed
+  onGetUserFeed,
+  onGetProfileFeed
 };
