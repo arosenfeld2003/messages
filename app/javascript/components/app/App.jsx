@@ -9,6 +9,7 @@ import Dashboard from "../dashboard/dashboard";
 import EditProfilePage from "../edit-profile-page/edit-profile-page";
 import UserInfoPage from "../user-info/user-info-page";
 import {onLoggedInRequest} from "../../redux/user/user-reducer";
+import ProfilePage from "../profile-page/profile-page";
 
 import "./app.scss";
 
@@ -28,6 +29,7 @@ const App = (props) => {
           <Route exact path='/dashboard' component={Dashboard}/>
           <Route exact path='/dashboard/profile/edit/:id' component={EditProfilePage}/>
           <Route exact path='/users/:id' component={UserInfoPage}/>
+          <Route exact path='/dashboard/profile/:id' component={ProfilePage}/>
         </Switch>
       </Router>
   </div>

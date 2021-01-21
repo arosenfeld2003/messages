@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Header from "../header/header";
-import SubmitNewTweet from "../tweet/newTweet";
 import Feed from "../tweet/feed";
-import Profile from "../profile/profile";
+import ProfileCard from "../profile-card/profile-card";
+import SubmitNewTweet from "../tweet/newTweet";
 
 const Home = (props) => {
   const {currentUser} = props;
@@ -14,14 +14,12 @@ const Home = (props) => {
   }
 
   return <div className="home-page">
-    {
-      <Header />
-    }
+    <Header />
     <div className="main-content">
       <div className="container">
         <div className="row">
           <div className="col-4 p-3">
-            <Profile user={currentUser}/>
+            <ProfileCard user={currentUser} />
           </div>
           <div className="col p-3">
             <Feed user={currentUser}/>

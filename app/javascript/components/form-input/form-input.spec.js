@@ -34,7 +34,7 @@ describe("FormInput", () => {
     expect(tree.props().className).toEqual("form-input");
   })
 
-  it("should call mock function on click ", () => {
+  it("should call mock function on change ", () => {
     const mockFn = jest.fn();
     const tree = shallow(
       <FormInput id="3"
