@@ -84,7 +84,7 @@ const onSearchUserProfile = (searchValue) => {
     }})
     .then((res) => {
       console.log(res.data);
-      dispatch(setUserProfile(res.data))
+      dispatch(setUserProfile(res.data));
     }).catch((error) => {
       alert("User not found!");
     })
