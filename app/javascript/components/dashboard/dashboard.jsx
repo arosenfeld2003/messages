@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import ProfileCard from "../profile-card/profile-card";
 import CreateUserForm from "../create-user-form/create-user-form";
 import SearchForm from "../search-form/search-form";
+import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 import "./dashboard.scss";
 
-const Dashboard = ({user}) => {
+const Dashboard = ({user, profile, profileFeed, fetchProfileFeed}) => {
+
+  const loadProfileFeed = () => {
+    if (profile) {
+      fetchProfileFeed(profile) || [];
+    }
+  }
+
+  useEffect(() => {
+    loadProfileFeed();
+  }, [profile])
 
   return <div className="dashboard">
     <Header />
@@ -24,6 +35,7 @@ const Dashboard = ({user}) => {
               <div className="col">
                 <ProfileCard
                   user={user}
+                  totalPosts={profileFeed.length}
                 />
               </div>
             </div>
@@ -39,6 +51,14 @@ const Dashboard = ({user}) => {
 
 const mapStateToProps = (state) => ({
   user: state.user.profile,
+  profileFeed: state.user.profileFeed,
+  profile: state.user.profile
 })
 
-export default connect(mapStateToProps, null)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProfileFeed: (profile) => dispatch(onGetProfileFeed(profile))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

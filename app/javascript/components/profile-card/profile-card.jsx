@@ -4,12 +4,11 @@ import {onDeleteUser} from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
-import { Redirect } from "react-router-dom";
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
 
-  const {user, onDeleteProfile, onChangeUpdateStatus, profileForAdmin} = props;
+  const {user, onDeleteProfile, onChangeUpdateStatus, profileForAdmin, totalPosts} = props;
   const history = useHistory();
 
   const handleDeleteProfile = () => {
@@ -49,7 +48,7 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>TWEETS</p>
-            <h4>1300</h4>
+            <h4>{totalPosts}</h4>
           </div>
         </div>
         <div className="col">

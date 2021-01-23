@@ -7,7 +7,7 @@ import ProfileCard from "../profile-card/profile-card";
 import SubmitNewTweet from "../tweet/newTweet";
 
 const Home = (props) => {
-  const {currentUser} = props;
+  const {currentUser, userFeed} = props;
 
   if (!currentUser) {
     <Redirect to="/welcome" />
@@ -19,7 +19,9 @@ const Home = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-4 p-3">
-            <ProfileCard user={currentUser} />
+            <ProfileCard 
+            user={currentUser}
+            totalPosts={userFeed.length}/>
           </div>
           <div className="col p-3">
             <Feed user={currentUser}/>
@@ -35,7 +37,8 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
-  isLoggedIn: state.user.logged_in
+  isLoggedIn: state.user.logged_in,
+  userFeed: state.user.userFeed
 })
 
 export default connect(mapStateToProps, null)(Home);

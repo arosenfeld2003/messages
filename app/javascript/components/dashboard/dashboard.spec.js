@@ -12,10 +12,14 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 describe('<Dashboard /> unit test', () => {
 
+  const mockFeed = [
+    "Hi there",
+    "How are you?"
+  ]
   const mockStore = createStore(rootReducer);
   let wrapper = mount(<Provider store={mockStore}>
     <Router>
-      <Dashboard user={userMockData}/>
+      <Dashboard user={userMockData} totalPosts={mockFeed.length}/>
     </Router>
   </Provider>)
 
