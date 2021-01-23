@@ -24,6 +24,8 @@ class TweetsController < ApplicationController
   end
 
   def get_user_feed
+    # we need all tweets from users followed by current user
+    # below method only shows user tweets
     @user_feed = Tweet.where(handle: params[:handle])
     render json: @user_feed
   end

@@ -26,11 +26,7 @@ const ProfileContent = (props) => {
                 onClick={handleFollowAction}>Follow</Button>
             </div>
           </div>
-          <div className="row p-3">
-            <div className="col">
-              <Feed/>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
