@@ -35,3 +35,8 @@ export const getUserFeed = (userFeed) => ({
   type: userTypes.GET_USER_FEED,
   payload: userFeed
 })
+
+export const getUserFollowers = (userFollowers) => ({
+  type: userTypes.GET_USER_FOLLOWERS,
+  payload: userFollowers
+})

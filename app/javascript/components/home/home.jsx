@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Header from "../header/header";
 import Feed from "../tweet/feed";
+import Followers from "../followers/user-followers";
 import ProfileCard from "../profile-card/profile-card";
 import SearchForm from "../search-form/search-form";
 import SubmitNewTweet from "../tweet/newTweet";
@@ -20,14 +21,17 @@ const Home = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-4 p-3">
-            <SearchForm />
-            <ProfileCard />
+            <SearchForm/>
+            <ProfileCard/>
+          </div>
+          <div className="col p-3">
+            <Followers/>
           </div>
           <div className="col p-3">
             <Feed user={currentUser}/>
           </div>
           <div className="col p-3">
-            <SubmitNewTweet/>
+            <SubmitNewTweet />
           </div>
         </div>
       </div>

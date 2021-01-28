@@ -26,7 +26,7 @@ const ProfileContent = (props) => {
                 onClick={handleFollowAction}>Follow</Button>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>

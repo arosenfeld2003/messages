@@ -4,9 +4,6 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_params)
     if @user.save
 
-      # user follows itself to subscribe to feed
-      @user.follow(@user)
-
       @iat = Time.now
       #add 2 hours
       @exp = @iat + 7200
@@ -58,6 +55,6 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def user_params
-     params.require(:user).permit(:email, :handle, :password, :password_confirmation)
+     params.require(:user).permit(:email, :firstname, :lastname, :handle, :password, :password_confirmation)
   end
 end

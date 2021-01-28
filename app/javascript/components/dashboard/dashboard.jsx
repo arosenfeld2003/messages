@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import ProfileCard from "../profile-card/profile-card";
+// import ProfileContent from "../profile-content/profile-content";
 import CreateUserForm from "../create-user-form/create-user-form";
 import SearchForm from "../search-form/search-form";
 

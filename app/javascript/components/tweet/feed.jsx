@@ -5,7 +5,7 @@ import DeleteTweetButton from './delete-tweet-button';
 
 const UpdateFeed = (props) => {
   const {user, fetchUserFeed, userFeed} = props;
-  console.log(user);
+  // console.log(user);
   const loadUserFeed = function () {
     fetchUserFeed(user) || [];
   }
