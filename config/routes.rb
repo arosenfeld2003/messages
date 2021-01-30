@@ -18,7 +18,8 @@ Rails.application.routes.draw do
 
   post '/relationships' => 'relationships#new'
   delete '/relationships' => 'relationships#delete'
-  get '/relationships' => 'relationships#get_followers'
+  get '/relationships/followers' => 'relationships#get_followers'
+  get '/relationships/followed' => 'relationships#get_followed'
 
   get '*path', to: 'home#index'
 

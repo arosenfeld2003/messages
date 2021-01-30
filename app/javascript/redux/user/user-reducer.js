@@ -7,6 +7,7 @@ import {
   setProfileUpdateStatus,
   getUserFeed,
   getUserFollowers,
+  getUserFollowing,
   setProfileFeed
 } from "./user-actions";
 import API from "../../api";
@@ -21,7 +22,8 @@ const INITIAL_STATE = {
   profileUpdateStatus: null,
   userFeed: {},
   profileFeed: [],
-  userFollowers: {}
+  userFollowers: {},
+  userFollowing: {}
 }
 
 const onSignUpRequest = (userValues) => {
@@ -170,11 +172,25 @@ const onGetProfileFeed = (profile) => {
 
 const onGetUserFollowers = (currentUser) => {
   return (dispatch) => {
-    API.get("relationships", {params: {userId: currentUser.id}})
+    API.get("relationships/followers", {params: {userId: currentUser.id}})
     .then((res) => {
       console.log(res);
-      dispatch(getUserFollowers(res.data));
+      dispatch(getUserFollowers(res.data.followers));
     }).catch((error) => {
+      // we need to handle errors here!
+      console.log(error);
+    })
+  }
+}
+
+const onGetUserFollowing = (currentUser) => {
+  return (dispatch) => {
+    API.get("relationships/followed", {params: {userId: currentUser.id}})
+    .then((res) => {
+      console.log(res);
+      dispatch(getUserFollowing(res.data.following));
+    }).catch((error) => {
+      // we need to handle errors here!
       console.log(error);
     })
   }
@@ -227,6 +243,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userFollowers: action.payload
       }
+    case userTypes.GET_USER_FOLLOWING:
+      return {
+        ...state,
+        userFollowing: action.payload
+      }
     default:
       return state;
   }
@@ -245,4 +266,5 @@ export {
   onGetUserFeed,
   onGetProfileFeed,
   onGetUserFollowers,
+  onGetUserFollowing
 };

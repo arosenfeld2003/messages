@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 const ProfileContent = (props) => {
-  const {profile, fetchProfileFeed, profileFeed} = props;
+  const {profile, fetchProfileFeed, profileFeed, userFollowers} = props;
 
   const loadProfileFeed = function () {
     if (profile) {
@@ -29,7 +29,11 @@ const ProfileContent = (props) => {
     <div className="container">
       <div className="row">
         <div className="col-4 p-3">
-          <ProfileCard user={profile} totalPosts={profileFeed.length} />
+          <ProfileCard
+            user={profile}
+            totalPosts={profileFeed.length}
+            totalFollowers={userFollowers.length}
+          />
         </div>
         <div className="col">
           <div className="row p-3">
@@ -73,6 +77,7 @@ const ProfileContent = (props) => {
 
 const mapStateToProps = (state) => ({
   profileFeed: state.user.profileFeed,
+  userFollowers: state.user.userFollowers
 })
 
 const mapDispatchToProps = (dispatch) => {

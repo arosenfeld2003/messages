@@ -10,26 +10,12 @@ const Followers = (props) => {
   useEffect(() => {
     loadUserFollowers()
   }, [])
-  /*
-    userFollowers: {…}
-  ​    followers: (1) […]
-    ​​​​    0: {…}
-      ​​​​​    created_at: "2021-01-24T23:31:36.596Z"
-      ​​​​​    email: "testfour@test.com"
-      ​​​​​    firstname: null
-      ​​​​​    handle: "testfour"
-      ​​​​​    id: 4
-      ​​​​​    is_admin: false
-      ​​​​​    lastname: null
-      ​​​​​    updated_at: "2021-01-24T23:31:36.596Z"
-​​​    <prototype>: Object { … }
-​    length: 1
-  */
+
   return (
     <div>
       <h3 className="Followers">UserFollowers</h3>
       {
-        userFollowers.followers != undefined ? userFollowers.followers.map(follower => (
+        userFollowers[0] != undefined ? userFollowers.map(follower => (
           <p>{follower.handle}</p>
         )) : ''
       }
