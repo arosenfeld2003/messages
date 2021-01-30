@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import {onDeleteUser} from "../../redux/user/user-reducer";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
-import {onNewRelationship} from "../../redux/relationship/relationship-reducer";
+import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
 import { Redirect } from "react-router-dom";
 import "./profile-card.scss";
 
@@ -16,7 +16,9 @@ const ProfileCard = (props) => {
     onCreateNewRelationship,
     onChangeUpdateStatus,
     profileForAdmin,
-    totalPosts
+    totalPosts,
+    totalFollowers,
+    totalFollowed
   } = props;
   const history = useHistory();
 
@@ -39,9 +41,6 @@ const ProfileCard = (props) => {
   }
   
   const handleFollowAction = () => {
-    // console.log(user);
-    // console.log(currentUser);
-    // dispatch(onNewRelationship(currentUser, user));
     onCreateNewRelationship(currentUser, user);
   }
 
@@ -70,13 +69,13 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWERS</p>
-            <h4>250</h4>
+            <h4>{totalFollowers}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWING</p>
-            <h4>168</h4></div>
+            <h4>{totalFollowed}</h4></div>
         </div>
       </div>
 

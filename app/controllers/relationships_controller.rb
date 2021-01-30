@@ -26,15 +26,25 @@ class RelationshipsController < ApplicationController
 
   # params: userId
   def get_followers
-    p params[:userId]
     @relationships = Relationship.where("followed_id = ?", params[:userId])
     @followers = []
     @relationships.each do |rel|
       follower = User.where(id: rel.follower_id)
       @followers.push(follower[0])
     end
-    p @followers
     render json: {followers: @followers}
+  end
+
+  def get_followed
+    @relationships = Relationship.where("follower_id = ?", params[:userId])
+    p @relationships
+    @following = []
+    @relationships.each do |rel|
+      followed = User.where(id: rel.followed_id)
+      @following.push(followed[0])
+    end
+    p @following
+    render json: {following: @following}
   end
 
 end
