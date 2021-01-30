@@ -30,20 +30,19 @@ const ProfileCard = (props) => {
     history.push(path);
   }
 
-<<<<<<< HEAD
   const handleProfilePage = () => {
     let path = `dashboard/profile/${user.id}`;
     history.push({ 
         pathname: path,
         state: { profile: user }
     });
-=======
+  }
+  
   const handleFollowAction = () => {
     // console.log(user);
     // console.log(currentUser);
     // dispatch(onNewRelationship(currentUser, user));
     onCreateNewRelationship(currentUser, user);
->>>>>>> follow
   }
 
   if (!user) {
