@@ -26,6 +26,9 @@ const Home = (props) => {
             totalPosts={userFeed.length}/>
           </div>
           <div className="col p-3">
+            <Followers user={currentUser}/>
+          </div>
+          <div className="col p-3">
             <Feed user={currentUser}/>
           </div>
           <div className="col p-3">
