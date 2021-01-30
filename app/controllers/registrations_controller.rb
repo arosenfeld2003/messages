@@ -37,7 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @user = User.find_by_email(user_params[:email])
+    @user = User.find(params[:id])
 
     if @user.update_attributes(user_params)
       render json: @user
