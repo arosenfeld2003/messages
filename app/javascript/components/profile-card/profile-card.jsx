@@ -4,11 +4,20 @@ import {onDeleteUser} from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
+import {onNewRelationship} from "../../redux/relationship/relationship-reducer";
+import { Redirect } from "react-router-dom";
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
-
-  const {user, onDeleteProfile, onChangeUpdateStatus, profileForAdmin, totalPosts} = props;
+  const {
+    currentUser,
+    user,
+    onDeleteProfile,
+    onCreateNewRelationship,
+    onChangeUpdateStatus,
+    profileForAdmin,
+    totalPosts
+  } = props;
   const history = useHistory();
 
   const handleDeleteProfile = () => {
@@ -21,12 +30,20 @@ const ProfileCard = (props) => {
     history.push(path);
   }
 
+<<<<<<< HEAD
   const handleProfilePage = () => {
     let path = `dashboard/profile/${user.id}`;
     history.push({ 
         pathname: path,
         state: { profile: user }
     });
+=======
+  const handleFollowAction = () => {
+    // console.log(user);
+    // console.log(currentUser);
+    // dispatch(onNewRelationship(currentUser, user));
+    onCreateNewRelationship(currentUser, user);
+>>>>>>> follow
   }
 
   if (!user) {
@@ -63,6 +80,15 @@ const ProfileCard = (props) => {
             <h4>168</h4></div>
         </div>
       </div>
+
+      <div className="col">
+        <div className="btn-group-vertical">
+          <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
+            Follow
+          </Button>
+        </div>
+      </div>
+
       {
         profileForAdmin ? <div className="row">
           <div className="col">
@@ -86,7 +112,8 @@ const ProfileCard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  profileForAdmin: state.user.profile
+  profileForAdmin: state.user.profile,
+  currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -95,6 +122,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
+  },
+  onCreateNewRelationship: (user, currentUser) => {
+    dispatch(onNewRelationship(user, currentUser));
   }
 })
 
