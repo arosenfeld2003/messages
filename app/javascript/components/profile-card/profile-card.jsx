@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
-import {onGetProfileFollowing, onGetProfileFollowers} from "../../redux/profile/profile-actions";
-import API from "../../api";
+import { Redirect } from "react-router-dom";
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
   const {
     currentUser,
     user,
+    onDeleteProfile,
     onCreateNewRelationship,
     onChangeUpdateStatus,
     profileForAdmin,
@@ -19,49 +20,20 @@ const ProfileCard = (props) => {
     currentUserFollowers,
     currentUserFollowing
   } = props;
-
-  const [following, setFollowing] = useState([]);
-  const [followers, setFollowers] = useState([]);
-
-  const onGetProfileFollowers = (profile) => {
-    API.get("relationships/followers", {params: {userId: profile.id}})
-    .then((res) => {
-      console.log(res);
-      setFollowers(res.data.followers);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-  
-  const onGetProfileFollowing = (profile) => {
-    API.get("relationships/followed", {params: {userId: profile.id}})
-    .then((res) => {
-      setFollowing(res.data.following);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-
-  useEffect(() => {
-    if(user) {
-      onGetProfileFollowers(user);
-      onGetProfileFollowing(user);
-    }
-  }, [user])
-
   const history = useHistory();
+
+  const handleDeleteProfile = () => {
+    onDeleteProfile(user.id)
+  }
 
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
-    let path = `/profile/edit/${user.id}`;
-    history.push({ 
-      pathname: path,
-      state: { profile: user }
-  });
+    let path = `dashboard/profile/edit/${user.id}`;
+    history.push(path);
   }
 
   const handleProfilePage = () => {
-    let path = `/profile/${user.id}`;
+    let path = `dashboard/profile/${user.id}`;
     history.push({ 
         pathname: path,
         state: { profile: user }
@@ -82,17 +54,6 @@ const ProfileCard = (props) => {
 
   return <div className="profile-card-4 text-center">
     <div className="profile-content">
-      <div className="row">
-        <div className="col text-right">
-        <Button type="button"
-              className="btn btn-default btn-sm"
-              onClick={handleEditProfile}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
-                  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                </svg>
-              </Button>
-        </div>
-      </div>
       <div className="profile-name">
         {user.handle}
         <p>{user.email}</p>
@@ -102,22 +63,21 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>TWEETS</p>
-            <h4>{user.tweets ? user.tweets : currentUserTweets.length}</h4>
+            <h4>{user.tweets != undefined ? user.tweets : currentUserTweets.length}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWERS</p>
-            <h4>{user.followers ? user.followers : currentUserFollowers.length}</h4>
+            <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWING</p>
-            <h4>{user.following ? user.following : currentUserFollowing.length}</h4></div>
+            <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
         </div>
       </div>
-
       <div className="col">
         <div className="btn-group-vertical">
           <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
@@ -133,6 +93,13 @@ const ProfileCard = (props) => {
               <Button type="button"
                 className="btn btn-outline-primary"
                 onClick={handleProfilePage}>See Profile</Button>
+              <Button type="button"
+              className="btn btn-outline-primary"
+              onClick={handleEditProfile}>Edit Profile</Button>
+              <Button type="button"
+                className="btn btn-outline-danger"
+                onClick={handleDeleteProfile}>Delete profile
+              </Button>
             </div>
           </div>
         </div> : ""
@@ -150,17 +117,14 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  onDeleteProfile: (userId) => {
+    dispatch(onDeleteUser(userId));
+  },
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
   },
   onCreateNewRelationship: (user, currentUser) => {
     dispatch(onNewRelationship(user, currentUser));
-  },
-  onGetFollowers: (profile) => {
-    dispatch(onGetProfileFollowers(profile));
-  },
-  onGetFollowing: () => {
-    dispatch(onGetProfileFollowing(profile));
   }
 })
 
