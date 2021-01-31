@@ -42,10 +42,14 @@ const SearchForm = (props) => {
   </div>
 }
 
+const mapStateToProps = (state) => ({
+
+})
+
 const mapDispatchToProps = (dispatch) => ({
   onSearchRequest: (email) => {
     dispatch(onSearchUserProfile(email));
   }
 })
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

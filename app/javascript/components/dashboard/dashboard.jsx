@@ -8,11 +8,21 @@ import SearchForm from "../search-form/search-form";
 import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 import "./dashboard.scss";
+import { getUserFollowers } from "../../redux/user/user-actions";
 
-const Dashboard = ({user, profile, profileFeed, fetchProfileFeed}) => {
+const Dashboard = ({
+  user,
+  profile,
+  profileFeed,
+  fetchProfileFeed,
+  userFollowers,
+  userFollowing,
+  userFeed
+}) => {
 
   const loadProfileFeed = () => {
     if (profile) {
+      // console.log(profile);
       fetchProfileFeed(profile) || [];
     }
   }
@@ -36,7 +46,9 @@ const Dashboard = ({user, profile, profileFeed, fetchProfileFeed}) => {
               <div className="col">
                 <ProfileCard
                   user={user}
-                  totalPosts={profileFeed.length}
+                  currentUserTweets={userFeed.length}
+                  currentUserFollowers={userFollowers.length}
+                  currentUserFollowing={userFollowing.length}
                 />
               </div>
             </div>
@@ -53,7 +65,10 @@ const Dashboard = ({user, profile, profileFeed, fetchProfileFeed}) => {
 const mapStateToProps = (state) => ({
   user: state.user.profile,
   profileFeed: state.user.profileFeed,
-  profile: state.user.profile
+  profile: state.user.profile,
+  userFeed: state.user.userFeed,
+  userFollowers: state.user.userFollowers,
+  userFollowing: state.user.userFollowing
 })
 
 const mapDispatchToProps = (dispatch) => {

@@ -16,9 +16,9 @@ const ProfileCard = (props) => {
     onCreateNewRelationship,
     onChangeUpdateStatus,
     profileForAdmin,
-    totalPosts,
-    totalFollowers,
-    totalFollowed
+    currentUserTweets,
+    currentUserFollowers,
+    currentUserFollowing
   } = props;
   const history = useHistory();
 
@@ -63,19 +63,19 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>TWEETS</p>
-            <h4>{totalPosts}</h4>
+            <h4>{user.tweets ? user.tweets : currentUserTweets.length}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWERS</p>
-            <h4>{totalFollowers}</h4>
+            <h4>{user.followers ? user.followers : currentUserFollowers.length}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWING</p>
-            <h4>{totalFollowed}</h4></div>
+            <h4>{user.following ? user.following : currentUserFollowing.length}</h4></div>
         </div>
       </div>
 
@@ -111,7 +111,10 @@ const ProfileCard = (props) => {
 
 const mapStateToProps = (state) => ({
   profileForAdmin: state.user.profile,
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  currentUserTweets: state.user.userFeed,
+  currentUserFollowers: state.user.userFollowers,
+  currentUserFollowing: state.user.userFollowing
 })
 
 const mapDispatchToProps = (dispatch) => ({
