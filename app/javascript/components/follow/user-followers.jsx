@@ -15,8 +15,8 @@ const Followers = (props) => {
     <div>
       <h3 className="Followers">UserFollowers</h3>
       {
-        userFollowers[0] != undefined ? userFollowers.map(follower => (
-          <p>{follower.handle}</p>
+        userFollowers[0] != undefined ? userFollowers.map((follower, index) => (
+          <p key={index}>{follower.handle}</p>
         )) : ''
       }
     </div>
