@@ -1,0 +1,6 @@
+const profileTypes = {
+  GET_PROFILE_FOLLOWERS: `GET_PROFILE_FOLLOWERS`,
+  GET_PROFILE_FOLLOWING: `GET_PROFILE_FOLLOWING`,
+}
+
+export default profileTypes;

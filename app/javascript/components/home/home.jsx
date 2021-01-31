@@ -33,9 +33,9 @@ const Home = (props) => {
             <Followers user={currentUser}/>
           </div>
 
-            <div className="col-4 p-3">
-              <Following user={currentUser}/>
-            </div>
+          <div className="col-4 p-3">
+            <Following user={currentUser}/>
+          </div>
 
           <div className="col-4 p-3">
             <Feed user={currentUser}/>

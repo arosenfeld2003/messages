@@ -27,9 +27,9 @@ const App = (props) => {
           <Route exact path='/signup' component={SignUpPage} />
           <Route exact path='/login' component={SignInPage} />
           <Route exact path='/dashboard' component={Dashboard}/>
-          <Route exact path='/dashboard/profile/edit/:id' component={EditProfilePage}/>
+          <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
           <Route exact path='/users/:id' component={UserInfoPage}/>
-          <Route exact path='/dashboard/profile/:id' component={ProfilePage}/>
+          <Route exact path='/profile/:id' component={ProfilePage}/>
         </Switch>
       </Router>
   </div>

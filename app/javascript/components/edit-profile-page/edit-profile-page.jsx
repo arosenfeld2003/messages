@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { onUpdateUserFromAdmin } from "../../redux/user/user-reducer";
 import FormInput from "../form-input/form-input";
 import Header from "../header/header";
 import { Redirect, useHistory } from "react-router-dom";
 import ProfileCard from "../profile-card/profile-card";
+import Button from "../button/button";
+import { onDeleteUser } from "../../redux/user/user-reducer";
+
+import "./edit-profile-page.scss";
+
 
 const EditProfilePage = (props) => {
 
-    const {user, onUserProfileUpdate, profileUpdateStatus} = props;
+    const {onUserProfileUpdate, profileUpdateStatus, onDeleteProfile} = props;
 
     const [userValues, setUserValues] = useState({});
+    const [user, setUser] = useState({});
     const history = useHistory();
+
+    useEffect(() => {
+      setUser(props.location.state.profile);
+    })
 
     const handleChange = (evt) => {
       const { target } = evt;
@@ -24,16 +34,16 @@ const EditProfilePage = (props) => {
       onUserProfileUpdate(user.id, userValues);
     }
 
+    const handleDeleteProfile = () => {
+      onDeleteProfile(user.id)
+    }
+
     const handleCancelAction = () => {
       history.goBack();
     }
 
-    if (!user) {
-      return <Redirect to="/dashboard" />
-    }
-
     if (profileUpdateStatus === true) {
-      return <Redirect to="/dashboard" />
+      //return <Redirect to="/dashboard" />
     }
 
     return <div className="edit-profile-page">
@@ -95,17 +105,24 @@ const EditProfilePage = (props) => {
                 <div className="form-group">
                   <label className="col-md-3 control-label"></label>
                   <div className="col-md-8">
-                    <button type="button" className="btn btn-primary" value="Save Changes" onClick={handleUserUpdate}>Save Changes</button>
+                    <Button type="button"
+                      className="btn btn-primary"
+                      onClick={handleUserUpdate}>Save Changes
+                    </Button>
                     <span></span>
-                    <button type="reset" className="btn btn-default" value="Cancel" onClick={handleCancelAction}>Cancel</button>
+                    <Button type="button"
+                      className="btn btn-outline-danger"
+                      onClick={handleDeleteProfile}>Delete profile
+                    </Button>
+                    <span></span>
+                    <Button type="reset"
+                      className="btn btn-default"
+                      value="Cancel"
+                      onClick={handleCancelAction}>Cancel
+                    </Button>
                   </div>
                 </div>
               </form>
-            </div>
-            <div className="col-4">
-                <ProfileCard
-                  user={user}
-                />
             </div>
         </div>
       </div>
@@ -113,14 +130,16 @@ const EditProfilePage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user.profile,
     profileUpdateStatus: state.user.profileUpdateStatus
 })
 
 const mapDispatchToProps = (dispatch) => ({
     onUserProfileUpdate: (userId, userValues) => {
       dispatch(onUpdateUserFromAdmin(userId, userValues));
-    }
+    },
+    onDeleteProfile: (userId) => {
+      dispatch(onDeleteUser(userId));
+    },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfilePage);
