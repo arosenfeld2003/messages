@@ -124,11 +124,6 @@ const EditProfilePage = (props) => {
                 </div>
               </form>
             </div>
-            <div className="col-4">
-                <ProfileCard
-                  user={user}
-                />
-            </div>
         </div>
       </div>
     </div>

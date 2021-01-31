@@ -23,8 +23,7 @@ const INITIAL_STATE = {
   userFeed: {},
   profileFeed: [],
   userFollowers: {},
-  userFollowing: {},
-  isProfileView: false
+  userFollowing: {}
 }
 
 const onSignUpRequest = (userValues) => {

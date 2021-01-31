@@ -50,8 +50,3 @@ export const getUserFollowing = (userFollowing) => ({
   type: userTypes.GET_USER_FOLLOWING,
   payload: userFollowing
 })
-
-export const setIsProfileView = (status) => ({
-  type: userTypes.SET_PROFILE_VIEW,
-  payload: status
-})
