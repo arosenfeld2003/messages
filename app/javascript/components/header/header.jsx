@@ -1,19 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
+import {setUserProfile} from "../../redux/user/user-actions";
 
 import "./header.scss";
 
 const Header = (props) => {
-    const {currentUser, handleLogoutRequest} = props;
+    const {handleLogoutRequest, resetProfile} = props;
+
+    const history = useHistory();
+
+    const onResetProfile = () => {
+      resetProfile();
+      history.push("/");
+    }
 
     return <header className="main-header">
     <div className="container">
       <div className="row">
         <div className="col-6 p-3">
-        <Link to="/" className="btn btn btn-primary my-2 my-sm-0">User Homepage</Link>
+          <Button
+            type="button"
+            className="btn btn-primary"
+            onClick={onResetProfile}>
+            User Homepage
+          </Button>
         </div>
         <div className="col-6 p-3">
             <div className="row">
@@ -40,6 +54,9 @@ const mapStateToProps = (state) => ({
   const mapDispatchToProps = (dispatch) => ({
     handleLogoutRequest: () => {
       dispatch(onLogoutRequest());
+    },
+    resetProfile: () => {
+      dispatch(setUserProfile(null));
     }
   })
   

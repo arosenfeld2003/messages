@@ -1,25 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
-import { Redirect } from "react-router-dom";
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
   const {
     currentUser,
     user,
-    onDeleteProfile,
     onCreateNewRelationship,
     onChangeUpdateStatus,
-    profileForAdmin,
-    currentUserTweets,
+    profile,
+    totalPosts,
     currentUserFollowers,
     currentUserFollowing
   } = props;
+  
   const history = useHistory();
 
   const handleEditProfile = () => {
@@ -74,7 +73,7 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>TWEETS</p>
-            <h4>{user.tweets != undefined ? user.tweets : currentUserTweets.length}</h4>
+            <h4>{totalPosts ? totalPosts : "0"}</h4>
           </div>
         </div>
         <div className="col">
@@ -98,7 +97,7 @@ const ProfileCard = (props) => {
       </div>
 
       {
-        profileForAdmin ? <div className="row">
+        profile &&  profile !== currentUser? <div className="row">
           <div className="col">
             <div className="btn-group-vertical">
               <Button type="button"
@@ -113,9 +112,9 @@ const ProfileCard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  profileForAdmin: state.user.profile,
+  profile: state.user.profile,
   currentUser: state.user.currentUser,
-  currentUserTweets: state.user.userFeed,
+  //currentUserTweets: state.user.userFeed,
   currentUserFollowers: state.user.userFollowers,
   currentUserFollowing: state.user.userFollowing
 })
