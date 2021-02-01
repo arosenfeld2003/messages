@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "../header/header";
 import ProfileCard from "../profile-card/profile-card";
-// import ProfileContent from "../profile-content/profile-content";
 import CreateUserForm from "../create-user-form/create-user-form";
 import SearchForm from "../search-form/search-form";
 import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 import "./dashboard.scss";
-import { getUserFollowers } from "../../redux/user/user-actions";
 
 const Dashboard = ({
   user,
@@ -46,7 +44,7 @@ const Dashboard = ({
               <div className="col">
                 <ProfileCard
                   user={user}
-                  currentUserTweets={userFeed.length}
+                  totalPosts={profileFeed.length}
                   currentUserFollowers={userFollowers.length}
                   currentUserFollowing={userFollowing.length}
                 />

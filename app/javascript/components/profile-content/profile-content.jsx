@@ -21,9 +21,9 @@ const ProfileContent = (props) => {
 
   // is user is admin don't show follow button (will add later)
 
-  // const handleFollowAction = () => {
-  //   alert("Clicked!");
-  // }
+  const handleFollowAction = () => {
+    alert("Clicked!");
+  }
 
   return <div className="main-content">
     <div className="container">
