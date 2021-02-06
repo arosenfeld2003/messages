@@ -6,8 +6,8 @@ import Feed from "../tweet/feed";
 import Followers from "../follow/user-followers";
 import Following from "../follow/user-following";
 import ProfileCard from "../profile-card/profile-card";
-import SearchForm from "../search-form/search-form";
 import SubmitNewTweet from "../tweet/newTweet";
+import Suggestions from "../suggestions/suggestions";
 
 const Home = (props) => {
   const {currentUser, userFeed, userFollowers, userFollowing} = props;
@@ -34,7 +34,7 @@ const Home = (props) => {
             <Feed user={currentUser}/>
           </div>
           <div className="col-3 p-3">
-            Follow Suggestions
+            <Suggestions />
           </div>
         </div>
         <div className="row">
