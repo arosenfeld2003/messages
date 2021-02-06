@@ -14,19 +14,31 @@
             margin-bottom: 5px;
         }
     }
+
+    .top-wrap {
+        background-color: #007bff;
+        text-align: left!important;
+        padding: 15px;
+        padding-bottom: 0;
+        .btn-default {
+            color: #ffffff;
+        }
+    }
+
+    
 }
 
 .profile-card-4 .profile-content {
     position: relative;
-    padding: 15px;
+    padding: 0!important;
     background-color: #FFF;
 }
 
 .profile-card-4 .profile-name {
     font-weight: bold;
     font-size: 17px;
-    color: #273751;
-    border-bottom: 2px solid #273751;
+    color:#FFFFFF!important;
+    border-bottom: none !important;
 }
 
 .profile-card-4 .profile-name p {

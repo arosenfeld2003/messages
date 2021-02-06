@@ -30,18 +30,16 @@ const Home = (props) => {
             />
           </div>
           <div className="col-4 p-3">
-            <Followers user={currentUser}/>
-          </div>
-
-          <div className="col-4 p-3">
-            <Following user={currentUser}/>
-          </div>
-
-          <div className="col-4 p-3">
+            <SubmitNewTweet />
             <Feed user={currentUser}/>
           </div>
+        </div>
+        <div className="row">
           <div className="col-4 p-3">
-            <SubmitNewTweet />
+            <Followers user={currentUser}/>
+          </div>
+          <div className="col-4 p-3">
+            <Following user={currentUser}/>
           </div>
         </div>
       </div>

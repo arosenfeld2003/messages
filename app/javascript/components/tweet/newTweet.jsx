@@ -24,7 +24,7 @@ const SubmitNewTweet  = (props) => {
   }
 
   return <form method="" action="">
-    <div className="card profile-card-4" style={{width: 18 + 'rem'}}>
+    <div className="card profile-card-4">
       <div className="card-header">
         Post New Tweet
       </div>

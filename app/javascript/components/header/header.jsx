@@ -24,21 +24,29 @@ const Header = (props) => {
         <div className="col-6 p-3">
           <Button
             type="button"
-            className="btn btn-primary"
+            className="header-logo"
             onClick={onResetProfile}>
-            User Homepage
+            NewsPaper
           </Button>
         </div>
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-                <Link to="/dashboard" className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
-                  <Button
-                    type="button"
-                    className="btn btn-link text-secondary"
-                    onClick={handleLogoutRequest}>
-                    Sign Out
-                  </Button>
+                <Link to="/dashboard" className="btn btn-light">Dashboard</Link>
+              </div>
+              <div className="col text-right">
+                <Button
+                  type="button"
+                  className="btn btn-outline-light"
+                  onClick={handleLogoutRequest}>
+                  New Tweet
+                </Button>
+                <Button
+                  type="button"
+                  className="btn btn-link text-secondary"
+                  onClick={handleLogoutRequest}>
+                  Sign Out
+                </Button>
               </div>
             </div>
         </div>
