@@ -50,7 +50,7 @@ const ProfileCard = (props) => {
     </div>
   }
 
-  return <div className="profile-card-4 text-center p-0">
+  return <div className="profile-card-4">
     <div className="profile-content">
       <div className="top-wrap">
         <div className="profile-name">
@@ -74,8 +74,8 @@ const ProfileCard = (props) => {
         </div>
       </div>
       <div className="profile-description">
-          <p>Joined since: <strong>{user.created_at}</strong></p>
-            <div className="profile-description-wrap">
+          <p>Member since: <strong>{user.created_at.slice(0, 10)}</strong></p>
+            <div className="profile-description-wrap text-center">
               <div className="profile-overview">
                 <p>TWEETS</p>
                 <h4>{totalPosts ? totalPosts : "0"}</h4>
