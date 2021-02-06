@@ -88,14 +88,14 @@ const ProfileCard = (props) => {
             <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
         </div>
       </div>
-      <div className="col">
-        <div className="btn-group-vertical">
-          <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
-            Follow
-          </Button>
-        </div>
-      </div>
-
+      { currentUser !== user ? <div className="col">
+          <div className="btn-group-vertical">
+            <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
+              Follow
+            </Button>
+          </div>
+        </div> : ""
+      }
       {
         profile &&  profile !== currentUser? <div className="row">
           <div className="col">
