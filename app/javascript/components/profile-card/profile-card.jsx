@@ -57,7 +57,7 @@ const ProfileCard = (props) => {
           {
             user.firstname || user.lastname ? <h3>{user.firstname} {user.lastname}</h3> : ''
           }
-          <p>{user.handle}</p>
+          <p>@{user.handle}</p>
           <p>{user.email}</p>
         </div>
         <div className="row">
@@ -73,33 +73,24 @@ const ProfileCard = (props) => {
           </div>
         </div>
       </div>
-      <div className="profile-description">Joined since: <strong>{user.created_at}</strong></div>
-      <div className="row">
-        <div className="col">
-          <div className="profile-overview">
-            <p>TWEETS</p>
-            <h4>{totalPosts ? totalPosts : "0"}</h4>
+      <div className="profile-description">
+          <p>Joined since: <strong>{user.created_at}</strong></p>
+            <div className="profile-description-wrap">
+              <div className="profile-overview">
+                <p>TWEETS</p>
+                <h4>{totalPosts ? totalPosts : "0"}</h4>
+              </div>
+              <div className="profile-overview">
+                <p>FOLLOWERS</p>
+                <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
+              </div>
+              <div className="profile-overview">
+                <p>FOLLOWING</p>
+                <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
+            </div>
           </div>
         </div>
-        <div className="col">
-          <div className="profile-overview">
-            <p>FOLLOWERS</p>
-            <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
-          </div>
-        </div>
-        <div className="col">
-          <div className="profile-overview">
-            <p>FOLLOWING</p>
-            <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
-        </div>
-      </div>
       <div className="col">
-        <div className="btn-group-vertical">
-          <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
-            Follow
-          </Button>
-        </div>
-      </div>
 
       {
         profile &&  profile !== currentUser? <div className="row">
@@ -108,6 +99,9 @@ const ProfileCard = (props) => {
               <Button type="button"
                 className="btn btn-outline-primary"
                 onClick={handleProfilePage}>See Profile</Button>
+              <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
+                Follow
+              </Button>
             </div>
           </div>
         </div> : ""

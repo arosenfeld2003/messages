@@ -5,17 +5,22 @@ import { useHistory } from "react-router-dom";
 import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
 import {setUserProfile} from "../../redux/user/user-actions";
+import {setNewTweetPopup} from "../../redux/tweet/tweet-actions";
 
 import "./header.scss";
 
 const Header = (props) => {
-    const {handleLogoutRequest, resetProfile} = props;
+    const {handleLogoutRequest, resetProfile, handleNewTweetPopup} = props;
 
     const history = useHistory();
 
     const onResetProfile = () => {
       resetProfile();
       history.push("/");
+    }
+
+    const handleNewTweetForm = () => {
+      handleNewTweetPopup(true);
     }
 
     return <header className="main-header">
@@ -38,12 +43,12 @@ const Header = (props) => {
                 <Button
                   type="button"
                   className="btn btn-outline-light"
-                  onClick={handleLogoutRequest}>
+                  onClick={handleNewTweetForm}>
                   New Tweet
                 </Button>
                 <Button
                   type="button"
-                  className="btn btn-link text-secondary"
+                  className="btn btn-link text-light"
                   onClick={handleLogoutRequest}>
                   Sign Out
                 </Button>
@@ -65,6 +70,9 @@ const mapStateToProps = (state) => ({
     },
     resetProfile: () => {
       dispatch(setUserProfile(null));
+    },
+    handleNewTweetPopup: (status) => {
+      dispatch(setNewTweetPopup(status))
     }
   })
   

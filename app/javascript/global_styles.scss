@@ -20,3 +20,28 @@ body {
 .form-control.input-lg {
     width: 80%;
 }
+
+.modal {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0!important;
+}
+
+.modal-dialog {
+    max-width: 100%;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0!important;
+}
+
+.modal-open {
+    display: block;
+}
+
+.modal-close {
+    display: none;
+}

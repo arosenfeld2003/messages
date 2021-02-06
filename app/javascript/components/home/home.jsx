@@ -21,7 +21,7 @@ const Home = (props) => {
     <div className="main-content">
       <div className="container">
         <div className="row">
-          <div className="col-4 p-3">
+          <div className="col-3 p-3">
             <ProfileCard
               user={currentUser}
               totalPosts={userFeed.length}
@@ -29,9 +29,12 @@ const Home = (props) => {
               totalFollowed={userFollowing.length}
             />
           </div>
-          <div className="col-4 p-3">
+          <div className="col-6 p-3">
             <SubmitNewTweet />
             <Feed user={currentUser}/>
+          </div>
+          <div className="col-3 p-3">
+            Follow Suggestions
           </div>
         </div>
         <div className="row">
