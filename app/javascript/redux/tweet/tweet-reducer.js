@@ -26,7 +26,7 @@ const onNewTweet = (newTweet) => {
 const onDeleteTweet = (tweetId) => {
   return (dispatch, getState) => {
     console.log(tweetId);
-    API.delete("tweets", {data: tweetId})
+    API.delete("tweets", {data: {id: tweetId}})
     .then((res) => {
       console.log(res);
       dispatch(deleteTweet(res));

@@ -58,7 +58,7 @@ const UpdateFeed = (props) => {
                     </svg>
                   </button>
                   {user.handle === tweet.handle &&
-                    <DeleteTweetButton/>
+                    <DeleteTweetButton tweet={tweet}/>
                   }
                 </div>
               </div>
