@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
+import FollowButton from "../../components/follow-button/follow-button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
-import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
@@ -15,8 +15,8 @@ const ProfileCard = (props) => {
     onChangeUpdateStatus,
     profile,
     totalPosts,
-    currentUserFollowers,
-    currentUserFollowing
+    userFollowers,
+    userFollowing
   } = props;
   
   const history = useHistory();
@@ -36,10 +36,6 @@ const ProfileCard = (props) => {
         pathname: path,
         state: { profile: user }
     });
-  }
-  
-  const handleFollowAction = () => {
-    onCreateNewRelationship(currentUser, user);
   }
 
   if (!user) {
@@ -79,23 +75,25 @@ const ProfileCard = (props) => {
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWERS</p>
-            <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
+            <h4>{user.followers != undefined ? user.followers : userFollowers.length}</h4>
           </div>
         </div>
         <div className="col">
           <div className="profile-overview">
             <p>FOLLOWING</p>
-            <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
+            <h4>{user.following != undefined ? user.following : userFollowing.length}</h4></div>
         </div>
       </div>
-      { currentUser !== user ? <div className="col">
-          <div className="btn-group-vertical">
-            <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
-              Follow
-            </Button>
-          </div>
-        </div> : ""
+
+      { currentUser !== user ?
+        <FollowButton
+          user={user}
+          currentUser={currentUser}
+          userFollowers={userFollowers}
+          profile={profile}
+        />  : ""
       }
+
       {
         profile &&  profile !== currentUser? <div className="row">
           <div className="col">
@@ -115,8 +113,8 @@ const mapStateToProps = (state) => ({
   profile: state.user.profile,
   currentUser: state.user.currentUser,
   //currentUserTweets: state.user.userFeed,
-  currentUserFollowers: state.user.userFollowers,
-  currentUserFollowing: state.user.userFollowing
+  userFollowers: state.user.userFollowers,
+  userFollowing: state.user.userFollowing
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -125,9 +123,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
-  },
-  onCreateNewRelationship: (user, currentUser) => {
-    dispatch(onNewRelationship(user, currentUser));
   }
 })
 

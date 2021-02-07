@@ -8,15 +8,16 @@ import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 import "./dashboard.scss";
 
-const Dashboard = ({
-  user,
-  profile,
-  profileFeed,
-  fetchProfileFeed,
-  userFollowers,
-  userFollowing,
-  userFeed
-}) => {
+const Dashboard = (props) => {
+  const {
+    user,
+    profile,
+    profileFeed,
+    fetchProfileFeed,
+    userFollowers,
+    userFollowing,
+    userFeed
+  } = props;
 
   const loadProfileFeed = () => {
     if (profile) {
@@ -30,7 +31,9 @@ const Dashboard = ({
   }, [profile])
 
   return <div className="dashboard">
-    <Header />
+    <Header
+
+    />
     <div className="main-content">
       <div className="container">
         <div className="row p-3">
@@ -45,8 +48,8 @@ const Dashboard = ({
                 <ProfileCard
                   user={user}
                   totalPosts={profileFeed.length}
-                  currentUserFollowers={userFollowers.length}
-                  currentUserFollowing={userFollowing.length}
+                  userFollowers={userFollowers}
+                  userFollowing={userFollowing}
                 />
               </div>
             </div>

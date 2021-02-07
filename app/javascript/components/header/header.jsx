@@ -9,7 +9,7 @@ import {setUserProfile} from "../../redux/user/user-actions";
 import "./header.scss";
 
 const Header = (props) => {
-    const {handleLogoutRequest, resetProfile} = props;
+    const {handleLogoutRequest, resetProfile, currentUser} = props;
 
     const history = useHistory();
 
@@ -32,7 +32,10 @@ const Header = (props) => {
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-                <Link to="/dashboard" className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
+                <Link to={{
+                  pathname: '/dashboard',
+                  state: { user: currentUser }
+                }} className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
                   <Button
                     type="button"
                     className="btn btn-link text-secondary"
@@ -48,16 +51,16 @@ const Header = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser
-  })
-  
-  const mapDispatchToProps = (dispatch) => ({
-    handleLogoutRequest: () => {
-      dispatch(onLogoutRequest());
-    },
-    resetProfile: () => {
-      dispatch(setUserProfile(null));
-    }
-  })
-  
+  currentUser: state.user.currentUser
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  handleLogoutRequest: () => {
+    dispatch(onLogoutRequest());
+  },
+  resetProfile: () => {
+    dispatch(setUserProfile(null));
+  }
+})
+
   export default connect(mapStateToProps, mapDispatchToProps)(Header);
