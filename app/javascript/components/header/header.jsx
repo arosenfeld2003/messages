@@ -5,11 +5,12 @@ import { useHistory } from "react-router-dom";
 import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
 import {setUserProfile} from "../../redux/user/user-actions";
+import {setNewTweetPopup} from "../../redux/tweet/tweet-actions";
 
 import "./header.scss";
 
 const Header = (props) => {
-    const {handleLogoutRequest, resetProfile, currentUser} = props;
+    const {handleLogoutRequest, resetProfile, handleNewTweetPopup, currentUser} = props;
 
     const history = useHistory();
 
@@ -18,30 +19,42 @@ const Header = (props) => {
       history.push("/");
     }
 
+    const handleNewTweetForm = () => {
+      handleNewTweetPopup(true);
+    }
+
     return <header className="main-header">
     <div className="container">
       <div className="row">
         <div className="col-6 p-3">
           <Button
             type="button"
-            className="btn btn-primary"
+            className="header-logo"
             onClick={onResetProfile}>
-            User Homepage
+            NewsPaper
           </Button>
         </div>
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-                <Link to={{
+              <Link to={{
                   pathname: '/dashboard',
                   state: { user: currentUser }
-                }} className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
-                  <Button
-                    type="button"
-                    className="btn btn-link text-secondary"
-                    onClick={handleLogoutRequest}>
-                    Sign Out
-                  </Button>
+                }} className="btn btn btn-light my-2 my-sm-0">Dashboard</Link>
+              </div>
+              <div className="col text-right">
+                <Button
+                  type="button"
+                  className="btn btn-outline-light"
+                  onClick={handleNewTweetForm}>
+                  New Tweet
+                </Button>
+                <Button
+                  type="button"
+                  className="btn btn-link text-light"
+                  onClick={handleLogoutRequest}>
+                  Sign Out
+                </Button>
               </div>
             </div>
         </div>
@@ -51,16 +64,19 @@ const Header = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  handleLogoutRequest: () => {
-    dispatch(onLogoutRequest());
-  },
-  resetProfile: () => {
-    dispatch(setUserProfile(null));
-  }
-})
-
+    currentUser: state.user.currentUser
+  })
+  
+  const mapDispatchToProps = (dispatch) => ({
+    handleLogoutRequest: () => {
+      dispatch(onLogoutRequest());
+    },
+    resetProfile: () => {
+      dispatch(setUserProfile(null));
+    },
+    handleNewTweetPopup: (status) => {
+      dispatch(setNewTweetPopup(status))
+    }
+  })
+  
   export default connect(mapStateToProps, mapDispatchToProps)(Header);
