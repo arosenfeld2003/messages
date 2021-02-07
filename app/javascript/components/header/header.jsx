@@ -10,7 +10,7 @@ import {setNewTweetPopup} from "../../redux/tweet/tweet-actions";
 import "./header.scss";
 
 const Header = (props) => {
-    const {handleLogoutRequest, resetProfile, handleNewTweetPopup} = props;
+    const {handleLogoutRequest, resetProfile, handleNewTweetPopup, currentUser} = props;
 
     const history = useHistory();
 
@@ -37,7 +37,10 @@ const Header = (props) => {
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-                <Link to="/dashboard" className="btn btn-light">Dashboard</Link>
+              <Link to={{
+                  pathname: '/dashboard',
+                  state: { user: currentUser }
+                }} className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
               </div>
               <div className="col text-right">
                 <Button
@@ -52,6 +55,12 @@ const Header = (props) => {
                   onClick={handleLogoutRequest}>
                   Sign Out
                 </Button>
+                  <Button
+                    type="button"
+                    className="btn btn-link text-secondary"
+                    onClick={handleLogoutRequest}>
+                    Sign Out
+                  </Button>
               </div>
             </div>
         </div>

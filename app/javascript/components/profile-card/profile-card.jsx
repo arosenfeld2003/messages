@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { connect } from "react-redux";
 import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
+import FollowButton from "../../components/follow-button/follow-button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
@@ -18,8 +19,8 @@ const ProfileCard = (props) => {
     onChangeUpdateStatus,
     profile,
     totalPosts,
-    currentUserFollowers,
-    currentUserFollowing
+    userFollowers,
+    userFollowing
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
@@ -42,10 +43,6 @@ const ProfileCard = (props) => {
         pathname: path,
         state: { profile: user }
     });
-  }
-  
-  const handleFollowAction = () => {
-    onCreateNewRelationship(currentUser, user);
   }
 
   const handleFollowersModalStatus = () => {
@@ -77,7 +74,7 @@ const ProfileCard = (props) => {
   }
 
   return <div>
-  <div className="profile-card-4">
+    <div><div className="profile-card-4">
     <div className="profile-content">
       <div className="top-wrap">
         <div className="profile-name">
@@ -117,7 +114,15 @@ const ProfileCard = (props) => {
             </div>
           </div>
         </div>
-      <div className="col">
+
+      { currentUser !== user ?
+        <FollowButton
+          user={user}
+          currentUser={currentUser}
+          userFollowers={userFollowers}
+          profile={profile}
+        />  : ""
+      }
 
       {
         profile &&  profile !== currentUser? <div className="row">
@@ -152,7 +157,9 @@ const mapStateToProps = (state) => ({
   profile: state.user.profile,
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
-  currentUserFollowing: state.user.userFollowing
+  currentUserFollowing: state.user.userFollowing,
+  userFollowers: state.user.userFollowers,
+  userFollowing: state.user.userFollowing
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -161,9 +168,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
-  },
-  onCreateNewRelationship: (user, currentUser) => {
-    dispatch(onNewRelationship(user, currentUser));
   }
 })
 
