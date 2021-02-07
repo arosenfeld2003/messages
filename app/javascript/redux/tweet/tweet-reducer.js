@@ -6,6 +6,7 @@ import { onGetUserFeed } from "../user/user-reducer";
 const INITIAL_STATE = {
   newTweet: null,
   userFeed: null,
+  newTweetPopup: false
 }
 
 const onNewTweet = (newTweet) => {
@@ -25,7 +26,7 @@ const onNewTweet = (newTweet) => {
 const onDeleteTweet = (tweetId) => {
   return (dispatch, getState) => {
     console.log(tweetId);
-    API.delete("tweets", {data: tweetId})
+    API.delete("tweets", {data: {id: tweetId}})
     .then((res) => {
       console.log(res);
       dispatch(deleteTweet(res));
@@ -49,6 +50,11 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         deleteTweet: action.payload
+      }
+    case tweetTypes.SET_NEW_TWEET_POPUP_STATUS:
+      return {
+        ...state,
+        newTweetPopup: action.payload
       }
     default:
       return state;

@@ -10,3 +10,7 @@ export const deleteTweet = (tweetId) => ({
   payload: deleteTweet
 });
 
+export const setNewTweetPopup = (status) => ({
+  type: tweetTypes.SET_NEW_TWEET_POPUP_STATUS,
+  payload: status
+});

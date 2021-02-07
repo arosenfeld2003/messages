@@ -1,30 +1,60 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
+import {setUserProfile} from "../../redux/user/user-actions";
+import {setNewTweetPopup} from "../../redux/tweet/tweet-actions";
 
 import "./header.scss";
 
 const Header = (props) => {
-    const {currentUser, handleLogoutRequest} = props;
+    const {handleLogoutRequest, resetProfile, handleNewTweetPopup, currentUser} = props;
+
+    const history = useHistory();
+
+    const onResetProfile = () => {
+      resetProfile();
+      history.push("/");
+    }
+
+    const handleNewTweetForm = () => {
+      handleNewTweetPopup(true);
+    }
 
     return <header className="main-header">
     <div className="container">
       <div className="row">
         <div className="col-6 p-3">
-          <h1 className="logo">NewsPaper</h1>
+          <Button
+            type="button"
+            className="header-logo"
+            onClick={onResetProfile}>
+            NewsPaper
+          </Button>
         </div>
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-                <Link to="/dashboard" className="btn btn btn-primary my-2 my-sm-0">Dashboard</Link>
-                  <Button 
-                    type="button"
-                    className="btn btn-link text-secondary"
-                    onClick={handleLogoutRequest}>
-                    Sign Out
-                  </Button>
+              <Link to={{
+                  pathname: '/dashboard',
+                  state: { user: currentUser }
+                }} className="btn btn btn-light my-2 my-sm-0">Dashboard</Link>
+              </div>
+              <div className="col text-right">
+                <Button
+                  type="button"
+                  className="btn btn-outline-light"
+                  onClick={handleNewTweetForm}>
+                  New Tweet
+                </Button>
+                <Button
+                  type="button"
+                  className="btn btn-link text-light"
+                  onClick={handleLogoutRequest}>
+                  Sign Out
+                </Button>
               </div>
             </div>
         </div>
@@ -40,6 +70,12 @@ const mapStateToProps = (state) => ({
   const mapDispatchToProps = (dispatch) => ({
     handleLogoutRequest: () => {
       dispatch(onLogoutRequest());
+    },
+    resetProfile: () => {
+      dispatch(setUserProfile(null));
+    },
+    handleNewTweetPopup: (status) => {
+      dispatch(setNewTweetPopup(status))
     }
   })
   

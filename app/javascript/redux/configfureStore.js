@@ -3,9 +3,13 @@ import {combineReducers} from "redux";
 import thunk from 'redux-thunk';
 import logger from "redux-logger";
 import {userReducer} from "./user/user-reducer";
+import {profileReducer} from "./profile/profile-reducer";
+import {tweetReducer} from "./tweet/tweet-reducer";
 
 export const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  profile: profileReducer,
+  tweet: tweetReducer
 });
 
 const middlewares = [logger, thunk];

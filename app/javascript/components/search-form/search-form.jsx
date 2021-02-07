@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import API from "../../api";
 import {connect} from "react-redux";
 import FormInput from "../form-input/form-input";
 import {onSearchUserProfile} from "../../redux/user/user-reducer";
@@ -43,10 +42,14 @@ const SearchForm = (props) => {
   </div>
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    onSearchRequest: (email) => {
-        dispatch(onSearchUserProfile(email));
-    }
+const mapStateToProps = (state) => ({
+
 })
 
-export default connect(null, mapDispatchToProps)(SearchForm);
+const mapDispatchToProps = (dispatch) => ({
+  onSearchRequest: (email) => {
+    dispatch(onSearchUserProfile(email));
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

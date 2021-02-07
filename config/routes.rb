@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   
   get '/feed' => 'tweets#get_user_feed'
 
+  post '/relationships' => 'relationships#new'
+  delete '/relationships' => 'relationships#delete'
+  get '/relationships/followers' => 'relationships#get_followers'
+  get '/relationships/followed' => 'relationships#get_following'
+
   get '*path', to: 'home#index'
 
 end

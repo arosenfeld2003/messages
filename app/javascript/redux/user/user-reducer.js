@@ -1,4 +1,15 @@
-import {setCurrentUser, setLoggedIn, setLogginError, setUserProfile, setNewUserFromAdmin, setProfileUpdateStatus, getUserFeed} from "./user-actions";
+import {
+  setCurrentUser,
+  setLoggedIn,
+  setLogginError,
+  setUserProfile,
+  setNewUserFromAdmin,
+  setProfileUpdateStatus,
+  getUserFeed,
+  getUserFollowers,
+  getUserFollowing,
+  setProfileFeed
+} from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
 
@@ -10,6 +21,9 @@ const INITIAL_STATE = {
   createNewUserFromAdmin: null,
   profileUpdateStatus: null,
   userFeed: {},
+  profileFeed: [],
+  userFollowers: [],
+  userFollowing: []
 }
 
 const onSignUpRequest = (userValues) => {
@@ -83,7 +97,7 @@ const onSearchUserProfile = (searchValue) => {
     }})
     .then((res) => {
       console.log(res.data);
-      dispatch(setUserProfile(res.data))
+      dispatch(setUserProfile(res.data));
     }).catch((error) => {
       alert("User not found!");
     })
@@ -145,6 +159,43 @@ const onUpdateUserFromAdmin = (userId, userValues) => {
   }
 }
 
+const onGetProfileFeed = (profile) => {
+  return (dispatch) => {
+    API.get("feed", {params: {handle: profile.handle}})
+    .then((res) => {
+      dispatch(setProfileFeed(res.data));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
+const onGetUserFollowers = (currentUser) => {
+  return (dispatch) => {
+    API.get("relationships/followers", {params: {userId: currentUser.id}})
+    .then((res) => {
+      console.log(res);
+      dispatch(getUserFollowers(res.data.followers));
+    }).catch((error) => {
+      // we need to handle errors here!
+      console.log(error);
+    })
+  }
+}
+
+const onGetUserFollowing = (currentUser) => {
+  return (dispatch) => {
+    API.get("relationships/followed", {params: {userId: currentUser.id}})
+    .then((res) => {
+      console.log(res);
+      dispatch(getUserFollowing(res.data.following));
+    }).catch((error) => {
+      // we need to handle errors here!
+      console.log(error);
+    })
+  }
+}
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case userTypes.SET_CURRENT_USER:
@@ -182,6 +233,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userFeed: action.payload
       }
+    case userTypes.SET_PROFILE_FEED:
+      return {
+        ...state,
+        profileFeed: action.payload
+      }
+    case userTypes.GET_USER_FOLLOWERS:
+      return {
+        ...state,
+        userFollowers: action.payload
+      }
+    case userTypes.GET_USER_FOLLOWING:
+      return {
+        ...state,
+        userFollowing: action.payload
+      }
     default:
       return state;
   }
@@ -197,5 +263,8 @@ export {
   onCreateNewUser,
   onDeleteUser,
   onUpdateUserFromAdmin,
-  onGetUserFeed
+  onGetUserFeed,
+  onGetProfileFeed,
+  onGetUserFollowers,
+  onGetUserFollowing
 };

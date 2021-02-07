@@ -21,8 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-
-    if auth_header 
+    if auth_header
       token = auth_header
       begin
         decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: "HS256")
@@ -45,7 +44,6 @@ class ApplicationController < ActionController::Base
         p "Token expired or doesn't exist in db!"
       end
 
-      
     end
   end
 
@@ -61,7 +59,28 @@ class ApplicationController < ActionController::Base
     tokens.each do |token|
       p token
     end
-    
+  end
+
+  def get_user_followers(params)
+    @relationships = Relationship.where("followed_id = ?", params[:userId])
+    p @relationships
+    @followers = []
+    @relationships.each do |rel|
+      follower = User.where(id: rel.follower_id)
+      @followers.push(follower[0])
+    end
+    p @followers
+    return @followers
+  end
+
+  def get_user_following(params)
+    @relationships = Relationship.where("follower_id = ?", params[:userId])
+    @following = []
+    @relationships.each do |rel|
+      followed = User.where(id: rel.followed_id)
+      @following.push(followed[0])
+    end
+    return @following
   end
 
 end
