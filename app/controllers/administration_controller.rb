@@ -23,7 +23,9 @@ class AdministrationController < ApplicationController
         created_at: @profile.created_at.to_formatted_s(:long),
         tweets: @tweets.length,
         followers: @followers.length,
-        following: @following.length
+        following: @following.length,
+        firstname: @profile.firstname,
+        lastname: @profile.lastname
       }
     else
       warden.custom_failure!

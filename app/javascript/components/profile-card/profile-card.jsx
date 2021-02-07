@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
+import FollowersList from "../followers-list/followers-list";
+import FollowingList from "../following-list/following-list";
+
 import "./profile-card.scss";
 
 const ProfileCard = (props) => {
@@ -18,6 +21,9 @@ const ProfileCard = (props) => {
     currentUserFollowers,
     currentUserFollowing
   } = props;
+
+  const [followingListModal, setFollowingListModal] = useState(false);
+  const [followersListModal, setFollowersListModal] = useState(false);
   
   const history = useHistory();
 
@@ -42,6 +48,26 @@ const ProfileCard = (props) => {
     onCreateNewRelationship(currentUser, user);
   }
 
+  const handleFollowersModalStatus = () => {
+    setFollowingListModal(false);
+
+    if(followersListModal === true) {
+      setFollowersListModal(false);
+    } else {
+      setFollowersListModal(true);
+    }
+  }
+
+  const handleFollowingModalStatus = () => {
+    setFollowersListModal(false);
+    if(followingListModal === true) {
+      setFollowingListModal(false);
+    } else {
+      setFollowingListModal(true);
+    }
+    
+  }
+
   if (!user) {
     return <div className="row">
       <div className="col">
@@ -50,7 +76,8 @@ const ProfileCard = (props) => {
     </div>
   }
 
-  return <div className="profile-card-4">
+  return <div>
+  <div className="profile-card-4">
     <div className="profile-content">
       <div className="top-wrap">
         <div className="profile-name">
@@ -80,11 +107,11 @@ const ProfileCard = (props) => {
                 <p>TWEETS</p>
                 <h4>{totalPosts ? totalPosts : "0"}</h4>
               </div>
-              <div className="profile-overview">
+              <div className="profile-overview" onClick={handleFollowersModalStatus}>
                 <p>FOLLOWERS</p>
                 <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
               </div>
-              <div className="profile-overview">
+              <div className="profile-overview" onClick={handleFollowingModalStatus}>
                 <p>FOLLOWING</p>
                 <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
             </div>
@@ -108,12 +135,22 @@ const ProfileCard = (props) => {
       }
     </div>
   </div>
+  <FollowersList 
+    status={followersListModal}
+    list={currentUserFollowers}
+    handleClick={handleFollowersModalStatus}
+  />
+  <FollowingList 
+    status={followingListModal}
+    list={currentUserFollowing}
+    handleClick={handleFollowingModalStatus}
+  />
+  </div>
 }
 
 const mapStateToProps = (state) => ({
   profile: state.user.profile,
   currentUser: state.user.currentUser,
-  //currentUserTweets: state.user.userFeed,
   currentUserFollowers: state.user.userFollowers,
   currentUserFollowing: state.user.userFollowing
 })
