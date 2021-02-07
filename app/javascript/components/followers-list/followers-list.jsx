@@ -18,6 +18,7 @@ const FollowersList = (props) => {
             { list.map((user, index) => {
               return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                 {user.handle}
+                <a href="#" className="btn btn-primary">Follow</a>
               </li>
               })
             }

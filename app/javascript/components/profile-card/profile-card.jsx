@@ -20,7 +20,9 @@ const ProfileCard = (props) => {
     profile,
     totalPosts,
     userFollowers,
-    userFollowing
+    userFollowing,
+    currentUserFollowers,
+    currentUserFollowing
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
