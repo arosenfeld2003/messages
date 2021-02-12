@@ -21,7 +21,6 @@ const onDeleteRelationship = (follower, followed) => {
     API.delete("relationships", {data: {follower_id: follower.id, followed_id: followed.id}})
     .then((res) => {
       console.log(res);
-      dispatch();
     }).catch((error) => {
       console.log(error);
     })
