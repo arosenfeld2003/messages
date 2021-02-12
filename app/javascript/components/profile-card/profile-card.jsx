@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { onDeleteUser } from "../../redux/user/user-reducer";
 import Button from "../button/button";
@@ -8,6 +8,7 @@ import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
+import { onGetUserFollowers, onGetUserFollowing } from "../../redux/user/user-reducer";
 
 import "./profile-card.scss";
 
@@ -22,13 +23,28 @@ const ProfileCard = (props) => {
     userFollowers,
     userFollowing,
     currentUserFollowers,
-    currentUserFollowing
+    currentUserFollowing,
+    fetchUserFollowers,
+    fetchUserFollowing
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
   
   const history = useHistory();
+
+  const loadUserFollowers = () => {
+    fetchUserFollowers(user) || [];
+  }
+
+  const loadUserFollowing = () => {
+    fetchUserFollowing(user) || [];
+  }
+
+  useEffect(() => {
+    loadUserFollowers();
+    loadUserFollowing();
+  }, [])
 
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
@@ -108,48 +124,46 @@ const ProfileCard = (props) => {
               </div>
               <div className="profile-overview" onClick={handleFollowersModalStatus}>
                 <p>FOLLOWERS</p>
-                <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length}</h4>
+                <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length - 1}</h4>
               </div>
               <div className="profile-overview" onClick={handleFollowingModalStatus}>
                 <p>FOLLOWING</p>
-                <h4>{user.following != undefined ? user.following : currentUserFollowing.length}</h4></div>
+                <h4>{user.following != undefined ? user.following : currentUserFollowing.length - 1}</h4></div>
             </div>
           </div>
         </div>
 
-      { currentUser !== user ?
-        <FollowButton
-          user={user}
-          currentUser={currentUser}
-          userFollowers={userFollowers}
-          profile={profile}
-        />  : ""
-      }
-
-      {
-        profile &&  profile !== currentUser? <div className="row">
-          <div className="col">
-            <div className="btn-group-vertical">
-              <Button type="button"
-                className="btn btn-outline-primary"
-                onClick={handleProfilePage}>See Profile</Button>
-              <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
-                Follow
-              </Button>
-            </div>
-          </div>
-        </div> : ""
-      }
+      <div className="row p-3">
+        { currentUser !== user ?
+          <FollowButton
+            user={user}
+            currentUser={currentUser}
+            userFollowers={userFollowers}
+            profile={profile}
+          />  : ""
+        }
+        {
+          profile &&  profile !== currentUser? <div className="col">
+              <div className="btn-group-vertical">
+                <Button type="button"
+                  className="btn btn-outline-primary"
+                  onClick={handleProfilePage}>See Profile</Button>
+              </div>
+            </div> : ""
+        }
+      </div>
     </div>
   </div>
   <FollowersList 
     status={followersListModal}
     list={currentUserFollowers}
+    currentUser={currentUser}
     handleClick={handleFollowersModalStatus}
   />
   <FollowingList 
     status={followingListModal}
     list={currentUserFollowing}
+    currentUser={currentUser}
     handleClick={handleFollowingModalStatus}
   />
   </div>
@@ -170,6 +184,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
+  },
+  fetchUserFollowers: (user) => {
+    dispatch(onGetUserFollowers(user))
+  },
+  fetchUserFollowing: (user) => {
+    dispatch(onGetUserFollowing(user))
   }
 })
 

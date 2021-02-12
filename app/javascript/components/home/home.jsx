@@ -37,14 +37,6 @@ const Home = (props) => {
             <Suggestions />
           </div>
         </div>
-        <div className="row">
-          <div className="col-4 p-3">
-            <Followers user={currentUser}/>
-          </div>
-          <div className="col-4 p-3">
-            <Following user={currentUser}/>
-          </div>
-        </div>
       </div>
     </div>
   </div>
