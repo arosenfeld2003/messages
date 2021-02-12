@@ -14,12 +14,18 @@ class RelationshipsController < ApplicationController
   end
 
   def delete
+    p params
     @relationship = Relationship.where(
       "follower_id = ? AND followed_id = ?",
-      params[:follower][:id], params[:followed][:id]
+      params[:follower_id], params[:followed_id]
     )
-    @relationship.destroy
-    render json: @relationship
+
+    p @relationship
+    if @relationship.destroy
+      render :json=> { success: 'relationship was successfully deleted' }, :status=>201
+    else
+      render :json=> { error: 'relationship could not be deleted' }, :status=>422
+    end
   end
 
   def get_followers

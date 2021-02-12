@@ -18,8 +18,7 @@ const onNewRelationship = (follower, followed) => {
 
 const onDeleteRelationship = (follower, followed) => {
   return (dispatch) => {
-    console.log(tweetId);
-    API.delete("relationships", {follower: follower, followed: followed})
+    API.delete("relationships", {data: {follower_id: follower.id, followed_id: followed.id}})
     .then((res) => {
       console.log(res);
       dispatch();

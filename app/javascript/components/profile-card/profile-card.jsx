@@ -171,9 +171,8 @@ const ProfileCard = (props) => {
           <FollowButton
             user={user}
             currentUser={currentUser}
-            userFollowers={userFollowers}
-            userFollowing={userFollowing}
-            profile={profile}
+            profileFollowers={userFollowers}
+            profileFollowing={userFollowing}
           />  : ""
         }
         {
