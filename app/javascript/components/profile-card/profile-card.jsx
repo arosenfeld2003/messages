@@ -9,6 +9,7 @@ import { onNewRelationship } from "../../redux/relationship/relationship-reducer
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
 import { onGetUserFollowers, onGetUserFollowing } from "../../redux/user/user-reducer";
+import API from "../../api";
 
 import "./profile-card.scss";
 
@@ -16,7 +17,6 @@ const ProfileCard = (props) => {
   const {
     currentUser,
     user,
-    onCreateNewRelationship,
     onChangeUpdateStatus,
     profile,
     totalPosts,
@@ -25,26 +25,59 @@ const ProfileCard = (props) => {
     currentUserFollowers,
     currentUserFollowing,
     fetchUserFollowers,
-    fetchUserFollowing
+    fetchUserFollowing,
+    isProfile
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
+  const [profileFollowing, setProfileFollowing] = useState(null);
+  const [profileFollowers, setProfileFollowers] = useState(null);
   
   const history = useHistory();
 
   const loadUserFollowers = () => {
-    fetchUserFollowers(user) || [];
+    if(user) {
+      fetchUserFollowers(user) || [];
+    }
   }
 
   const loadUserFollowing = () => {
-    fetchUserFollowing(user) || [];
+    if(user) {
+      fetchUserFollowing(user) || [];
+    }
+  }
+
+  const onGetProfileFollowers = (profile) => {
+    API.get("relationships/followers", {params: {userId: profile.id}})
+    .then((res) => {
+      console.log(res);
+      setProfileFollowers(res.data.followers);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+  
+  const onGetProfileFollowing = (profile) => {
+    API.get("relationships/followed", {params: {userId: profile.id}})
+    .then((res) => {
+      setProfileFollowing(res.data.following);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   useEffect(() => {
     loadUserFollowers();
     loadUserFollowing();
-  }, [])
+
+    if(isProfile && isProfile === true) {
+      if(user) {
+        onGetProfileFollowers(user);
+        onGetProfileFollowing(user);
+      }
+    }
+  }, [user]);
 
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
@@ -124,11 +157,11 @@ const ProfileCard = (props) => {
               </div>
               <div className="profile-overview" onClick={handleFollowersModalStatus}>
                 <p>FOLLOWERS</p>
-                <h4>{user.followers != undefined ? user.followers : currentUserFollowers.length - 1}</h4>
+                <h4>{profileFollowers ? profileFollowers.length : currentUserFollowers.length}</h4>
               </div>
               <div className="profile-overview" onClick={handleFollowingModalStatus}>
                 <p>FOLLOWING</p>
-                <h4>{user.following != undefined ? user.following : currentUserFollowing.length - 1}</h4></div>
+                <h4>{profileFollowing ? profileFollowing.length : currentUserFollowing.length}</h4></div>
             </div>
           </div>
         </div>
@@ -139,6 +172,7 @@ const ProfileCard = (props) => {
             user={user}
             currentUser={currentUser}
             userFollowers={userFollowers}
+            userFollowing={userFollowing}
             profile={profile}
           />  : ""
         }
@@ -156,14 +190,14 @@ const ProfileCard = (props) => {
   </div>
   <FollowersList 
     status={followersListModal}
-    list={currentUserFollowers}
-    currentUser={currentUser}
+    list={profileFollowers ? profileFollowers : currentUserFollowers}
+    currentUser={user}
     handleClick={handleFollowersModalStatus}
   />
   <FollowingList 
     status={followingListModal}
-    list={currentUserFollowing}
-    currentUser={currentUser}
+    list={profileFollowing ? profileFollowing : currentUserFollowing}
+    currentUser={user}
     handleClick={handleFollowingModalStatus}
   />
   </div>

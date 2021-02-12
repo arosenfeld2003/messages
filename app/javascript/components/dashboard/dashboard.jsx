@@ -48,8 +48,7 @@ const Dashboard = (props) => {
                 <ProfileCard
                   user={user}
                   totalPosts={profileFeed.length}
-                  userFollowers={userFollowers}
-                  userFollowing={userFollowing}
+                  isProfile={true}
                 />
               </div>
             </div>
