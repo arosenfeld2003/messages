@@ -6,39 +6,43 @@
 import React from "react";
 import Button from "../button/button";
 import { connect } from "react-redux";
-import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
+import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
+
+// need current user
+//profile followers and profile following
+// check if current user exist in profile following -> show Unfollow button
+// check id=f current user dosn't exist in profile following -> show Follow button
 
 const FollowButton = (props) => {
   const {
     user,
-    profile,
     currentUser,
-    userFollowers,
-    onCreateNewRelationship
+    profileFollowers,
+    profileFollowing,
+    handleFollow,
+    handleUnfollow
   } = props;
-
-  const handleFollowAction = () => {
-    debugger;
-    onCreateNewRelationship(currentUser, user);
-  }
 
   return <div className="col">
     <div className="btn-group-vertical">
-      <Button type="button" className="btn btn-outline-primary" onClick={handleFollowAction}>
+      {
+        profileFollowers.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
+        Unfollow
+      </Button> : <Button type="button" className="btn btn-outline-primary" onClick={handleFollow}>
         Follow
       </Button>
+      }
     </div>
   </div>
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
 const mapDispatchToProps = (dispatch) => ({
   onCreateNewRelationship: (user, currentUser) => {
     dispatch(onNewRelationship(user, currentUser));
+  },
+  onDeleteExistRelationship: (user, currentUser) => {
+    dispatch(onDeleteRelationship(user, currentUser));
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FollowButton)
+export default connect(null, mapDispatchToProps)(FollowButton)
