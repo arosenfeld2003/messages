@@ -15,6 +15,7 @@ class AdministrationController < ApplicationController
     @tweets = Tweet.where(handle: user_params[:handle])
     @followers = get_user_followers({userId: @profile.id})
     @following = get_user_following({userId: @profile.id})
+    
     if @profile
       render json: {
         id: @profile.id,

@@ -27,42 +27,42 @@ const CreateUserForm = (props) => {
         id="email"
         name="email"
         className="form-control mb-4"
-        placeholder="email"
+        placeholder="Email"
         handleChange={handleChange}
         />
         <FormInput
           id="firstname"
           name="firstname"
           className="form-control mb-4"
-          placeholder="First Name"
+          placeholder="Firstname"
           handleChange={handleChange}
         />
         <FormInput
           id="lastname"
           name="lastname"
           className="form-control mb-4"
-          placeholder="Last Name"
+          placeholder="Lastname"
           handleChange={handleChange}
         />
         <FormInput
         id="handle"
         name="handle"
         className="form-control mb-4"
-        placeholder="user_name"
+        placeholder="Username"
         handleChange={handleChange}
         />
         <FormInput
         id="password"
         name="password"
         className="form-control mb-4"
-        placeholder="password"
+        placeholder="Password"
         handleChange={handleChange}
         />
         <FormInput
         id="password"
         name="password"
         className="form-control mb-4"
-        placeholder="confirm_password"
+        placeholder="Confirm password"
         handleChange={handleChange}
         />
         <Button

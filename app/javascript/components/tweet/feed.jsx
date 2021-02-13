@@ -31,8 +31,8 @@ const UpdateFeed = (props) => {
         !userFeed.length ? <p>Your posts will be here.</p> : <div>
           <h3>Latest Posts</h3>
           {
-            userFeed[0] !=  undefined ? userFeed.map(tweet => (
-              <div>
+            userFeed[0] !=  undefined ? userFeed.map((tweet, index) => (
+              <div key={index}>
               <div class="card">
                 <div class="card-header card-title"><strong>@{tweet.handle}</strong>, <small>{tweet.created_at.slice(0, 10)}</small></div>
                 <div class="card-body">
