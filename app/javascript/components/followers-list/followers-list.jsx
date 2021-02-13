@@ -4,7 +4,7 @@ const FollowersList = (props) => {
   const {handleClick, status, list, currentUser} = props;
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
-  <div className="modal bgr-dark" tabindex="-1" role="dialog">
+  <div className="modal bgr-dark" tabIndex="-1" role="dialog">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
         <div className="modal-header">

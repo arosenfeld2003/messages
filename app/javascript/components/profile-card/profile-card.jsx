@@ -5,10 +5,10 @@ import Button from "../button/button";
 import FollowButton from "../../components/follow-button/follow-button";
 import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
-import { onNewRelationship } from "../../redux/relationship/relationship-reducer";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
 import { onGetUserFollowers, onGetUserFollowing } from "../../redux/user/user-reducer";
+import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 import API from "../../api";
 
 import "./profile-card.scss";
@@ -26,7 +26,9 @@ const ProfileCard = (props) => {
     currentUserFollowing,
     fetchUserFollowers,
     fetchUserFollowing,
-    isProfile
+    isProfile,
+    onCreateNewRelationship,
+    onDeleteExistRelationship,
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
@@ -67,7 +69,7 @@ const ProfileCard = (props) => {
     })
   }
 
-  useEffect(() => {
+  const updateFollowInfo = () => {
     loadUserFollowers();
     loadUserFollowing();
 
@@ -77,6 +79,10 @@ const ProfileCard = (props) => {
         onGetProfileFollowing(user);
       }
     }
+  }
+
+  useEffect(() => {
+    updateFollowInfo();
   }, [user]);
 
   const handleEditProfile = () => {
@@ -114,6 +120,14 @@ const ProfileCard = (props) => {
       setFollowingListModal(true);
     }
     
+  }
+
+  const handleFollowAction = () => {
+    onCreateNewRelationship(currentUser, user);
+  }
+
+  const handleUnfollowAction = () => {
+    onDeleteExistRelationship(currentUser, user);
   }
 
   if (!user) {
@@ -173,6 +187,8 @@ const ProfileCard = (props) => {
             currentUser={currentUser}
             profileFollowers={userFollowers}
             profileFollowing={userFollowing}
+            handleFollow={handleFollowAction}
+            handleUnfollow={handleUnfollowAction}
           />  : ""
         }
         {
@@ -223,6 +239,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchUserFollowing: (user) => {
     dispatch(onGetUserFollowing(user))
+  },
+  onCreateNewRelationship: (user, currentUser) => {
+    dispatch(onNewRelationship(user, currentUser));
+  },
+  onDeleteExistRelationship: (user, currentUser) => {
+    dispatch(onDeleteRelationship(user, currentUser));
   }
 })
 
