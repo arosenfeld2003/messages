@@ -1,7 +1,15 @@
 import React from "react";
+import FollowButton from "../../components/follow-button/follow-button";
 
 const FollowingList = (props) => {
-  const {handleClick, status, list, currentUser} = props;
+  const {
+    handleClick,
+    status,
+    list,
+    currentUser,
+    handleFollowAction,
+    handleUnfollowAction
+  } = props;
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
     <div className="modal bgr-dark" tabIndex="-1" role="dialog">
@@ -20,7 +28,15 @@ const FollowingList = (props) => {
                 if(user.handle !== currentUser.handle) {
                   return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                     {user.handle}
-                    <a href="#" className="btn btn-primary">Unfollow</a>
+                    { // <a href="#" className="btn btn-primary">Unfollow</a>
+                    }
+                    <FollowButton
+                      user={currentUser}
+                      currentUser={currentUser}
+                      profileFollowers={list}
+                      handleFollow={handleFollowAction}
+                      handleUnfollow={handleUnfollowAction}
+                    />
                   </li>
                 }
               })

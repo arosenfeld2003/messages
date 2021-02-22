@@ -30,7 +30,7 @@ const SubmitNewTweet  = (props) => {
 
   return <div className={newTweetPopup === true ? `modal-open` : `modal-close`}>
     <form method="" action="">
-    <div className="modal no-fixed" tabindex="-1" role="dialog">
+    <div className="modal no-fixed" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">

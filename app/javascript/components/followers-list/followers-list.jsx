@@ -1,7 +1,15 @@
 import React from "react";
+import FollowButton from "../../components/follow-button/follow-button";
 
 const FollowersList = (props) => {
-  const {handleClick, status, list, currentUser} = props;
+  const {
+    handleClick,
+    status,
+    list,
+    currentUser,
+    handleFollowAction,
+    handleUnfollowAction
+  } = props;
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
   <div className="modal bgr-dark" tabIndex="-1" role="dialog">
@@ -9,7 +17,7 @@ const FollowersList = (props) => {
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Followers</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={handleClick}>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleClick}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -19,7 +27,15 @@ const FollowersList = (props) => {
               if(user.handle !== currentUser.handle) {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                   {user.handle}
-                  <a href="#" className="btn btn-primary">Follow</a>
+                  { // <a href="#" className="btn btn-primary">Follow</a>
+                  }
+                  <FollowButton
+                    user={currentUser}
+                    currentUser={currentUser}
+                    profileFollowers={list}
+                    handleFollow={handleFollowAction}
+                    handleUnfollow={handleUnfollowAction}
+                  />
                 </li>
               }
               })
