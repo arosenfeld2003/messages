@@ -5,6 +5,7 @@ class RelationshipsController < ApplicationController
       follower_id: params[:follower][:id],
       followed_id: params[:followed][:id]
     )
+    p @relationship
     if @relationship.save
       render json: {relationship: @relationship}
     else

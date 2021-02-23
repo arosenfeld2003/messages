@@ -208,6 +208,7 @@ const ProfileCard = (props) => {
     status={followersListModal}
     list={profileFollowers ? profileFollowers : currentUserFollowers}
     currentUser={user}
+    profileFollowing={profileFollowing}
     handleClick={handleFollowersModalStatus}
     handleFollowAction={handleFollowAction}
     handleUnfollowAction={handleUnfollowAction}

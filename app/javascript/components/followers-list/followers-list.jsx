@@ -8,7 +8,8 @@ const FollowersList = (props) => {
     list,
     currentUser,
     handleFollowAction,
-    handleUnfollowAction
+    handleUnfollowAction,
+    profileFollowing
   } = props;
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
@@ -35,6 +36,7 @@ const FollowersList = (props) => {
                     profileFollowers={list}
                     handleFollow={handleFollowAction}
                     handleUnfollow={handleUnfollowAction}
+                    profileFollowing={profileFollowing}
                   />
                 </li>
               }

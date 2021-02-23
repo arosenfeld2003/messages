@@ -1,5 +1,6 @@
 import React from "react";
 import FollowButton from "../../components/follow-button/follow-button";
+import Button from "../button/button";
 
 const FollowingList = (props) => {
   const {
@@ -30,13 +31,13 @@ const FollowingList = (props) => {
                     {user.handle}
                     { // <a href="#" className="btn btn-primary">Unfollow</a>
                     }
-                    <FollowButton
-                      user={currentUser}
-                      currentUser={currentUser}
-                      profileFollowers={list}
-                      handleFollow={handleFollowAction}
-                      handleUnfollow={handleUnfollowAction}
-                    />
+                    <div className="col">
+                      <div className="btn-group-vertical">
+                        <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollowAction}>
+                          Unfollow
+                        </Button>
+                      </div>
+                    </div>
                   </li>
                 }
               })
