@@ -9,16 +9,15 @@ import { connect } from "react-redux";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 
 // need current user
-//profile followers and profile following
+// profile followers and profile following
 // check if current user exist in profile following -> show Unfollow button
-// check id=f current user dosn't exist in profile following -> show Follow button
+// check if current user dosn't exist in profile following -> show Follow button
 
 const FollowButton = (props) => {
   const {
     user,
     currentUser,
     profileFollowers,
-    profileFollowing,
     handleFollow,
     handleUnfollow
   } = props;

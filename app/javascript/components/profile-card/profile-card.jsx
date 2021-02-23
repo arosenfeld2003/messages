@@ -73,6 +73,7 @@ const ProfileCard = (props) => {
     loadUserFollowers();
     loadUserFollowing();
 
+    // confusing??
     if(isProfile && isProfile === true) {
       if(user) {
         onGetProfileFollowers(user);
@@ -105,7 +106,7 @@ const ProfileCard = (props) => {
   const handleFollowersModalStatus = () => {
     setFollowingListModal(false);
 
-    if(followersListModal === true) {
+    if (followersListModal === true) {
       setFollowersListModal(false);
     } else {
       setFollowersListModal(true);
@@ -114,12 +115,12 @@ const ProfileCard = (props) => {
 
   const handleFollowingModalStatus = () => {
     setFollowersListModal(false);
-    if(followingListModal === true) {
+    if (followingListModal === true) {
       setFollowingListModal(false);
     } else {
       setFollowingListModal(true);
     }
-    
+
   }
 
   const handleFollowAction = () => {
@@ -208,12 +209,16 @@ const ProfileCard = (props) => {
     list={profileFollowers ? profileFollowers : currentUserFollowers}
     currentUser={user}
     handleClick={handleFollowersModalStatus}
+    handleFollowAction={handleFollowAction}
+    handleUnfollowAction={handleUnfollowAction}
   />
   <FollowingList 
     status={followingListModal}
     list={profileFollowing ? profileFollowing : currentUserFollowing}
     currentUser={user}
     handleClick={handleFollowingModalStatus}
+    handleFollowAction={handleFollowAction}
+    handleUnfollowAction={handleUnfollowAction}
   />
   </div>
 }
