@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../button/button";
 import { connect } from "react-redux";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
+import { Link } from "react-router-dom";
 
 const FollowersList = (props) => {
   const {
@@ -38,15 +39,19 @@ const FollowersList = (props) => {
             { list ? list.map((user, index) => {
               if(user.handle !== currentUser.handle) {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                  {user.handle}
-                  { // <a href="#" className="btn btn-primary">Follow</a>
-                  }<div className="btn-group-vertical">
+                    <Link to={{
+                        pathname: `/profile/${user.id}`,
+                        state: { profile: user }
+                      }}
+                    className="btn btn-link">{user.handle}</Link>
+
+                    <div className="btn-group-vertical">
                     {
                       profileFollowing.filter(follower => user.id === follower.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={() => {
                         handleUnfollowAction(user);
                       }}>
                       Unfollow
-                    </Button> : <Button type="button" className="btn btn-outline-primary" onClick={() => {
+                    </Button> : <Button type="button" className="btn btn-outline-dark" onClick={() => {
                       handleFollowAction(user);
                     }}>
                       Follow
