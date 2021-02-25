@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Header from "../header/header";
 import ProfileCard from "../profile-card/profile-card";
 import CreateUserForm from "../create-user-form/create-user-form";
@@ -14,9 +15,7 @@ const Dashboard = (props) => {
     profile,
     profileFeed,
     fetchProfileFeed,
-    userFollowers,
-    userFollowing,
-    userFeed
+    currentUser
   } = props;
 
   const loadProfileFeed = () => {
@@ -30,10 +29,12 @@ const Dashboard = (props) => {
     loadProfileFeed();
   }, [profile])
 
-  return <div className="dashboard">
-    <Header
+  if (!currentUser) {
+    <Redirect to="/welcome" />
+  }
 
-    />
+  return <div className="dashboard">
+    <Header/>
     <div className="main-content">
       <div className="container">
         <div className="row p-3">
@@ -64,11 +65,9 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => ({
   user: state.user.profile,
+  currentUser: state.user.currentUser,
   profileFeed: state.user.profileFeed,
-  profile: state.user.profile,
-  userFeed: state.user.userFeed,
-  userFollowers: state.user.userFollowers,
-  userFollowing: state.user.userFollowing
+  profile: state.user.profile
 })
 
 const mapDispatchToProps = (dispatch) => {

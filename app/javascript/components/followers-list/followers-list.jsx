@@ -1,5 +1,7 @@
 import React from "react";
-import FollowButton from "../../components/follow-button/follow-button";
+import Button from "../button/button";
+import { connect } from "react-redux";
+import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 
 const FollowersList = (props) => {
   const {
@@ -7,10 +9,19 @@ const FollowersList = (props) => {
     status,
     list,
     currentUser,
-    handleFollowAction,
-    handleUnfollowAction,
-    profileFollowing
+    profileFollowing,
+    onCreateNewRelationship,
+    onDeleteExistRelationship
   } = props;
+
+  const handleFollowAction = (followed) => {
+    onCreateNewRelationship(currentUser, followed);
+  }
+
+  const handleUnfollowAction = (followed) => {
+    onDeleteExistRelationship(currentUser, followed);
+  }
+
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
   <div className="modal bgr-dark" tabIndex="-1" role="dialog">
@@ -24,23 +35,27 @@ const FollowersList = (props) => {
         </div>
         <div className="modal-body">
           <ul className="list-group">
-            { list.map((user, index) => {
+            { list ? list.map((user, index) => {
               if(user.handle !== currentUser.handle) {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                   {user.handle}
                   { // <a href="#" className="btn btn-primary">Follow</a>
-                  }
-                  <FollowButton
-                    user={currentUser}
-                    currentUser={currentUser}
-                    profileFollowers={list}
-                    handleFollow={handleFollowAction}
-                    handleUnfollow={handleUnfollowAction}
-                    profileFollowing={profileFollowing}
-                  />
+                  }<div className="btn-group-vertical">
+                    {
+                      profileFollowing.filter(follower => user.id === follower.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={() => {
+                        handleUnfollowAction(user);
+                      }}>
+                      Unfollow
+                    </Button> : <Button type="button" className="btn btn-outline-primary" onClick={() => {
+                      handleFollowAction(user);
+                    }}>
+                      Follow
+                    </Button>
+                    }
+                  </div>
                 </li>
               }
-              })
+              }) : ""
             }
           </ul>
         </div>
@@ -50,4 +65,13 @@ const FollowersList = (props) => {
   </div>
 }
 
-export default FollowersList;
+const mapDispatchToProps = (dispatch) => ({
+  onCreateNewRelationship: (user, currentUser) => {
+    dispatch(onNewRelationship(user, currentUser));
+  },
+  onDeleteExistRelationship: (user, currentUser) => {
+    dispatch(onDeleteRelationship(user, currentUser));
+  }
+})
+
+export default connect(null, mapDispatchToProps)(FollowersList);

@@ -24,17 +24,17 @@ const FollowButton = (props) => {
   } = props;
 
   if (profileFollowers) {
-      return <div className="col">
-      <div className="btn-group-vertical">
-        {
-          profileFollowers.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
-          Unfollow
-        </Button> : <Button type="button" className="btn btn-outline-primary" onClick={handleFollow}>
-          Follow
-        </Button>
-        }
+      return <div className="btn-group-vertical">
+        <div className="col">
+          {
+            profileFollowing.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
+            Unfollow
+          </Button> : <Button type="button" className="btn btn-outline-primary" onClick={handleFollow}>
+            Follow
+          </Button>
+          }
+        </div>
       </div>
-    </div>
   } else {
     return <div className="col">
     <div className="btn-group-vertical">
