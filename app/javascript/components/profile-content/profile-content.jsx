@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import Button from "../button/button";
-import Feed from "../tweet/feed";
 import ProfileCard from "../profile-card/profile-card";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { onGetProfileFeed } from "../../redux/user/user-reducer";
+import { Redirect } from "react-router-dom";
 
 const ProfileContent = (props) => {
   const {profile, fetchProfileFeed, profileFeed, userFollowers} = props;
@@ -19,10 +17,8 @@ const ProfileContent = (props) => {
     loadProfileFeed();
   }, [])
 
-  // is user is admin don't show follow button (will add later)
-
-  const handleFollowAction = () => {
-    alert("Clicked!");
+  if (!profile) {
+    <Redirect to="/" />
   }
 
   return <div className="main-content">
@@ -36,13 +32,6 @@ const ProfileContent = (props) => {
           />
         </div>
         <div className="col">
-          <div className="row p-3">
-            <div className="col">
-              <Button type="button"
-                className="btn btn-primary"
-                onClick={handleFollowAction}>Follow</Button>
-            </div>
-          </div>
           <div className="row p-3">
             <div className="col">
             <div>

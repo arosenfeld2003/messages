@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
-import { onGetUserFollowers, onGetUserFollowing } from "../../redux/user/user-reducer";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 import API from "../../api";
 
