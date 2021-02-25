@@ -1,5 +1,7 @@
 import React from "react";
-import FollowButton from "../../components/follow-button/follow-button";
+import Button from "../button/button";
+import { connect } from "react-redux";
+import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 
 const FollowingList = (props) => {
   const {
@@ -7,9 +9,12 @@ const FollowingList = (props) => {
     status,
     list,
     currentUser,
-    handleFollowAction,
-    handleUnfollowAction
+    onDeleteExistRelationship
   } = props;
+
+  const unfollowUser = (followed) => {
+    onDeleteExistRelationship(currentUser, followed);
+  }
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
     <div className="modal bgr-dark" tabIndex="-1" role="dialog">
@@ -23,23 +28,20 @@ const FollowingList = (props) => {
         </div>
         <div className="modal-body">
           <ul className="list-group">
-            {
-              list.map((user, index) => {
+            { list ? list.map((user, index) => {
                 if(user.handle !== currentUser.handle) {
                   return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                     {user.handle}
                     { // <a href="#" className="btn btn-primary">Unfollow</a>
                     }
-                    <FollowButton
-                      user={currentUser}
-                      currentUser={currentUser}
-                      profileFollowers={list}
-                      handleFollow={handleFollowAction}
-                      handleUnfollow={handleUnfollowAction}
-                    />
+                    <div className="btn-group-vertical">
+                      <Button type="button" className="btn btn-outline-primary" onClick={() => unfollowUser(user)}>
+                        Unfollow
+                      </Button>
+                    </div>
                   </li>
                 }
-              })
+              } ) : ""
             }
           </ul>
         </div>
@@ -47,7 +49,15 @@ const FollowingList = (props) => {
     </div>
   </div>
 </div>
-
 }
 
-export default FollowingList
+const mapDispatchToProps = (dispatch) => ({
+  onCreateNewRelationship: (user, currentUser) => {
+    dispatch(onNewRelationship(user, currentUser));
+  },
+  onDeleteExistRelationship: (user, currentUser) => {
+    dispatch(onDeleteRelationship(user, currentUser));
+  }
+})
+
+export default connect(null, mapDispatchToProps)(FollowingList);
