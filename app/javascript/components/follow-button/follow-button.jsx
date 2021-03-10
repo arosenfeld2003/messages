@@ -1,8 +1,3 @@
-/*
-  Feed will be determined by relationships.
-  We can start with a relationship between user and itself.
-  Every time 'follow' is clicked, we add relationship.
-*/
 import React from "react";
 import Button from "../button/button";
 import { connect } from "react-redux";
@@ -17,17 +12,19 @@ const FollowButton = (props) => {
   const {
     user,
     currentUser,
+    userFollowing,
+    userFollowers,
     profileFollowers,
     profileFollowing,
     handleFollow,
     handleUnfollow
   } = props;
-
-  if (profileFollowers) {
+  debugger;
+  if (profileFollowers.length > 0) {
       return <div className="btn-group-vertical">
         <div className="col">
           {
-            profileFollowing.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
+            profileFollowers.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
             Unfollow
           </Button> : <Button type="button" className="btn btn-outline-primary" onClick={handleFollow}>
             Follow
@@ -46,6 +43,12 @@ const FollowButton = (props) => {
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.user.currentUser,
+  userFollowing: state.user.userFollowing,
+  userFollowers: state.user.userFollowers
+})
+
 const mapDispatchToProps = (dispatch) => ({
   onCreateNewRelationship: (user, currentUser) => {
     dispatch(onNewRelationship(user, currentUser));
@@ -55,4 +58,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(FollowButton)
+export default connect(mapStateToProps, mapDispatchToProps)(FollowButton)

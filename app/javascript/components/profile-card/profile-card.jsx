@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
+// import CurrentUserProfile from "../current-user-profile/current-user-profile";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 import API from "../../api";
 
@@ -14,9 +15,12 @@ import "./profile-card.scss";
 
 const ProfileCard = (props) => {
   const {
+    // logged-in user
     currentUser,
+    // the user profile that we are looking at: same are profile?
     user,
     onChangeUpdateStatus,
+    // the user profile that we are looking at: same as user?
     profile,
     totalPosts,
     currentUserFollowers,
@@ -27,9 +31,9 @@ const ProfileCard = (props) => {
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
-  const [profileFollowing, setProfileFollowing] = useState(null);
-  const [profileFollowers, setProfileFollowers] = useState(null);
-  
+  const [profileFollowing, setProfileFollowing] = useState(undefined);
+  const [profileFollowers, setProfileFollowers] = useState(undefined);
+
   const history = useHistory();
 
   const onGetProfileFollowers = (profile) => {
@@ -77,7 +81,6 @@ const ProfileCard = (props) => {
 
   const handleFollowersModalStatus = () => {
     setFollowingListModal(false);
-
     if (followersListModal === true) {
       setFollowersListModal(false);
     } else {
@@ -92,15 +95,16 @@ const ProfileCard = (props) => {
     } else {
       setFollowingListModal(true);
     }
-
   }
 
   const handleFollowAction = () => {
     onCreateNewRelationship(currentUser, user);
+    window.location.reload();
   }
 
   const handleUnfollowAction = () => {
     onDeleteExistRelationship(currentUser, user);
+    window.location.reload();
   }
 
   if (!user) {
@@ -158,8 +162,8 @@ const ProfileCard = (props) => {
           <FollowButton
             user={user}
             currentUser={currentUser}
-            profileFollowers={currentUserFollowers}
-            profileFollowing={currentUserFollowing}
+            profileFollowers={profileFollowers ? profileFollowers : currentUserFollowers}
+            profileFollowing={profileFollowing ? profileFollowing : currentUserFollowing}
             handleFollow={handleFollowAction}
             handleUnfollow={handleUnfollowAction}
           />  : ""
@@ -176,7 +180,7 @@ const ProfileCard = (props) => {
       </div>
     </div>
   </div>
-  <FollowersList 
+  <FollowersList
     status={followersListModal}
     list={profileFollowers}
     currentUser={user}
@@ -197,10 +201,12 @@ const ProfileCard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  profile: state.user.profile,
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
-  currentUserFollowing: state.user.userFollowing
+  currentUserFollowing: state.user.userFollowing,
+  profile: state.user.profile,
+  // profileFollowing: profileFollowing,
+  // profileFollowers: profileFollowers,
 })
 
 const mapDispatchToProps = (dispatch) => ({

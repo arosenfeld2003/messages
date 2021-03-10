@@ -6,10 +6,13 @@ import {
 import API from '../../api';
 
 const onNewRelationship = (follower, followed) => {
+  debugger;
   return (dispatch) => {
     API.post("relationships", {follower: follower, followed: followed})
     .then((res) => {
+      console.log("New Relationship:")
       console.log(res);
+      // dispatch(createNewRelationship(res.data.relationship))
     }).catch((error) => {
       console.log(error);
     })
@@ -17,10 +20,12 @@ const onNewRelationship = (follower, followed) => {
 }
 
 const onDeleteRelationship = (follower, followed) => {
+  debugger;
   return (dispatch) => {
     API.delete("relationships", {data: {follower_id: follower.id, followed_id: followed.id}})
     .then((res) => {
       console.log(res);
+      // dispatch(deleteRelationship(res.data.relationship))
     }).catch((error) => {
       console.log(error);
     })

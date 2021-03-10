@@ -37,7 +37,7 @@ const FollowersList = (props) => {
         <div className="modal-body">
           <ul className="list-group">
             { list ? list.map((user, index) => {
-              if(user.handle !== currentUser.handle) {
+              if (user.handle !== currentUser.handle) {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                     <Link to={{
                         pathname: `/profile/${user.id}`,
