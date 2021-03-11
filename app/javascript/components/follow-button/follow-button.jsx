@@ -19,7 +19,7 @@ const FollowButton = (props) => {
     handleFollow,
     handleUnfollow
   } = props;
-  debugger;
+
   if (profileFollowers.length > 0) {
       return <div className="btn-group-vertical">
         <div className="col">
