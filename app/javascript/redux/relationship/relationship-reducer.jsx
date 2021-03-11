@@ -6,7 +6,6 @@ import {
 import API from '../../api';
 
 const onNewRelationship = (follower, followed) => {
-  debugger;
   return (dispatch) => {
     API.post("relationships", {follower: follower, followed: followed})
     .then((res) => {
@@ -20,7 +19,6 @@ const onNewRelationship = (follower, followed) => {
 }
 
 const onDeleteRelationship = (follower, followed) => {
-  debugger;
   return (dispatch) => {
     API.delete("relationships", {data: {follower_id: follower.id, followed_id: followed.id}})
     .then((res) => {

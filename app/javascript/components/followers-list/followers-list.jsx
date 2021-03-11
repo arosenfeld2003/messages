@@ -41,7 +41,7 @@ const FollowersList = (props) => {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                     <Link to={{
                         pathname: `/profile/${user.id}`,
-                        state: { profile: user }
+                        state: { currentUser: currentUser, profile: user }
                       }}
                     className="btn btn-link">{user.handle}</Link>
 
