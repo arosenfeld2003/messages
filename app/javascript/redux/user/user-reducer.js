@@ -134,8 +134,9 @@ const onDeleteUser = (userId) => {
 }
 
 const onGetUserFeed = (currentUser) => {
+  // console.log("currentUser: "  + currentUser.id);
   return (dispatch) => {
-    API.get("feed", {params: {handle: currentUser.handle}})
+    API.get("feed", {params: {userId: currentUser.id}})
     .then((res) => {
       console.log(res);
       dispatch(getUserFeed(res.data));

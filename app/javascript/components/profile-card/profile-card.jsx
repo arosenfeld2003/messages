@@ -17,7 +17,7 @@ const ProfileCard = (props) => {
   const {
     // logged-in user
     currentUser,
-    // the user profile that we are looking at: same are profile?
+    // the user profile that we are looking at: same as profile?
     user,
     onChangeUpdateStatus,
     // the user profile that we are looking at: same as user?
@@ -65,17 +65,19 @@ const ProfileCard = (props) => {
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
     let path = `/profile/edit/${user.id}`;
-    history.push({ 
+    history.push({
       pathname: path,
-      state: { profile: user }
+      // state: { profile: user }
+      state: { currentUser: currentUser, profile: user }
     });
   }
 
   const handleProfilePage = () => {
     let path = `/profile/${user.id}`;
-    history.push({ 
+    history.push({
         pathname: path,
-        state: { profile: user }
+        // state: { profile: user }
+        state: { currentUser: currentUser, profile: user }
     });
   }
 
@@ -183,7 +185,9 @@ const ProfileCard = (props) => {
   <FollowersList
     status={followersListModal}
     list={profileFollowers}
-    currentUser={user}
+    user={user}
+    // currentUser={user}
+    currentUser={currentUser}
     profileFollowing={profileFollowing}
     handleClick={handleFollowersModalStatus}
     handleFollowAction={handleFollowAction}
@@ -192,7 +196,9 @@ const ProfileCard = (props) => {
   <FollowingList 
     status={followingListModal}
     list={profileFollowing}
-    currentUser={user}
+    user={user}
+    // currentUser={user}
+    currentUser={currentUser}
     handleClick={handleFollowingModalStatus}
     handleFollowAction={handleFollowAction}
     handleUnfollowAction={handleUnfollowAction}
