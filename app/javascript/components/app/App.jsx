@@ -21,17 +21,18 @@ const App = (props) => {
   }, [handleLoggedIn])
 
   return <div className="main">
-      <Router>
-        <Switch>
-          <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
-          <Route exact path='/signup' component={SignUpPage} />
-          <Route exact path='/login' component={SignInPage} />
-          <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
-          <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
-          <Route exact path='/users/:id' component={UserInfoPage}/>
-          <Route exact path='/profile/:id' component={ProfilePage}/>
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
+        <Route exact path='/signup' component={SignUpPage} />
+        <Route exact path='/login' component={SignInPage} />
+        <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
+        <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
+        <Route exact path='/users/:id' component={UserInfoPage}/>
+        <Route exact path='/profile/:id' component={ProfilePage}/>
+      </Switch>
+    </Router> 
+    
   </div>
 };
 
