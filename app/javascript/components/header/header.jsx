@@ -67,16 +67,16 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser
   })
   
-  const mapDispatchToProps = (dispatch) => ({
-    handleLogoutRequest: () => {
-      dispatch(onLogoutRequest());
-    },
-    resetProfile: () => {
-      dispatch(setUserProfile(null));
-    },
-    handleNewTweetPopup: (status) => {
-      dispatch(setNewTweetPopup(status))
-    }
-  })
+const mapDispatchToProps = (dispatch) => ({
+  handleLogoutRequest: () => {
+    dispatch(onLogoutRequest());
+  },
+  resetProfile: () => {
+    dispatch(setUserProfile(null));
+  },
+  handleNewTweetPopup: (status) => {
+    dispatch(setNewTweetPopup(status));
+  }
+})
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

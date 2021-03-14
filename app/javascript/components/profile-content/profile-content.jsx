@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import ProfileCard from "../profile-card/profile-card";
 import { connect } from "react-redux";
-import { onGetProfileFeed } from "../../redux/user/user-reducer";
+import { onGetProfileFeed } from "../../redux/profile/profile-reducer";
 import { Redirect } from "react-router-dom";
 
 const ProfileContent = (props) => {
-  const {profile, fetchProfileFeed, profileFeed, userFollowers} = props;
-
-  const loadProfileFeed = function () {
-    if (profile) {
-      fetchProfileFeed(profile) || [];
-    }
-  }
+  const {profile, fetchProfileFeed, profileFeed} = props;
 
   useEffect(() => {
-    loadProfileFeed();
-  }, [])
+    if (profile) {
+      fetchProfileFeed(profile);
+    }
+  }, [profile])
 
   if (!profile) {
     <Redirect to="/" />
@@ -26,9 +22,7 @@ const ProfileContent = (props) => {
       <div className="row">
         <div className="col-4 p-3">
           <ProfileCard
-            user={profile}
-            totalPosts={profileFeed.length}
-            totalFollowers={userFollowers.length}
+            profile={profile}
           />
         </div>
         <div className="col">
@@ -61,18 +55,14 @@ const ProfileContent = (props) => {
       </div>
     </div>
   </div>
-
 }
 
 const mapStateToProps = (state) => ({
-  profileFeed: state.user.profileFeed,
-  userFollowers: state.user.userFollowers
+  profileFeed: state.profile.profileFeed
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchProfileFeed: (profile) => dispatch(onGetProfileFeed(profile))
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  fetchProfileFeed: (profile) => dispatch(onGetProfileFeed(profile))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContent);

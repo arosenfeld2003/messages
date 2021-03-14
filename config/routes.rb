@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     post 'admin/users' => 'registrations#create_from_admin'
     delete 'profile' => 'administration#destroy_profile'
     put 'profile/:id' => 'administration#update_profile'
-    post 'profile' => 'administration#get_profile'
+    post 'profile' => 'administration#get_profile_by_email'
+    get 'user/profile/:id' => 'application#get_profile'
   end
 
   root 'home#index'

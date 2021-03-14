@@ -11,23 +11,9 @@ import "./dashboard.scss";
 
 const Dashboard = (props) => {
   const {
-    user,
     profile,
-    profileFeed,
-    fetchProfileFeed,
     currentUser
   } = props;
-
-  const loadProfileFeed = () => {
-    if (profile) {
-      // console.log(profile);
-      fetchProfileFeed(profile) || [];
-    }
-  }
-
-  useEffect(() => {
-    loadProfileFeed();
-  }, [profile])
 
   if (!currentUser) {
     <Redirect to="/welcome" />
@@ -47,9 +33,8 @@ const Dashboard = (props) => {
             <div className="row p-3">
               <div className="col">
                 <ProfileCard
-                  user={user}
-                  totalPosts={profileFeed.length}
-                  isProfile={true}
+                  profile={profile}
+                  isSeeProfile={true}
                 />
               </div>
             </div>
@@ -64,10 +49,8 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.profile,
   currentUser: state.user.currentUser,
-  profileFeed: state.user.profileFeed,
-  profile: state.user.profile
+  profile: state.user.profileBySearch
 })
 
 const mapDispatchToProps = (dispatch) => {
