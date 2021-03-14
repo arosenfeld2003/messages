@@ -9,3 +9,13 @@ export const getProfileFollowing = (following) => ({
   type: profileTypes.GET_PROFILE_FOLLOWING,
   payload: following
 })
+
+export const setProfileFeed = (feed) => ({
+  type: profileTypes.SET_PROFILE_FEED,
+  payload: feed
+})
+
+export const setProfile = (profile) => ({
+  type: profileTypes.SET_PROFILE,
+  payload: profile
+})

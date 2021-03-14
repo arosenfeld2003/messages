@@ -83,4 +83,14 @@ class ApplicationController < ActionController::Base
     return @following
   end
 
+  def get_profile
+    @profile = User.find(params[:id])
+    if @profile
+      render json: @profile
+    else
+      warden.custom_failure!
+      render :json=> @profile.errors, :status=>422
+    end
+  end
+
 end
