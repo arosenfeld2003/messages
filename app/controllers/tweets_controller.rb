@@ -24,9 +24,15 @@ class TweetsController < ApplicationController
   end
 
   def get_user_feed
-    # we need all tweets from users followed by current user
-    # below method only shows user tweets
-    @user_feed = Tweet.where(handle: params[:handle])
+    # all tweets from current_user and other users followed by current_user
+    # params: {userId: currentUser.id}
+    @user_following = get_user_following(params)
+    following_ids = []
+    @user_following.each do |user|
+      following_ids.push(user[:id])
+    end
+    @user_feed = Tweet.where("user_id in (?) OR user_id = ?",
+                      following_ids, params[:userId]).reverse_order
     render json: @user_feed
   end
 

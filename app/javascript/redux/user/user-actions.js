@@ -36,11 +36,6 @@ export const getUserFeed = (userFeed) => ({
   payload: userFeed
 })
 
-export const setProfileFeed = (feed) => ({
-  type: userTypes.SET_PROFILE_FEED,
-  payload: feed
-})
-
 export const getUserFollowers = (userFollowers) => ({
   type: userTypes.GET_USER_FOLLOWERS,
   payload: userFollowers

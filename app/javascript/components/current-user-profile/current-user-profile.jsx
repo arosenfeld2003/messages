@@ -18,7 +18,9 @@ const CurrentUserProfile = (props) => {
     onChangeUpdateStatus,
     totalPosts,
     currentUserFollowers,
+    userFollowers,
     currentUserFollowing,
+    userFollowing,
     fetchUserFollowers,
     fetchUserFollowing,
     onCreateNewRelationship,
@@ -61,23 +63,20 @@ const CurrentUserProfile = (props) => {
   }
 
   const handleFollowersModalStatus = () => {
-    setFollowingListModal(false);
-
     if (followersListModal === true) {
       setFollowersListModal(false);
     } else {
       setFollowersListModal(true);
     }
+    updateFollowInfo();
   }
 
   const handleFollowingModalStatus = () => {
-    setFollowersListModal(false);
     if (followingListModal === true) {
       setFollowingListModal(false);
     } else {
       setFollowingListModal(true);
     }
-
   }
 
   const handleFollowAction = (followed) => {
@@ -121,11 +120,11 @@ const CurrentUserProfile = (props) => {
               </div>
               <div className="profile-overview" onClick={handleFollowersModalStatus}>
                 <p>FOLLOWERS</p>
-                <h4>{currentUserFollowers !== 0 ? currentUserFollowers.length - 1: 0}</h4>
+                <h4>{currentUserFollowers.length}</h4>
               </div>
               <div className="profile-overview" onClick={handleFollowingModalStatus}>
                 <p>FOLLOWING</p>
-                <h4>{currentUserFollowing !== 0 ? currentUserFollowing.length - 1 : 0}</h4></div>
+                <h4>{currentUserFollowing.length}</h4></div>
             </div>
           </div>
         </div>

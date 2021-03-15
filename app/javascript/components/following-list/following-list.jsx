@@ -15,6 +15,7 @@ const FollowingList = (props) => {
 
   const unfollowUser = (followed) => {
     onDeleteExistRelationship(currentUser, followed);
+    window.location.reload();
   }
 
   return <div className={status === true ? `modal-open` : `modal-close`}>
@@ -23,19 +24,15 @@ const FollowingList = (props) => {
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Following</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={handleClick}>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleClick}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div className="modal-body">
           <ul className="list-group">
             { list ? list.map((user, index) => {
-                if(user.handle !== currentUser.handle) {
                   return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                    <Link to={{
-                        pathname: `/profile/${user.id}`,
-                        state: { profile: user }
-                      }}
+                    <Link to={`/profile/${user.id}`}
                     className="btn btn-link">{user.handle}</Link>
 
                     <div className="btn-group-vertical">
@@ -44,7 +41,6 @@ const FollowingList = (props) => {
                       </Button>
                     </div>
                   </li>
-                }
               } ) : ""
             }
           </ul>

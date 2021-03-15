@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
+// import CurrentUserProfile from "../current-user-profile/current-user-profile";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
 import API from "../../api";
 
@@ -14,22 +15,24 @@ import "./profile-card.scss";
 
 const ProfileCard = (props) => {
   const {
+    // logged-in user
     currentUser,
-    user,
-    onChangeUpdateStatus,
+    // the user profile that we are looking at: same as profile?
     profile,
+    onChangeUpdateStatus,
     totalPosts,
     currentUserFollowers,
     currentUserFollowing,
     onCreateNewRelationship,
     onDeleteExistRelationship,
+    isSeeProfile
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
-  const [profileFollowing, setProfileFollowing] = useState(null);
-  const [profileFollowers, setProfileFollowers] = useState(null);
-  
+  const [profileFollowing, setProfileFollowing] = useState(undefined);
+  const [profileFollowers, setProfileFollowers] = useState(undefined);
+
   const history = useHistory();
 
   const onGetProfileFollowers = (profile) => {
@@ -52,32 +55,33 @@ const ProfileCard = (props) => {
   }
 
   useEffect(() => {
-    if(user) {
-      onGetProfileFollowers(user);
-      onGetProfileFollowing(user);
+    if(profile) {
+      onGetProfileFollowers(profile);
+      onGetProfileFollowing(profile);
     }
-  }, [user]);
+  }, [profile]);
 
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
-    let path = `/profile/edit/${user.id}`;
-    history.push({ 
+    let path = `/profile/edit/${profile.id}`;
+    history.push({
       pathname: path,
-      state: { profile: user }
+      // state: { profile: user }
+      state: { currentUser: currentUser, profile: profile }
     });
   }
 
   const handleProfilePage = () => {
-    let path = `/profile/${user.id}`;
-    history.push({ 
+    let path = `/profile/${profile.id}`;
+    history.push({
         pathname: path,
-        state: { profile: user }
+        // state: { profile: user }
+        state: { }
     });
   }
 
   const handleFollowersModalStatus = () => {
     setFollowingListModal(false);
-
     if (followersListModal === true) {
       setFollowersListModal(false);
     } else {
@@ -92,18 +96,19 @@ const ProfileCard = (props) => {
     } else {
       setFollowingListModal(true);
     }
-
   }
 
   const handleFollowAction = () => {
-    onCreateNewRelationship(currentUser, user);
+    onCreateNewRelationship(currentUser, profile);
+    window.location.reload();
   }
 
   const handleUnfollowAction = () => {
-    onDeleteExistRelationship(currentUser, user);
+    onDeleteExistRelationship(currentUser, profile);
+    window.location.reload();
   }
 
-  if (!user) {
+  if (!profile) {
     return <div className="row">
       <div className="col">
         <p className="lead text-muted"><small><em>No user found yet.</em></small></p>
@@ -117,10 +122,10 @@ const ProfileCard = (props) => {
       <div className="top-wrap">
         <div className="profile-name">
           {
-            user.firstname || user.lastname ? <h3>{user.firstname} {user.lastname}</h3> : ''
+            profile.firstname || profile.lastname ? <h3>{profile.firstname} {profile.lastname}</h3> : ''
           }
-          <p>@{user.handle}</p>
-          <p>{user.email}</p>
+          <p>@{profile.handle}</p>
+          <p>{profile.email}</p>
         </div>
         <div className="row">
             <div className="col text-right">
@@ -136,7 +141,7 @@ const ProfileCard = (props) => {
         </div>
       </div>
       <div className="profile-description">
-          <p>Member since: <strong>{user.created_at.slice(0, 10)}</strong></p>
+          <p>Member since: <strong>{profile.created_at.slice(0, 10)}</strong></p>
             <div className="profile-description-wrap text-center">
               <div className="profile-overview">
                 <p>TWEETS</p>
@@ -154,18 +159,17 @@ const ProfileCard = (props) => {
         </div>
 
       <div className="row p-3">
-        { user ?
+        { profile ?
           <FollowButton
-            user={user}
             currentUser={currentUser}
-            profileFollowers={currentUserFollowers}
-            profileFollowing={currentUserFollowing}
+            profileFollowers={profileFollowers ? profileFollowers : currentUserFollowers}
+            profileFollowing={profileFollowing ? profileFollowing : currentUserFollowing}
             handleFollow={handleFollowAction}
             handleUnfollow={handleUnfollowAction}
           />  : ""
         }
         {
-          profile ? <div className="col">
+          isSeeProfile ? <div className="col">
               <div className="btn-group-vertical">
                 <Button type="button"
                   className="btn btn-outline-primary"
@@ -176,10 +180,11 @@ const ProfileCard = (props) => {
       </div>
     </div>
   </div>
-  <FollowersList 
+  <FollowersList
     status={followersListModal}
     list={profileFollowers}
-    currentUser={user}
+    user={profile}
+    currentUser={currentUser}
     profileFollowing={profileFollowing}
     handleClick={handleFollowersModalStatus}
     handleFollowAction={handleFollowAction}
@@ -188,7 +193,8 @@ const ProfileCard = (props) => {
   <FollowingList 
     status={followingListModal}
     list={profileFollowing}
-    currentUser={user}
+    user={profile}
+    currentUser={currentUser}
     handleClick={handleFollowingModalStatus}
     handleFollowAction={handleFollowAction}
     handleUnfollowAction={handleUnfollowAction}
@@ -197,7 +203,6 @@ const ProfileCard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  profile: state.user.profile,
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
   currentUserFollowing: state.user.userFollowing
@@ -210,11 +215,11 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
   },
-  onCreateNewRelationship: (user, currentUser) => {
-    dispatch(onNewRelationship(user, currentUser));
+  onCreateNewRelationship: (profile, currentUser) => {
+    dispatch(onNewRelationship(profile, currentUser));
   },
-  onDeleteExistRelationship: (user, currentUser) => {
-    dispatch(onDeleteRelationship(user, currentUser));
+  onDeleteExistRelationship: (profile, currentUser) => {
+    dispatch(onDeleteRelationship(profile, currentUser));
   }
 })
 
