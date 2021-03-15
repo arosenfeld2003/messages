@@ -15,7 +15,6 @@ import "./app.scss";
 
 const App = (props) => {
   const {isLoggedIn, handleLoggedIn, currentUser} = props;
-
   const [ loading, isLoading ] = useState(true);
 
   // It will be executed before rendering
