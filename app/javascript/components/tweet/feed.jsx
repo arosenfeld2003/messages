@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
+import CommentsList from "../comments-list/comments-list";
 
 const UpdateFeed = (props) => {
   const {user, fetchUserFeed, userFeed} = props;
@@ -60,6 +61,7 @@ const UpdateFeed = (props) => {
                 {user.handle === tweet.handle &&
                   <DeleteTweetButton tweet={tweet}/>
                 }
+                <CommentsList />
               </div>
             </div>
             </div>
