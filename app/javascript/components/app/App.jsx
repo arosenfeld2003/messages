@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "../home/home";
@@ -16,14 +16,19 @@ import "./app.scss";
 const App = (props) => {
   const {isLoggedIn, handleLoggedIn, currentUser} = props;
 
-  useEffect(() => {
-    handleLoggedIn();
-  }, [handleLoggedIn])
+  const [ loading, isLoading ] = useState(true);
 
-  return <div className="main">
+  // It will be executed before rendering
+
+  useEffect(() => {
+    setTimeout(() => isLoading(false), 500);
+    handleLoggedIn();
+  }, []);
+
+  return !loading && <div className="main">
       <Router>
         <Switch>
-          <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
+          <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />}/>
           <Route exact path='/signup' component={SignUpPage} />
           <Route exact path='/login' component={SignInPage} />
           <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
