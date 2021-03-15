@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get '/relationships/followers' => 'relationships#get_followers'
   get '/relationships/followed' => 'relationships#get_following'
 
+  #Comments path
+
+  post 'tweet/comment' => 'comments#create'
+  delete 'tweet/comment' => 'comments#delete'
+
   get '*path', to: 'home#index'
 
 end

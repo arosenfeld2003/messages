@@ -1,14 +1,26 @@
 class CommentsController < ApplicationController
 
   def create
-    @post = Tweet.find(params[:tweet_id])
-    @comment = @post.comments.create(params[:comment].permit(:comment))
+    @tweet = Tweet.find(params[:tweet_id])
+    @comment = @tweet.comments.create(comment_params)
+
+    if @comment.save
+      render json: @tweet
+    else
+      render json: @comment.errors, status: :unprocessable_entity
+    end
+
   end
 
   def destroy
-    @post = Tweet.find(params[:tweet_id])
-    @comment = @post.comments.find(params[:id])
+    @tweet = Tweet.find(params[:tweet_id])
+    @comment = @tweet.comments.find(params[:id])
     @comment.destroy
   end
+
+  private
+    def comment_params
+      params.require(:comment).permit(:author, :text)
+    end
 
 end

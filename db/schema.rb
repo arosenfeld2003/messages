@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_194810) do
+ActiveRecord::Schema.define(version: 2021_03_15_182040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "author"
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "tweet_id"
+  end
 
   create_table "relationships", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -50,9 +58,9 @@ ActiveRecord::Schema.define(version: 2021_01_20_194810) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "handle"
+    t.boolean "is_admin", default: false
     t.string "firstname"
     t.string "lastname"
-    t.boolean "is_admin", default: false
     t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
