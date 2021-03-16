@@ -20,6 +20,10 @@ const App = (props) => {
   // It will be executed before rendering
 
   useEffect(() => {
+    /*
+      prevent login page from flashing on reload
+      before currentUser has been loaded from props.
+    */
     setTimeout(() => isLoading(false), 500);
     handleLoggedIn();
   }, []);

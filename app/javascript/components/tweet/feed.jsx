@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
 
-const UpdateFeed = (props) => {
+const Feed = (props) => {
   const {user, fetchUserFeed, userFeed} = props;
   const loadUserFeed = function () {
     fetchUserFeed(user) || [];
@@ -12,19 +12,6 @@ const UpdateFeed = (props) => {
   useEffect(() => {
     loadUserFeed()
   }, [])
-
-  /*
-    {…}
-​    config: Object { url: "feed", method: "get", baseURL: "http://localhost:3000/", … }
-    data: (13) […]
-      0: {…}
-        body: "Hello?"
-        created_at: "2021-01-10T00:35:25.476Z"
-        handle: "axlerosenfeld"
-        id: 3
-        updated_at: "2021-01-10T00:35:25.476Z"
-        user_id: 1
-  */
 
   return  <div>
     {
@@ -82,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateFeed);
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);
