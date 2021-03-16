@@ -5,9 +5,12 @@ import "./comments-list.scss";
 const CommentsList = () => {
   return <div class="panel panel-default widget text-left">
     <div class="panel-heading">
-      <span class="glyphicon glyphicon-comment"></span>
       <h5 class="panel-title">
-        Recent Comments</h5>
+        Recent Comments
+      </h5>
+      <button type="button" class="btn btn-link" title="Delete">
+        <small>Add comment</small>
+      </button>
     </div>
     <div class="panel-body">
       <ul class="list-group">
@@ -22,11 +25,8 @@ const CommentsList = () => {
                   euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
               </div>
               <div class="action">
-                <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                  Edit
-                </button>
-                <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                  Delete
+                <button type="button" class="btn btn-link" title="Delete">
+                  <small>Delete</small>
                 </button>
               </div>
             </div>
@@ -44,11 +44,8 @@ const CommentsList = () => {
                   euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
               </div>
               <div class="action">
-                <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                  Edit
-                </button>
-                <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                  Delete
+                <button type="button" class="btn btn-link" title="Delete">
+                  <small>Delete</small>
                 </button>
               </div>
             </div>
