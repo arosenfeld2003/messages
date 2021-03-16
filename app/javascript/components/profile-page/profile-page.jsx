@@ -25,8 +25,7 @@ const ProfilePage = (props) => {
       currentProfile ? <ProfileContent profile={currentProfile}/>
       : <p className="lead text-muted"><small><em>User was not found.</em></small></p>
     }
-    
-</div>
+  </div>
 
 }
 

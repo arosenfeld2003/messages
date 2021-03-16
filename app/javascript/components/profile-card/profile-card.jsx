@@ -32,6 +32,7 @@ const ProfileCard = (props) => {
   const [followersListModal, setFollowersListModal] = useState(false);
   const [profileFollowing, setProfileFollowing] = useState(undefined);
   const [profileFollowers, setProfileFollowers] = useState(undefined);
+  const [ loading, isLoading ] = useState(true);
 
   const history = useHistory();
 
@@ -55,9 +56,11 @@ const ProfileCard = (props) => {
   }
 
   useEffect(() => {
-    if(profile) {
+    if (profile) {
       onGetProfileFollowers(profile);
       onGetProfileFollowing(profile);
+    } else {
+      setTimeout(() => isLoading(false), 500);
     }
   }, [profile]);
 
