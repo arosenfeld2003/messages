@@ -4,8 +4,10 @@ class CommentsController < ApplicationController
     @tweet = Tweet.find(params[:tweet_id])
     @comment = @tweet.comments.create(comment_params)
 
+    p @tweet
+
     if @comment.save
-      render json: @tweet
+      render json: @tweet.comments
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -20,7 +22,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).permit(:author, :text)
+      params.require(:comment).permit(:author, :comment)
     end
 
 end

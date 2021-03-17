@@ -13,7 +13,6 @@ const onNewTweet = (newTweet) => {
   return (dispatch, getState) => {
     API.post("tweets", newTweet)
     .then((res) => {
-      console.log(res);
       if (res) {
         dispatch(onGetUserFeed(getState().user.currentUser));
       }
@@ -25,10 +24,8 @@ const onNewTweet = (newTweet) => {
 
 const onDeleteTweet = (tweetId) => {
   return (dispatch, getState) => {
-    console.log(tweetId);
     API.delete("tweets", {data: {id: tweetId}})
     .then((res) => {
-      console.log(res);
       dispatch(deleteTweet(res));
       if (res) {
         dispatch(onGetUserFeed(getState().user.currentUser));
