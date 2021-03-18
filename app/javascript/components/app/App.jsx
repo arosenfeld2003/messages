@@ -24,7 +24,7 @@ const App = (props) => {
       prevent login page from flashing on reload
       before currentUser has been loaded from props.
     */
-    setTimeout(() => isLoading(false), 500);
+    setTimeout(() => isLoading(false), 1000);
     handleLoggedIn();
   }, []);
 
