@@ -1,5 +1,5 @@
 import tweetTypes from './tweet-types';
-import { deleteTweet } from './tweet-actions';
+import { deleteTweet, favoriteTweet } from './tweet-actions';
 import API from '../../api';
 import { onGetUserFeed } from "../user/user-reducer";
 
@@ -25,7 +25,6 @@ const onNewTweet = (newTweet) => {
 
 const onDeleteTweet = (tweetId) => {
   return (dispatch, getState) => {
-    console.log(tweetId);
     API.delete("tweets", {data: {id: tweetId}})
     .then((res) => {
       console.log(res);
@@ -38,6 +37,44 @@ const onDeleteTweet = (tweetId) => {
     })
   }
 }
+
+const onFavoriteTweet = (tweet, user) => {
+  return (dispatch, getState) => {
+    API.get("favorites/get_is_liked", {
+      params: {
+        tweetId: tweet.id,
+        userId: user.id
+      }
+    }).then((res) => {
+      if (res.data.favorite[0]) {
+        // 'unlike' tweet: delete favorite for tweet/user
+        API.delete("favorites", {data: {id: res.data.favorite[0].id}})
+        .then((res) => {
+          dispatch(favoriteTweet(res));
+          if (res) {
+            dispatch(onGetUserFeed(getState().user.currentUser));
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
+      } else {
+        // 'like' tweet: create new favorite for tweet/user
+        API.post("favorites", {tweet, user})
+        .then((res) => {
+          dispatch(favoriteTweet(res));
+          if (res) {
+            dispatch(onGetUserFeed(getState().user.currentUser));
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
+      }
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+}
+
 
 const tweetReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
@@ -56,9 +93,14 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         newTweetPopup: action.payload
       }
+    case tweetTypes.FAVORITE_TWEET:
+      return {
+        ...state,
+        favoriteTweet: action.payload
+      }
     default:
       return state;
   }
 }
 
-export {tweetReducer, onNewTweet, onDeleteTweet};
+export {tweetReducer, onNewTweet, onDeleteTweet, onFavoriteTweet};

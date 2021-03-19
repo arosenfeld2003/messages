@@ -14,11 +14,10 @@ class FavoritesController < ApplicationController
     end
   end
 
-  # params: tweet, user
+  # params: favorite (we've already made API call to get the favorite)
   def delete
-    @favorite = Favorite.where(["tweet_id = ? AND user_id = ?", params[:tweet][:id], params[:user][:id])
-    # @deleted = Favorite.find(@relationship[0].id)
-    if @favorite[0].destroy
+    @favorite = Favorite.find(params[:id])
+    if @favorite.destroy
       render :json=> { success: 'favorite was successfully deleted' }, :status=>201
     else
       render :json=> { error: 'favorite could not be deleted' }, :status=>422
@@ -31,4 +30,9 @@ class FavoritesController < ApplicationController
     render json: {favorites: @favorites}
   end
 
+  # params: tweet, user
+  def get_is_liked
+    @favorite = Favorite.where(tweet_id: params[:tweetId], user_id: params[:userId])
+    render json: {favorite: @favorite}
+  end
 end

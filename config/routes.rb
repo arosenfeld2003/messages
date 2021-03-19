@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/relationships/followed' => 'relationships#get_following'
 
   get '/favorites' => 'favorites#get_favorites_for_tweet'
+  get '/favorites/get_is_liked' => 'favorites#get_is_liked'
   post '/favorites' => 'favorites#new'
   delete '/favorites' => 'favorites#delete'
 
