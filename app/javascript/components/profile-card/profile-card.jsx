@@ -162,7 +162,7 @@ const ProfileCard = (props) => {
         </div>
 
       <div className="row p-3">
-        { profile ?
+        { profile && profile.handle != currentUser.handle ?
           <FollowButton
             currentUser={currentUser}
             profileFollowers={profileFollowers ? profileFollowers : currentUserFollowers}

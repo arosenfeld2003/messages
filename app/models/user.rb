@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   has_many :tweets, primary_key: :handle_id
 
+  # 'favorites' join table allows user to like many tweets
+  has_many :favorites, :through => :tweets
+
   has_many :active_relationships, class_name:  "Relationship",
                                 foreign_key: "follower_id",
                                 dependent:   :destroy

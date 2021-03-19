@@ -6,7 +6,7 @@ class TweetsController < ApplicationController
     # throw error if not currentUser ??
     @new_tweet = @user.tweets.build(
       body: params[:newTweet],
-      handle: @user[:handle]
+      handle: @user[:handle],
     )
     if @new_tweet.save
       render json: {newTweet: @new_tweet}
@@ -17,7 +17,6 @@ class TweetsController < ApplicationController
   end
 
   def delete
-    # p params[:id].to_i
     @tweet = Tweet.find(params[:id].to_i)
     @tweet.destroy
     render json: @tweet
@@ -25,7 +24,6 @@ class TweetsController < ApplicationController
 
   def get_user_feed
     # all tweets from current_user and other users followed by current_user
-    # params: {userId: currentUser.id}
     @user_following = get_user_following(params)
     following_ids = []
     @user_following.each do |user|
