@@ -7,14 +7,15 @@
 }
 
 .panel-body {
-  height: 100px;
+  max-height: 150px;
   overflow-y: scroll;
 }
 
 .panel-title {
   margin-top: 0;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 12px;
+  padding-top: 8px;
 }
 
 .panel-default>.panel-heading {
@@ -28,7 +29,7 @@
 .widget .mic-info {
   color: #000000;
   font-size: 11px;
-  padding-top: 3px;
+  padding-top: 6px;
 }
 
 .panel-heading {
