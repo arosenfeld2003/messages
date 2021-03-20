@@ -7,7 +7,6 @@ const DeleteTweetButton = (props) => {
   const {handleDeleteRequest, tweet} = props;
 
   return <button className="btn btn-link text-muted" onClick={(e) => {
-      // console.log(tweetId);
       handleDeleteRequest(tweet.id);
     }}>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
@@ -23,7 +22,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleDeleteRequest: (tweetId) => {
-    console.log(tweetId)
     dispatch(onDeleteTweet(tweetId));
   }
 })
