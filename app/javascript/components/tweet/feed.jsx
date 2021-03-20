@@ -4,11 +4,13 @@ import { onFavoriteTweet } from '../../redux/tweet/tweet-reducer';
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
 import FavoriteTweetButton from './favorite-tweet-button';
+import CommentsList from "../comments-list/comments-list";
 
 const Feed = (props) => {
-  const {user, fetchUserFeed, userFeed} = props;
+  const {currentUser, fetchUserFeed, userFeed} = props;
+
   const loadUserFeed = function () {
-    fetchUserFeed(user) || [];
+    fetchUserFeed(currentUser) || [];
   }
 
   useEffect(() => {
@@ -42,11 +44,16 @@ const Feed = (props) => {
                       </svg>
                   </button>
 
-                  <FavoriteTweetButton tweet={tweet} user={user}/>
+                  <FavoriteTweetButton tweet={tweet} user={currentUser}/>
 
-                  {user.handle === tweet.handle &&
+                  {currentUser.handle === tweet.handle &&
                     <DeleteTweetButton tweet={tweet}/>
                   }
+
+                  <CommentsList 
+                    tweet={tweet}
+                    currentUser={currentUser}
+                  />
                 </div>
               </div>
             </div>
@@ -59,7 +66,7 @@ const Feed = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.currentUser,
+  currentUser: state.user.currentUser,
   userFeed: state.user.userFeed,
 })
 
