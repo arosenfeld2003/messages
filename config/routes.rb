@@ -24,8 +24,8 @@ Rails.application.routes.draw do
 
   get '/favorites' => 'favorites#get_favorites_for_tweet'
   get '/favorites/get_is_liked' => 'favorites#get_is_liked'
-  post '/favorites' => 'favorites#new'
-  delete '/favorites' => 'favorites#delete'
+  post '/favorites/like' => 'favorites#new'
+  delete '/favorites/unlike' => 'favorites#delete'
 
   get '*path', to: 'home#index'
 

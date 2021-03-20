@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   # params: tweet, user
   def new

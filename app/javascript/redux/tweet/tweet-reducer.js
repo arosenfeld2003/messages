@@ -48,7 +48,7 @@ const onFavoriteTweet = (tweet, user) => {
     }).then((res) => {
       if (res.data.favorite[0]) {
         // 'unlike' tweet: delete favorite for tweet/user
-        API.delete("favorites", {data: {id: res.data.favorite[0].id}})
+        API.delete("favorites/unlike", {data: {id: res.data.favorite[0].id}})
         .then((res) => {
           dispatch(favoriteTweet(res));
           if (res) {
@@ -59,7 +59,7 @@ const onFavoriteTweet = (tweet, user) => {
         })
       } else {
         // 'like' tweet: create new favorite for tweet/user
-        API.post("favorites", {tweet, user})
+        API.post("favorites/like", {tweet, user})
         .then((res) => {
           dispatch(favoriteTweet(res));
           if (res) {

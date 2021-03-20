@@ -15,9 +15,9 @@ const FavoriteTweetButton = (props) => {
   </button>
 }
 
-const mapStateToProps = (state) => ({
-  deletedTweetId: state.deletedTweetId
-})
+// const mapStateToProps = (state) => ({
+
+// })
 
 const mapDispatchToProps = (dispatch) => ({
   handleFavoriteRequest: (tweet, user) => {
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteTweetButton);
+export default connect(null, mapDispatchToProps)(FavoriteTweetButton);
