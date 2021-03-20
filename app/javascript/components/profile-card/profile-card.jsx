@@ -60,7 +60,7 @@ const ProfileCard = (props) => {
       onGetProfileFollowers(profile);
       onGetProfileFollowing(profile);
     } else {
-      setTimeout(() => isLoading(false), 500);
+      setTimeout(() => isLoading(false), 1000);
     }
   }, [profile]);
 
