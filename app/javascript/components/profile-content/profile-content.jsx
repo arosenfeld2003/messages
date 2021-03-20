@@ -24,7 +24,7 @@ const ProfileContent = (props) => {
         <div className="col-4 p-3">
           <ProfileCard profile={profile} />
         </div>
-        <div className="col-4 p-3">
+        <div className="col p-3">
           <Feed user={profile}/>
         </div>
       </div>
