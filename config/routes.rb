@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get '/relationships/followers' => 'relationships#get_followers'
   get '/relationships/followed' => 'relationships#get_following'
 
+  get '/favorites' => 'favorites#get_favorites_for_tweet'
+  get '/favorites/get_is_liked' => 'favorites#get_is_liked'
+  post '/favorites/like' => 'favorites#new'
+  delete '/favorites/unlike' => 'favorites#delete'
+
   #Comments path
 
   post 'tweet/comment' => 'comments#create'

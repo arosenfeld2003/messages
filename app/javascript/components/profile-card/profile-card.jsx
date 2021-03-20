@@ -60,7 +60,7 @@ const ProfileCard = (props) => {
       onGetProfileFollowers(profile);
       onGetProfileFollowing(profile);
     } else {
-      setTimeout(() => isLoading(false), 500);
+      setTimeout(() => isLoading(false), 1000);
     }
   }, [profile]);
 
@@ -162,7 +162,7 @@ const ProfileCard = (props) => {
         </div>
 
       <div className="row p-3">
-        { profile ?
+        { profile && profile.handle != currentUser.handle ?
           <FollowButton
             currentUser={currentUser}
             profileFollowers={profileFollowers ? profileFollowers : currentUserFollowers}
