@@ -14,3 +14,13 @@ export const setNewTweetPopup = (status) => ({
   type: tweetTypes.SET_NEW_TWEET_POPUP_STATUS,
   payload: status
 });
+
+export const favoriteTweet = (tweet) => ({
+  type: tweetTypes.FAVORITE_TWEET,
+  payload: tweet
+})
+
+export const getIsLiked = (isLiked) => ({
+  type: tweetTypes.IS_LIKED,
+  payload: isLiked
+})

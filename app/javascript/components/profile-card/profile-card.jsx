@@ -18,21 +18,21 @@ const ProfileCard = (props) => {
     // logged-in user
     currentUser,
     // the user profile that we are looking at: same as profile?
-    user,
-    onChangeUpdateStatus,
-    // the user profile that we are looking at: same as user?
     profile,
+    onChangeUpdateStatus,
     totalPosts,
     currentUserFollowers,
     currentUserFollowing,
     onCreateNewRelationship,
     onDeleteExistRelationship,
+    isSeeProfile
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
   const [profileFollowing, setProfileFollowing] = useState(undefined);
   const [profileFollowers, setProfileFollowers] = useState(undefined);
+  const [ loading, isLoading ] = useState(true);
 
   const history = useHistory();
 
@@ -56,28 +56,30 @@ const ProfileCard = (props) => {
   }
 
   useEffect(() => {
-    if(user) {
-      onGetProfileFollowers(user);
-      onGetProfileFollowing(user);
+    if (profile) {
+      onGetProfileFollowers(profile);
+      onGetProfileFollowing(profile);
+    } else {
+      setTimeout(() => isLoading(false), 1000);
     }
-  }, [user]);
+  }, [profile]);
 
   const handleEditProfile = () => {
     onChangeUpdateStatus(null);
-    let path = `/profile/edit/${user.id}`;
+    let path = `/profile/edit/${profile.id}`;
     history.push({
       pathname: path,
       // state: { profile: user }
-      state: { currentUser: currentUser, profile: user }
+      state: { currentUser: currentUser, profile: profile }
     });
   }
 
   const handleProfilePage = () => {
-    let path = `/profile/${user.id}`;
+    let path = `/profile/${profile.id}`;
     history.push({
         pathname: path,
         // state: { profile: user }
-        state: { currentUser: currentUser, profile: user }
+        state: { }
     });
   }
 
@@ -100,16 +102,16 @@ const ProfileCard = (props) => {
   }
 
   const handleFollowAction = () => {
-    onCreateNewRelationship(currentUser, user);
+    onCreateNewRelationship(currentUser, profile);
     window.location.reload();
   }
 
   const handleUnfollowAction = () => {
-    onDeleteExistRelationship(currentUser, user);
+    onDeleteExistRelationship(currentUser, profile);
     window.location.reload();
   }
 
-  if (!user) {
+  if (!profile) {
     return <div className="row">
       <div className="col">
         <p className="lead text-muted"><small><em>No user found yet.</em></small></p>
@@ -123,10 +125,10 @@ const ProfileCard = (props) => {
       <div className="top-wrap">
         <div className="profile-name">
           {
-            user.firstname || user.lastname ? <h3>{user.firstname} {user.lastname}</h3> : ''
+            profile.firstname || profile.lastname ? <h3>{profile.firstname} {profile.lastname}</h3> : ''
           }
-          <p>@{user.handle}</p>
-          <p>{user.email}</p>
+          <p>@{profile.handle}</p>
+          <p>{profile.email}</p>
         </div>
         <div className="row">
             <div className="col text-right">
@@ -142,7 +144,7 @@ const ProfileCard = (props) => {
         </div>
       </div>
       <div className="profile-description">
-          <p>Member since: <strong>{user.created_at.slice(0, 10)}</strong></p>
+          <p>Member since: <strong>{profile.created_at.slice(0, 10)}</strong></p>
             <div className="profile-description-wrap text-center">
               <div className="profile-overview">
                 <p>TWEETS</p>
@@ -160,9 +162,8 @@ const ProfileCard = (props) => {
         </div>
 
       <div className="row p-3">
-        { user ?
+        { profile && profile.handle != currentUser.handle ?
           <FollowButton
-            user={user}
             currentUser={currentUser}
             profileFollowers={profileFollowers ? profileFollowers : currentUserFollowers}
             profileFollowing={profileFollowing ? profileFollowing : currentUserFollowing}
@@ -171,7 +172,7 @@ const ProfileCard = (props) => {
           />  : ""
         }
         {
-          profile ? <div className="col">
+          isSeeProfile ? <div className="col">
               <div className="btn-group-vertical">
                 <Button type="button"
                   className="btn btn-outline-primary"
@@ -185,8 +186,7 @@ const ProfileCard = (props) => {
   <FollowersList
     status={followersListModal}
     list={profileFollowers}
-    user={user}
-    // currentUser={user}
+    user={profile}
     currentUser={currentUser}
     profileFollowing={profileFollowing}
     handleClick={handleFollowersModalStatus}
@@ -196,8 +196,7 @@ const ProfileCard = (props) => {
   <FollowingList 
     status={followingListModal}
     list={profileFollowing}
-    user={user}
-    // currentUser={user}
+    user={profile}
     currentUser={currentUser}
     handleClick={handleFollowingModalStatus}
     handleFollowAction={handleFollowAction}
@@ -209,10 +208,7 @@ const ProfileCard = (props) => {
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
-  currentUserFollowing: state.user.userFollowing,
-  profile: state.user.profile,
-  // profileFollowing: profileFollowing,
-  // profileFollowers: profileFollowers,
+  currentUserFollowing: state.user.userFollowing
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -222,11 +218,11 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeUpdateStatus: (status) => {
     dispatch(setProfileUpdateStatus(status));
   },
-  onCreateNewRelationship: (user, currentUser) => {
-    dispatch(onNewRelationship(user, currentUser));
+  onCreateNewRelationship: (profile, currentUser) => {
+    dispatch(onNewRelationship(profile, currentUser));
   },
-  onDeleteExistRelationship: (user, currentUser) => {
-    dispatch(onDeleteRelationship(user, currentUser));
+  onDeleteExistRelationship: (profile, currentUser) => {
+    dispatch(onDeleteRelationship(profile, currentUser));
   }
 })
 

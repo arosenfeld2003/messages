@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "../home/home";
@@ -15,11 +15,20 @@ import "./app.scss";
 
 const App = (props) => {
   const {isLoggedIn, handleLoggedIn, currentUser} = props;
+  const [ loading, isLoading ] = useState(true);
+
+  // It will be executed before rendering
 
   useEffect(() => {
+    /*
+      prevent login page from flashing on reload
+      before currentUser has been loaded from props.
+    */
+    setTimeout(() => isLoading(false), 1000);
     handleLoggedIn();
-  }, [handleLoggedIn])
+  }, []);
 
+<<<<<<< HEAD
   return <div className="main">
     <Router>
       <Switch>
@@ -33,6 +42,20 @@ const App = (props) => {
       </Switch>
     </Router> 
     
+=======
+  return !loading && <div className="main">
+      <Router>
+        <Switch>
+          <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />}/>
+          <Route exact path='/signup' component={SignUpPage} />
+          <Route exact path='/login' component={SignInPage} />
+          <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
+          <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
+          <Route exact path='/users/:id' component={UserInfoPage}/>
+          <Route exact path='/profile/:profile_id' component={ProfilePage}/>
+        </Switch>
+      </Router>
+>>>>>>> a592c9399c4128b3fd96176e3478e2e8e187816a
   </div>
 };
 

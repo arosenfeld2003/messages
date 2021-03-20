@@ -10,12 +10,8 @@ import { onNewRelationship, onDeleteRelationship } from "../../redux/relationshi
 
 const FollowButton = (props) => {
   const {
-    user,
     currentUser,
-    userFollowing,
-    userFollowers,
     profileFollowers,
-    profileFollowing,
     handleFollow,
     handleUnfollow
   } = props;
@@ -24,7 +20,7 @@ const FollowButton = (props) => {
       return <div className="btn-group-vertical">
         <div className="col">
           {
-            profileFollowers.filter(user => user.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
+            profileFollowers.filter(profile => profile.id === currentUser.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={handleUnfollow}>
             Unfollow
           </Button> : <Button type="button" className="btn btn-outline-primary" onClick={handleFollow}>
             Follow
@@ -44,7 +40,6 @@ const FollowButton = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.currentUser,
   userFollowing: state.user.userFollowing,
   userFollowers: state.user.userFollowers
 })

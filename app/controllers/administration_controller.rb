@@ -9,7 +9,7 @@ class AdministrationController < ApplicationController
     end
   end
 
-  def get_profile
+  def get_profile_by_email
     @profile = User.find_by_email(user_params[:email])
     # p "@profile ==> #{@profile.id}"
     @tweets = Tweet.where(handle: user_params[:handle])

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     post 'admin/users' => 'registrations#create_from_admin'
     delete 'profile' => 'administration#destroy_profile'
     put 'profile/:id' => 'administration#update_profile'
-    post 'profile' => 'administration#get_profile'
+    post 'profile' => 'administration#get_profile_by_email'
+    get 'user/profile/:id' => 'application#get_profile'
   end
 
   root 'home#index'
@@ -20,6 +21,17 @@ Rails.application.routes.draw do
   delete '/relationships' => 'relationships#delete'
   get '/relationships/followers' => 'relationships#get_followers'
   get '/relationships/followed' => 'relationships#get_following'
+
+  get '/favorites' => 'favorites#get_favorites_for_tweet'
+  get '/favorites/get_is_liked' => 'favorites#get_is_liked'
+  post '/favorites/like' => 'favorites#new'
+  delete '/favorites/unlike' => 'favorites#delete'
+
+  #Comments path
+
+  post 'tweet/comment' => 'comments#create'
+  delete 'tweet/comment' => 'comments#destroy'
+  get 'tweet/:tweet_id/comments' => 'comments#get_comments'
 
   get '*path', to: 'home#index'
 

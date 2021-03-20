@@ -7,8 +7,7 @@ import {
   setProfileUpdateStatus,
   getUserFeed,
   getUserFollowers,
-  getUserFollowing,
-  setProfileFeed
+  getUserFollowing
 } from "./user-actions";
 import API from "../../api";
 import userTypes from "./user-types";
@@ -17,11 +16,10 @@ const INITIAL_STATE = {
   currentUser: null,
   logged_in: false,
   loggin_error: false,
-  profile: null,
+  profileBySearch: null,
   createNewUserFromAdmin: null,
   profileUpdateStatus: null,
   userFeed: {},
-  profileFeed: [],
   userFollowers: [],
   userFollowing: []
 }
@@ -61,6 +59,7 @@ const onLogoutRequest = () => {
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
+      dispatch(setUserProfile(null))
       //remove token in localStorage
       localStorage.removeItem("token");
     }).catch((error) => {
@@ -90,6 +89,7 @@ const onLoggedInRequest = () => {
   }
 }
 
+//set user profile, that we found through admin panel
 const onSearchUserProfile = (searchValue) => {
   return (dispatch) => {
     API.post(`profile`, {user: {
@@ -134,7 +134,6 @@ const onDeleteUser = (userId) => {
 }
 
 const onGetUserFeed = (currentUser) => {
-  // console.log("currentUser: "  + currentUser.id);
   return (dispatch) => {
     API.get("feed", {params: {userId: currentUser.id}})
     .then((res) => {
@@ -156,17 +155,6 @@ const onUpdateUserFromAdmin = (userId, userValues) => {
       }
     }).catch((error) => {
       dispatch(setProfileUpdateStatus(false));
-    })
-  }
-}
-
-const onGetProfileFeed = (profile) => {
-  return (dispatch) => {
-    API.get("feed", {params: {handle: profile.handle}})
-    .then((res) => {
-      dispatch(setProfileFeed(res.data));
-    }).catch((error) => {
-      console.log(error);
     })
   }
 }
@@ -217,7 +205,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userTypes.SET_USER_PROFILE:
       return {
         ...state,
-        profile: action.payload
+        profileBySearch: action.payload
       }
     case userTypes.CREATE_NEW_USER_FROM_ADMIN_STATUS:
       return {
@@ -233,11 +221,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userFeed: action.payload
-      }
-    case userTypes.SET_PROFILE_FEED:
-      return {
-        ...state,
-        profileFeed: action.payload
       }
     case userTypes.GET_USER_FOLLOWERS:
       return {
@@ -265,7 +248,6 @@ export {
   onDeleteUser,
   onUpdateUserFromAdmin,
   onGetUserFeed,
-  onGetProfileFeed,
   onGetUserFollowers,
   onGetUserFollowing
 };
