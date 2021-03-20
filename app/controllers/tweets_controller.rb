@@ -33,6 +33,7 @@ class TweetsController < ApplicationController
     end
     @user_feed = Tweet.where("user_id in (?) OR user_id = ?",
                       following_ids, params[:userId]).reverse_order
+                      
     render json: @user_feed
   end
 

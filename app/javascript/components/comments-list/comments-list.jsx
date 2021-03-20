@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import API from "../../api";
 
 import "./comments-list.scss";
@@ -8,30 +8,78 @@ const CommentsList = (props) => {
   const {tweet, currentUser} = props;
 
   const [newComment, setNewComment] = useState("");
+  const [tweetComments, setTweetComments] = useState([]); // comments for a tweet
+  const [tweetIdToUpdate, setTweetIdToUpdate] = useState(""); // for tracking tweet to update
+  const [isAddCommentForm, setIsAddCommentForm] = useState(false); // show and hide form for add comment
+  const [isCommentsList, setIsCommentsList] = useState(false); // show and hide comments list
 
   const handleChange = (evt) => {
     const { target } = evt;
     setNewComment(target.value);
   }
 
-  const onAddComment = (tweetId, user, text) => {
+  const onAddComment = (text) => {
     API.post("tweet/comment", {comment: {
       author: currentUser.handle,
       comment: text
     },
     tweet_id: tweet.id})
     .then((res) => {
+      setIsAddCommentForm(false);
+      setTweetComments(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  const onLoadComments = (tweet_id) => {
+    API.get(`tweet/${tweet_id}/comments`)
+    .then((res) => {
       console.log(res);
+      if (res) {
+        setTweetComments(res.data);
+      }
     }).catch((error) => {
       console.log(error);
     })
   }
 
+  const onDeleteComment = (tweet) => {
+    API.delete("tweet/comment", {data: {tweet_id: tweet.tweet_id}})
+    .then((res) => {
+      if(res) {
+        setTweetIdToUpdate(res.data.comment.tweet_id);
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
+  const onAddCommentForm = () => {
+    setIsAddCommentForm(true);
+  }
+
+  const onShowCommentsList = () => {
+    setIsCommentsList(true);
+  }
+
+  useEffect(() => {
+    onLoadComments(tweet.id);
+  }, [tweet])
+
+  // update tweet when delete comment
+  useEffect(() => {
+    if(tweetIdToUpdate !== "") {
+      onLoadComments(tweetIdToUpdate);
+    }
+  }, [tweetIdToUpdate])
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     if (newComment.length > 0) {
-      onAddComment(tweet.id, currentUser, newComment);
+      onAddComment(newComment);
     }
   }
 
@@ -40,55 +88,47 @@ const CommentsList = (props) => {
       <h5 className="panel-title">
         Recent Comments
       </h5>
-      <button type="button" className="btn btn-link" title="Delete">
-        <small>Add comment</small>
+      <button type="button" className="btn btn-link" title="Delete" onClick={onAddCommentForm}>
+        Add comment
       </button>
     </div>
-    <form className="comment-form">
+    {
+      isAddCommentForm ? <form className="comment-form">
       <div className="form-group">
-        <textarea name="comment" className="form-control" rows="3" onChange={handleChange}></textarea>
+        <textarea name="comment border border-primary" className="form-control" rows="2" onChange={handleChange}></textarea>
       </div>
       <button type="submit" className="btn btn-outline-primary btn-sm" onClick={(e) => handleSubmit(e)}>Send</button>
-    </form>
+    </form> : ""
+    }
+    
     <div className="panel-body">
       <ul className="list-group">
-        <li className="list-group-item">
-          <div className="row">
-            <div className="col">
-              <div className="mic-info">
-                By: <a href="#">Bhaumik Patel</a> on 2 Aug 2013
-              </div>
-              <div className="comment-text">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                  euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
-              </div>
-              <div className="action text-right">
-                <button type="button" className="btn btn-link" title="Delete">
-                  <small>Delete</small>
-                </button>
-              </div>
-            </div>
-          </div>
-        </li>
-          
-        <li className="list-group-item">
-          <div className="row">
-            <div className="col">
-              <div className="mic-info">
-                By: <a href="#">Bhaumik Patel</a> on 2 Aug 2013
-              </div>
-              <div className="comment-text">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                  euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
-              </div>
-              <div className="action text-right">
-                <button type="button" className="btn btn-link" title="Delete">
-                  <small>Delete</small>
-                </button>
+        {
+          tweetComments.map((item, index) => {
+            return <li className="list-group-item" key={index}>
+            <div className="row">
+              <div className="col">
+                <div className="row">
+                  <div className="col">
+                    <div className="mic-info">
+                      By: <a href="#">{item.author}</a> on {item.created_at.slice(0, 10)}
+                    </div>
+                  </div>
+                  <div className="col text-right">
+                    <button type="button" className="btn btn-link text-danger" title="Delete" onClick={() => {
+                      onDeleteComment(item);
+                    }}>Delete
+                    </button>
+                  </div>
+                </div>
+                <div className="comment-text">
+                    {item.comment}
+                </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+          })
+        }
       </ul>
     </div>
   </div>

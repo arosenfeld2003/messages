@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   #Comments path
 
   post 'tweet/comment' => 'comments#create'
-  delete 'tweet/comment' => 'comments#delete'
+  delete 'tweet/comment' => 'comments#destroy'
+  get 'tweet/:tweet_id/comments' => 'comments#get_comments'
 
   get '*path', to: 'home#index'
 
