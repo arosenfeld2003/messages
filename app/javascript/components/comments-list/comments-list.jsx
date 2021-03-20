@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import API from "../../api";
+import { Link } from "react-router-dom";
 
 import "./comments-list.scss";
 
@@ -20,7 +21,8 @@ const CommentsList = (props) => {
   const onAddComment = (text) => {
     API.post("tweet/comment", {comment: {
       author: currentUser.handle,
-      comment: text
+      comment: text,
+      author_id: currentUser.id
     },
     tweet_id: tweet.id})
     .then((res) => {
@@ -111,7 +113,7 @@ const CommentsList = (props) => {
                 <div className="row">
                   <div className="col">
                     <div className="mic-info">
-                      By: <a href="#">{item.author}</a> on {item.created_at.slice(0, 10)}
+                      By: <Link to={`/profile/${item.author_id}`}>{item.author}</Link> on {item.created_at.slice(0, 10)}
                     </div>
                   </div>
                   <div className="col text-right">
