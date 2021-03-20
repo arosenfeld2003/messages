@@ -10,23 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_03_15_182040) do
-=======
 ActiveRecord::Schema.define(version: 2021_03_18_191600) do
->>>>>>> 4f0e688fa6b1421dac701e6be60c88a95e25f916
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "comments", force: :cascade do |t|
     t.string "author"
     t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "tweet_id"
-=======
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "tweet_id", null: false
@@ -34,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_03_18_191600) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tweet_id"], name: "index_favorites_on_tweet_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
->>>>>>> 4f0e688fa6b1421dac701e6be60c88a95e25f916
   end
 
   create_table "relationships", force: :cascade do |t|

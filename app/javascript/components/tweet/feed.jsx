@@ -44,9 +44,9 @@ const Feed = (props) => {
                       </svg>
                   </button>
 
-                  <FavoriteTweetButton tweet={tweet} user={user}/>
+                  <FavoriteTweetButton tweet={tweet} user={currentUser}/>
 
-                  {user.handle === tweet.handle &&
+                  {currentUser.handle === tweet.handle &&
                     <DeleteTweetButton tweet={tweet}/>
                   }
 
