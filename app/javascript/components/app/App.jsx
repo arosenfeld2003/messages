@@ -28,21 +28,6 @@ const App = (props) => {
     handleLoggedIn();
   }, []);
 
-<<<<<<< HEAD
-  return <div className="main">
-    <Router>
-      <Switch>
-        <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />} />
-        <Route exact path='/signup' component={SignUpPage} />
-        <Route exact path='/login' component={SignInPage} />
-        <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
-        <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
-        <Route exact path='/users/:id' component={UserInfoPage}/>
-        <Route exact path='/profile/:id' component={ProfilePage}/>
-      </Switch>
-    </Router> 
-    
-=======
   return !loading && <div className="main">
       <Router>
         <Switch>
@@ -55,7 +40,6 @@ const App = (props) => {
           <Route exact path='/profile/:profile_id' component={ProfilePage}/>
         </Switch>
       </Router>
->>>>>>> a592c9399c4128b3fd96176e3478e2e8e187816a
   </div>
 };
 
