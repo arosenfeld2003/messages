@@ -10,7 +10,7 @@ const Feed = (props) => {
   const {currentUser, fetchUserFeed, userFeed} = props;
 
   const loadUserFeed = function () {
-    fetchUserFeed(currentUser) || [];
+    fetchUserFeed(currentUser);
   }
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Feed = (props) => {
 
   return  <div>
     {
-      !userFeed.length ? <p>Your feed will be here.</p> : <div>
+      !userFeed  && !userFeed.length ? <p>Your feed will be here.</p> : <div>
         <h3>Latest Posts</h3>
         {
           userFeed[0] !=  undefined ? userFeed.map((tweet, index) => (
@@ -61,6 +61,7 @@ const Feed = (props) => {
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   userFeed: state.user.userFeed,
+  isLoggedIn: state.user.logged_in,
 })
 
 const mapDispatchToProps = (dispatch) => {

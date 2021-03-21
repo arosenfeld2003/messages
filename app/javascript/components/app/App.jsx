@@ -24,11 +24,15 @@ const App = (props) => {
       prevent login page from flashing on reload
       before currentUser has been loaded from props.
     */
-    setTimeout(() => isLoading(false), 1000);
+    //setTimeout(() => isLoading(false), 1000);
     handleLoggedIn();
-  }, []);
 
-  return !loading && <div className="main">
+    if (isLoggedIn !== null) {
+      isLoading(false);
+    }
+  }, [isLoggedIn]);
+
+  return !loading ? <div className="main">
       <Router>
         <Switch>
           <Route exact path='/' render={() => currentUser ? <Home /> : <Welcome />}/>
@@ -40,7 +44,14 @@ const App = (props) => {
           <Route exact path='/profile/:profile_id' component={ProfilePage}/>
         </Switch>
       </Router>
-  </div>
+  </div> : <div className="loader-block">
+      <p>Loading...</p>
+      <div className="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
 };
 
 const mapStateToProps = (state) => ({

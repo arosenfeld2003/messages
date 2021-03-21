@@ -8,7 +8,7 @@ import SubmitNewTweet from "../tweet/newTweet";
 import Suggestions from "../suggestions/suggestions";
 
 const Home = (props) => {
-  const {currentUser, userFeed, userFollowers, userFollowing} = props;
+  const {currentUser, userFeed} = props;
 
   if (!currentUser) {
     <Redirect to="/welcome" />
