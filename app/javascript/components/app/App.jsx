@@ -44,7 +44,14 @@ const App = (props) => {
           <Route exact path='/profile/:profile_id' component={ProfilePage}/>
         </Switch>
       </Router>
-  </div> : <h1>Loading...</h1>
+  </div> : <div className="loader-block">
+      <p>Loading...</p>
+      <div className="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
 };
 
 const mapStateToProps = (state) => ({

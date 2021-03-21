@@ -60,7 +60,7 @@ const onLogoutRequest = () => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
       dispatch(setUserProfile(null));
-      dispatch(getUserFeed(null));
+      dispatch(getUserFeed([]));
       dispatch(getUserFollowers([]));
       dispatch(getUserFollowing([]));
       //remove token in localStorage
@@ -82,7 +82,7 @@ const onLoggedInRequest = () => {
       .then((res) => {
         if (res.data.logged_in === true) {
           dispatch(setCurrentUser(res.data.user));
-          dispatch(getUserFeed(res.data.user));
+          //dispatch(getUserFeed(res.data.user));
           dispatch(setLoggedIn(true));
         }
       }).catch((error) => {
