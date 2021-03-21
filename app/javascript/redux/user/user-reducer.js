@@ -14,12 +14,12 @@ import userTypes from "./user-types";
 
 const INITIAL_STATE = {
   currentUser: null,
-  logged_in: false,
+  logged_in: null,
   loggin_error: false,
   profileBySearch: null,
   createNewUserFromAdmin: null,
   profileUpdateStatus: null,
-  userFeed: {},
+  userFeed: [],
   userFollowers: [],
   userFollowing: []
 }
@@ -32,6 +32,7 @@ const onSignUpRequest = (userValues) => {
       dispatch(setLoggedIn(true));
       localStorage.setItem("token", res.data.token);
     }).catch((error) => {
+      dispatch(setLoggedIn(false));
       console.log(error);
     })
   }
@@ -47,7 +48,6 @@ const onLoginRequest = (userValues) => {
       //save token in localStorage
       localStorage.setItem("token", res.data.token);
     }).catch((error) => {
-      dispatch(setLogginError(true));
       console.log(error);
     })
   }
@@ -59,7 +59,10 @@ const onLogoutRequest = () => {
     .then((res) => {
       dispatch(setCurrentUser(null));
       dispatch(setLoggedIn(false));
-      dispatch(setUserProfile(null))
+      dispatch(setUserProfile(null));
+      dispatch(getUserFeed(null));
+      dispatch(getUserFollowers([]));
+      dispatch(getUserFollowing([]));
       //remove token in localStorage
       localStorage.removeItem("token");
     }).catch((error) => {
@@ -83,8 +86,11 @@ const onLoggedInRequest = () => {
           dispatch(setLoggedIn(true));
         }
       }).catch((error) => {
+        dispatch(setLogginError(true));
         console.log(error);
       })
+    } else {
+      dispatch(setLoggedIn(false));
     }
   }
 }
@@ -137,7 +143,7 @@ const onGetUserFeed = (currentUser) => {
   return (dispatch) => {
     API.get("feed", {params: {userId: currentUser.id}})
     .then((res) => {
-      console.log(res);
+      console.log("Getted feed");
       dispatch(getUserFeed(res.data));
     }).catch((error) => {
       console.log(error);
