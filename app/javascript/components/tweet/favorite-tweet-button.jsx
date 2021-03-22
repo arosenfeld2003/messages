@@ -1,12 +1,27 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import {onFavoriteTweet, onIsLiked} from '../../redux/tweet/tweet-reducer';
 import {connect} from "react-redux";
+import API from "../../api";
 
 const FavoriteTweetButton = (props) => {
+  const {handleFavoriteRequest, tweet, user} = props;
+  const [isLiked, setIsLiked] = useState(undefined);
 
-  const {handleFavoriteRequest, handleIsLiked, tweet, user} = props;
-  const [isLiked, setIsLiked] = useState(handleIsLiked(tweet, user));
+  const handleIsLiked = (tweet, user) => {
+    API.get("favorites/get_is_liked", {
+      params: {
+        tweetId: tweet.id,
+        userId: user.id
+      }
+    }).then((res) => {
+      let isLiked = res.data.favorite[0] ? true : false;
+      setIsLiked(isLiked);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
 
+  handleIsLiked(tweet, user);
   return <button className="btn btn-link text-danger like" onClick={() => {
       handleFavoriteRequest(tweet, user);
       setIsLiked(!isLiked);
@@ -25,9 +40,6 @@ const FavoriteTweetButton = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   handleFavoriteRequest: (tweet, user) => {
     dispatch(onFavoriteTweet(tweet, user));
-  },
-  handleIsLiked: (tweet, user) => {
-    dispatch(onIsLiked(tweet, user));
   }
 })
 

@@ -19,8 +19,3 @@ export const favoriteTweet = (tweet) => ({
   type: tweetTypes.FAVORITE_TWEET,
   payload: tweet
 })
-
-export const getIsLiked = (isLiked) => ({
-  type: tweetTypes.IS_LIKED,
-  payload: isLiked
-})
