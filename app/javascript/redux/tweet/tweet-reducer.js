@@ -1,5 +1,5 @@
 import tweetTypes from './tweet-types';
-import { deleteTweet, favoriteTweet, getIsLiked } from './tweet-actions';
+import { deleteTweet, favoriteTweet } from './tweet-actions';
 import API from '../../api';
 import { onGetUserFeed } from "../user/user-reducer";
 
@@ -31,23 +31,6 @@ const onDeleteTweet = (tweetId) => {
       if (res) {
         dispatch(onGetUserFeed(getState().user.currentUser));
       }
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-}
-
-const onIsLiked = (tweet, user) => {
-  return (dispatch, getState) => {
-    API.get("favorites/get_is_liked", {
-      params: {
-        tweetId: tweet.id,
-        userId: user.id
-      }
-    }).then((res) => {
-      console.log(res);
-      let isLiked = res.data.favorite[0] ? true : false;
-      dispatch(getIsLiked(isLiked));
     }).catch((error) => {
       console.log(error);
     })
@@ -114,11 +97,6 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         favoriteTweet: action.payload
       }
-    case tweetTypes.IS_LIKED:
-      return {
-        ...state,
-        isLiked: action.payload
-      }
     default:
       return state;
   }
@@ -129,5 +107,4 @@ export {
   onNewTweet,
   onDeleteTweet,
   onFavoriteTweet,
-  onIsLiked
 };

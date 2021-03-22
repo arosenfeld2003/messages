@@ -74,7 +74,7 @@ const onLogoutRequest = () => {
 const onLoggedInRequest = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    if(token) {
+    if (token) {
       API.get("logged_in", {
         headers: {
           Authorization: token
