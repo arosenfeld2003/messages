@@ -86,7 +86,7 @@ const onLoggedInRequest = () => {
           dispatch(setLoggedIn(true));
         }
       }).catch((error) => {
-        dispatch(setLogginError(true));
+        dispatch(setLoggedIn(false));
         console.log(error);
       })
     } else {
