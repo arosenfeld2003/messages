@@ -28,7 +28,12 @@ class FavoritesController < ApplicationController
   # params: tweet
   def get_favorites_for_tweet
     @favorites = Favorite.where("tweet_id = ?", params[:id])
-    render json: {favorites: @favorites}
+    @users = []
+    @favorites.each do |fav|
+      user = User.where("id = ?", fav.user_id)
+      @users.push([ user[0].id, user[0].handle ])
+    end
+    render json: {favorites: @users}
   end
 
   # params: tweet, user

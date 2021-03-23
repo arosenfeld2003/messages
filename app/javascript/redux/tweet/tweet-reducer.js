@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   newTweet: null,
   userFeed: null,
   newTweetPopup: false,
-  favoriteTweet: null
+  favoriteTweet: null,
+  likedByList: null
 }
 
 const onNewTweet = (newTweet) => {
@@ -74,6 +75,17 @@ const onFavoriteTweet = (tweet, user) => {
   }
 }
 
+const onGetLikedByList = (tweet) => {
+  return (dispatch, getState) => {
+    API.get('/favorites/get_favorites_for_tweet', {params: {tweetId: tweet.id,}})
+    .then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+}
+
 
 const tweetReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
@@ -97,6 +109,11 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         favoriteTweet: action.payload
       }
+    case tweetTypes.GET_LIKED_BY_LIST:
+      return {
+        ...state,
+        likedByList: action.payload
+      }
     default:
       return state;
   }
@@ -107,4 +124,5 @@ export {
   onNewTweet,
   onDeleteTweet,
   onFavoriteTweet,
+  onGetLikedByList
 };
