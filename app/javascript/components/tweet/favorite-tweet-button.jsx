@@ -20,11 +20,9 @@ const FavoriteTweetButton = (props) => {
       console.log(error);
     })
   }
-
   handleIsLiked(tweet, user);
   return <button className="btn btn-link text-danger like" onClick={() => {
       handleFavoriteRequest(tweet, user);
-      setIsLiked(!isLiked);
     }}>
     {isLiked ?
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" className="bi bi-heart-fill" viewBox="0 0 16 16">
