@@ -18,6 +18,17 @@ const CommentsList = (props) => {
     setNewComment(target.value);
   }
 
+  const onLoadComments = (tweet_id) => {
+    API.get(`tweet/${tweet_id}/comments`)
+    .then((res) => {
+      if (res) {
+        setTweetComments(res.data);
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
   const onAddComment = (text) => {
     API.post("tweet/comment", {comment: {
       author: currentUser.handle,
@@ -30,17 +41,6 @@ const CommentsList = (props) => {
       setTweetComments(res.data);
     })
     .catch((error) => {
-      console.log(error);
-    })
-  }
-
-  const onLoadComments = (tweet_id) => {
-    API.get(`tweet/${tweet_id}/comments`)
-    .then((res) => {
-      if (res) {
-        setTweetComments(res.data);
-      }
-    }).catch((error) => {
       console.log(error);
     })
   }
@@ -105,15 +105,14 @@ const CommentsList = (props) => {
     <div className="panel-body">
       <ul className="list-group">
         {
-          tweetComments.map((item, index) => {
+          tweetComments.length ? tweetComments.map((item, index) => {
             return <li className="list-group-item" key={index}>
             <div className="row">
               <div className="col">
                 <div className="row">
-                  <div className="col">
-                    <div className="mic-info">
-                      By: <Link to={`/profile/${item.author_id}`}>{item.author}</Link> on {item.created_at.slice(0, 10)}
-                    </div>
+                  <div className="col"><div className="mic-info">
+                    By: {item.author} on {item.created_at.slice(0, 10)}
+                  </div>
                   </div>
                   <div className="col text-right">
                     {
@@ -131,7 +130,7 @@ const CommentsList = (props) => {
               </div>
             </div>
           </li>
-          })
+          } ) : ""
         }
       </ul>
     </div>
