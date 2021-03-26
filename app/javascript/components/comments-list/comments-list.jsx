@@ -37,7 +37,6 @@ const CommentsList = (props) => {
   const onLoadComments = (tweet_id) => {
     API.get(`tweet/${tweet_id}/comments`)
     .then((res) => {
-      console.log(res);
       if (res) {
         setTweetComments(res.data);
       }
@@ -117,10 +116,13 @@ const CommentsList = (props) => {
                     </div>
                   </div>
                   <div className="col text-right">
-                    <button type="button" className="btn btn-link text-danger" title="Delete" onClick={() => {
-                      onDeleteComment(item);
-                    }}>Delete
-                    </button>
+                    {
+                      currentUser.handle === item.author ? <button type="button" className="btn btn-link text-danger" title="Delete" onClick={() => {
+                        onDeleteComment(item);
+                      }}>Delete
+                      </button> : ""
+                    }
+                    
                   </div>
                 </div>
                 <div className="comment-text">

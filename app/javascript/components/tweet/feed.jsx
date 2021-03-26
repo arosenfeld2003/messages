@@ -15,7 +15,7 @@ const Feed = (props) => {
   }
 
   useEffect(() => {
-    loadUserFeed()
+    loadUserFeed();
   }, [])
 
   return <div>

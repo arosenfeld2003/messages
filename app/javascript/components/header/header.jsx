@@ -37,10 +37,13 @@ const Header = (props) => {
         <div className="col-6 p-3">
             <div className="row">
               <div className="col text-right">
-              <Link to={{
-                  pathname: '/dashboard',
-                  state: { user: currentUser }
-                }} className="btn btn btn-light my-2 my-sm-0">Dashboard</Link>
+                {
+                  currentUser.is_admin ? <Link to={{
+                    pathname: '/dashboard',
+                    state: { user: currentUser }
+                  }} className="btn btn btn-light my-2 my-sm-0">Dashboard</Link> : ""
+                }
+              
               </div>
               <div className="col text-right">
                 <Button
