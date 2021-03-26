@@ -16,7 +16,11 @@ const Dashboard = (props) => {
   } = props;
 
   if (!currentUser) {
-    <Redirect to="/welcome" />
+    return <Redirect to="/welcome" />
+  }
+
+  if (currentUser && !currentUser.is_admin) {
+    return <Redirect to="/" />
   }
 
   return <div className="dashboard">

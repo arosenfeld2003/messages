@@ -37,7 +37,6 @@ const CommentsList = (props) => {
   const onLoadComments = (tweet_id) => {
     API.get(`tweet/${tweet_id}/comments`)
     .then((res) => {
-      console.log(res);
       if (res) {
         setTweetComments(res.data);
       }

@@ -10,7 +10,7 @@ const ProfilePage = (props) => {
   const profileId = props.match.params.profile_id;
 
   useEffect(() => {
-    if(profileId) {
+    if (profileId) {
       handleProfile(profileId);
     }
   }, [profileId]);
@@ -19,13 +19,19 @@ const ProfilePage = (props) => {
     return <Redirect to="/" />
   }
 
-  return <div className="profile-page">
-    <Header />
-    {
-      currentProfile ? <ProfileContent profile={currentProfile}/>
-      : <p className="lead text-muted"><small><em>User was not found.</em></small></p>
-    }
-  </div>
+  if (currentProfile) {
+    return <div className="profile-page">
+      <Header />
+      {
+        currentProfile ? <ProfileContent profile={currentProfile}/>
+        : <p className="lead text-muted"><small><em>User was not found.</em></small></p>
+      }
+    </div>
+  } else {
+    return <p className="lead text-muted"><small><em>User was not found.</em></small></p>
+  }
+
+  
 
 }
 
