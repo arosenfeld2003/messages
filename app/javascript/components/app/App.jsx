@@ -41,7 +41,7 @@ const App = (props) => {
           <Route exact path='/dashboard' render={() => currentUser ? <Dashboard /> : <Welcome />}/>
           <Route exact path='/profile/edit/:id' component={EditProfilePage}/>
           <Route exact path='/users/:id' component={UserInfoPage}/>
-          <Route exact path='/profile/:profile_id' component={ProfilePage}/>
+          <Route path='/profile/:profile_id' component={ProfilePage}/>
         </Switch>
       </Router>
   </div> : <div className="loader-block">

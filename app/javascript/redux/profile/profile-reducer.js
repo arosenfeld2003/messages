@@ -10,8 +10,8 @@ import {
 import { setUserProfile } from "../user/user-actions";
 
 const INITIAL_STATE = {
-  profileFollowers: {},
-  profileFollowing: {},
+  profileFollowers: [],
+  profileFollowing: [],
   profile: null,
   profileFeed: [],
 }
