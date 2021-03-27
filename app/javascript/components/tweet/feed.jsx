@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from "react-redux";
-import { onFavoriteTweet, onGetLikedByList } from '../../redux/tweet/tweet-reducer';
+import { onGetLikedByList } from '../../redux/tweet/tweet-reducer';
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
 import FavoriteTweetButton from './favorite-tweet-button';
-import Likes from './likes';
+import { Link } from "react-router-dom";
 import CommentsList from "../comments-list/comments-list";
 
 const Feed = (props) => {
@@ -32,7 +32,7 @@ const Feed = (props) => {
             <div key={index}>
               <div className="card">
                 <div className="card-header card-title">
-                  <strong>@{tweet.handle}</strong>, <small>{tweet.created_at.slice(0, 10)}</small>
+                  <Link to={`/profile/${tweet.user_id}`}><strong>@{tweet.handle}</strong></Link>, <small>{tweet.created_at.slice(0, 10)}</small>
                 </div>
                 <div className="card-body">
                   <p className="card-text">{tweet.body}</p>
