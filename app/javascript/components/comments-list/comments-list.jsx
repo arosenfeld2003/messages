@@ -111,7 +111,7 @@ const CommentsList = (props) => {
               <div className="col">
                 <div className="row">
                   <div className="col"><div className="mic-info">
-                    By: <a href="#0">{item.author}</a> on {item.created_at.slice(0, 10)}
+                    By: <Link to={`/profile/${item.author_id}`}>{item.author}</Link> on {item.created_at.slice(0, 10)}
                   </div>
                   </div>
                   <div className="col text-right">
