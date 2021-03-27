@@ -19,8 +19,9 @@ const Likes = (props) => {
     API.get('/favorites', {params: {id: tweet.id}})
     .then((res) => {
       setList(res.data.favorites);
-      console.log(res.data.favorites);
+      //console.log(res.data.favorites);
     }).catch((error) => {
+      alert("Cannot load likes")
       console.log(error)
     })
   }

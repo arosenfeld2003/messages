@@ -6,6 +6,7 @@ import Button from "../button/button";
 import {onLogoutRequest} from "../../redux/user/user-reducer";
 import {setUserProfile} from "../../redux/user/user-actions";
 import {setNewTweetPopup} from "../../redux/tweet/tweet-actions";
+import SearchUserForm from "../search-user-form/search-user-form";
 
 import "./header.scss";
 
@@ -26,7 +27,7 @@ const Header = (props) => {
     return <header className="main-header">
     <div className="container">
       <div className="row">
-        <div className="col-6 p-3">
+        <div className="col-3 p-3">
           <Button
             type="button"
             className="header-logo"
@@ -34,8 +35,11 @@ const Header = (props) => {
             NewsPaper
           </Button>
         </div>
-        <div className="col-6 p-3">
+        <div className="col p-3">
             <div className="row">
+            < div className="col">
+                <SearchUserForm />
+              </div>
               <div className="col text-right">
                 {
                   currentUser.is_admin ? <Link to={{

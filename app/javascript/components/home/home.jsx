@@ -8,10 +8,14 @@ import SubmitNewTweet from "../tweet/newTweet";
 import Suggestions from "../suggestions/suggestions";
 
 const Home = (props) => {
-  const {currentUser, userFeed} = props;
+  const {currentUser, userFeed, profileBySearch} = props;
 
   if (!currentUser) {
     <Redirect to="/welcome" />
+  }
+
+  if (profileBySearch) {
+    return <Redirect to={`profile/${profileBySearch.id}`} />
   }
 
   return <div className="home-page">
@@ -24,12 +28,9 @@ const Home = (props) => {
               totalPosts={userFeed.length}
             />
           </div>
-          <div className="col-6 p-3">
+          <div className="col p-3">
             <SubmitNewTweet />
             <Feed user={currentUser}/>
-          </div>
-          <div className="col-3 p-3">
-            <Suggestions />
           </div>
         </div>
       </div>
@@ -42,7 +43,8 @@ const mapStateToProps = (state) => ({
   isLoggedIn: state.user.logged_in,
   userFeed: state.user.userFeed,
   userFollowers: state.user.userFollowers,
-  userFollowing: state.user.userFollowing
+  userFollowing: state.user.userFollowing,
+  profileBySearch: state.user.profileBySearch
 })
 
 export default connect(mapStateToProps, null)(Home);

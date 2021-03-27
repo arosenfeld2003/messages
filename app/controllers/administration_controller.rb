@@ -10,23 +10,23 @@ class AdministrationController < ApplicationController
   end
 
   def get_profile_by_email
-    @profile = User.find_by_email(user_params[:email])
-    # p "@profile ==> #{@profile.id}"
+    @profile = User.where("handle = ?", user_params[:handle])
+    p @profile
     @tweets = Tweet.where(handle: user_params[:handle])
-    @followers = get_user_followers({userId: @profile.id})
-    @following = get_user_following({userId: @profile.id})
-    
+    @followers = get_user_followers({userId: @profile[0].id})
+    @following = get_user_following({userId: @profile[0].id})
+
     if @profile
       render json: {
-        id: @profile.id,
-        email: @profile.email,
-        handle: @profile.handle,
-        created_at: @profile.created_at.to_formatted_s(:long),
+        id: @profile[0].id,
+        email: @profile[0].email,
+        handle: @profile[0].handle,
+        created_at: @profile[0].created_at.to_formatted_s(:long),
         tweets: @tweets.length,
         followers: @followers.length,
         following: @following.length,
-        firstname: @profile.firstname,
-        lastname: @profile.lastname
+        firstname: @profile[0].firstname,
+        lastname: @profile[0].lastname
       }
     else
       warden.custom_failure!

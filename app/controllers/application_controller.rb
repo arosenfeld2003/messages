@@ -85,6 +85,7 @@ class ApplicationController < ActionController::Base
 
   def get_profile
     @profile = User.find(params[:id])
+
     if @profile
       render json: @profile
     else

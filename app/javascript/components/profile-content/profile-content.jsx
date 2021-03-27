@@ -18,9 +18,7 @@ const ProfileContent = (props) => {
     <Redirect to="/" />
   }
 
-  return <div className="main-content">
-    <div className="container">
-      <div className="row">
+  return <div className="row">
         <div className="col-4 p-3">
           <ProfileCard profile={profile} />
         </div>
@@ -28,8 +26,6 @@ const ProfileContent = (props) => {
           <Feed user={profile}/>
         </div>
       </div>
-    </div>
-  </div>
 }
 
 const mapStateToProps = (state) => ({

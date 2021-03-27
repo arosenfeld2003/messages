@@ -7,6 +7,8 @@ import {
   setProfileFeed
 } from "./profile-actions";
 
+import { setUserProfile } from "../user/user-actions";
+
 const INITIAL_STATE = {
   profileFollowers: {},
   profileFollowing: {},
@@ -19,7 +21,7 @@ const onGetProfile = (id) => {
     API.get(`user/profile/${id}`)
     .then((res) => {
       console.log(res);
-      dispatch(setProfile(res.data));
+      dispatch(setUserProfile(res.data));
     }).catch((error) => {
       // we need to handle errors here!
       console.log(error);

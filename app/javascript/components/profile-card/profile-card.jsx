@@ -25,7 +25,8 @@ const ProfileCard = (props) => {
     currentUserFollowing,
     onCreateNewRelationship,
     onDeleteExistRelationship,
-    isSeeProfile
+    isSeeProfile,
+    profileFeed
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
@@ -150,7 +151,7 @@ const ProfileCard = (props) => {
           <div className="profile-description-wrap text-center">
             <div className="profile-overview">
               <p>TWEETS</p>
-              <h4>{totalPosts ? totalPosts : "0"}</h4>
+              <h4>{profileFeed.length ? profileFeed.length : "0"}</h4>
             </div>
             <div className="profile-overview" onClick={handleFollowersModalStatus}>
               <p>FOLLOWERS</p>
@@ -210,7 +211,8 @@ const ProfileCard = (props) => {
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
-  currentUserFollowing: state.user.userFollowing
+  currentUserFollowing: state.user.userFollowing,
+  profileFeed: state.profile.profileFeed
 })
 
 const mapDispatchToProps = (dispatch) => ({
