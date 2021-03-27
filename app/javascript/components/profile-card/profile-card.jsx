@@ -7,8 +7,8 @@ import { useHistory } from "react-router-dom";
 import { setProfileUpdateStatus } from "../../redux/user/user-actions";
 import FollowersList from "../followers-list/followers-list";
 import FollowingList from "../following-list/following-list";
-// import CurrentUserProfile from "../current-user-profile/current-user-profile";
 import { onNewRelationship, onDeleteRelationship } from "../../redux/relationship/relationship-reducer";
+import { onGetProfileFollowers, onGetProfileFollowing } from "../../redux/profile/profile-reducer";
 import API from "../../api";
 
 import "./profile-card.scss";
@@ -20,48 +20,26 @@ const ProfileCard = (props) => {
     // the user profile that we are looking at: same as profile?
     profile,
     onChangeUpdateStatus,
-    totalPosts,
     currentUserFollowers,
     currentUserFollowing,
     onCreateNewRelationship,
     onDeleteExistRelationship,
-    isSeeProfile,
-    profileFeed
+    profileFeed,
+    onGetCurrentProfileFollowers,
+    onGetCurrentProfileFollowing,
+    profileFollowers,
+    profileFollowing
   } = props;
 
   const [followingListModal, setFollowingListModal] = useState(false);
   const [followersListModal, setFollowersListModal] = useState(false);
-  const [profileFollowing, setProfileFollowing] = useState(undefined);
-  const [profileFollowers, setProfileFollowers] = useState(undefined);
-  const [ loading, isLoading ] = useState(true);
 
   const history = useHistory();
 
-  const onGetProfileFollowers = (profile) => {
-    API.get("relationships/followers", {params: {userId: profile.id}})
-    .then((res) => {
-      console.log(res);
-      setProfileFollowers(res.data.followers);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-  
-  const onGetProfileFollowing = (profile) => {
-    API.get("relationships/followed", {params: {userId: profile.id}})
-    .then((res) => {
-      setProfileFollowing(res.data.following);
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
-
   useEffect(() => {
     if (profile) {
-      onGetProfileFollowers(profile);
-      onGetProfileFollowing(profile);
-    } else {
-      setTimeout(() => isLoading(false), 1000);
+      onGetCurrentProfileFollowers(profile);
+      onGetCurrentProfileFollowing(profile);
     }
   }, [profile]);
 
@@ -72,15 +50,6 @@ const ProfileCard = (props) => {
       pathname: path,
       // state: { profile: user }
       state: { currentUser: currentUser, profile: profile }
-    });
-  }
-
-  const handleProfilePage = () => {
-    let path = `/profile/${profile.id}`;
-    history.push({
-        pathname: path,
-        // state: { profile: user }
-        state: { }
     });
   }
 
@@ -174,15 +143,6 @@ const ProfileCard = (props) => {
             handleUnfollow={handleUnfollowAction}
           />  : ""
         }
-        {
-          isSeeProfile ? <div className="col">
-            <div className="btn-group-vertical">
-              <Button type="button"
-                className="btn btn-outline-primary"
-                onClick={handleProfilePage}>See Profile</Button>
-            </div>
-          </div> : ""
-        }
       </div>
     </div>
     <FollowersList
@@ -212,7 +172,9 @@ const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
   currentUserFollowers: state.user.userFollowers,
   currentUserFollowing: state.user.userFollowing,
-  profileFeed: state.profile.profileFeed
+  profileFeed: state.profile.profileFeed,
+  profileFollowers: state.profile.profileFollowers,
+  profileFollowing: state.profile.profileFollowing
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -227,6 +189,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDeleteExistRelationship: (profile, currentUser) => {
     dispatch(onDeleteRelationship(profile, currentUser));
+  },
+  onGetCurrentProfileFollowers: (profile) => {
+    dispatch(onGetProfileFollowers(profile));
+  },
+  onGetCurrentProfileFollowing: (profile) => {
+    dispatch(onGetProfileFollowing(profile));
   }
 })
 
