@@ -28,12 +28,9 @@ const Home = (props) => {
               totalPosts={userFeed.length}
             />
           </div>
-          <div className="col-6 p-3">
+          <div className="col p-3">
             <SubmitNewTweet />
             <Feed user={currentUser}/>
-          </div>
-          <div className="col-3 p-3">
-            <Suggestions />
           </div>
         </div>
       </div>

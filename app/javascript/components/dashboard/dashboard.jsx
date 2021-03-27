@@ -12,7 +12,7 @@ import "./dashboard.scss";
 const Dashboard = (props) => {
   const {
     currentUser,
-    profileBySearch
+    currentProfile
   } = props;
 
   if (!currentUser) {
@@ -23,8 +23,8 @@ const Dashboard = (props) => {
     return <Redirect to="/" />
   }
 
-  if (profileBySearch) {
-    return <Redirect to={`profile/${profileBySearch.id}`} />
+  if (currentProfile) {
+    return <Redirect to={`profile/${currentProfile.id}`} />
   }
 
   return <div className="dashboard">
@@ -43,8 +43,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser,
-  profile: state.user.profileBySearch,
-  profileBySearch: state.user.profileBySearch
+  currentProfile: state.user.profileBySearch
 })
 
 const mapDispatchToProps = (dispatch) => {
