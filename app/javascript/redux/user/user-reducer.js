@@ -98,11 +98,10 @@ const onLoggedInRequest = () => {
 //set user profile, that we found through admin panel
 const onSearchUserProfile = (searchValue) => {
   return (dispatch) => {
-    API.post(`profile`, {user: {
-      email: searchValue
+    API.post(`profile`, { user: {
+      handle: searchValue
     }})
     .then((res) => {
-      console.log(res.data);
       dispatch(setUserProfile(res.data));
     }).catch((error) => {
       alert("User not found!");

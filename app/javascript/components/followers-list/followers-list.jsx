@@ -38,12 +38,11 @@ const FollowersList = (props) => {
           <ul className="list-group">
             { list ? list.map((user, index) => {
                 return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                  <Link to={`/profile/${user.id}`}
-                  className="btn btn-link">{user.handle}</Link>
+                  <a className="btn btn-link">{user.handle}</a>
 
                   <div className="btn-group-vertical">
                     {
-                      profileFollowing.filter(follower => user.id === follower.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={() => {
+                      profileFollowing && profileFollowing.filter(follower => user.id === follower.id).length > 0 ? <Button type="button" className="btn btn-outline-primary" onClick={() => {
                         handleUnfollowAction(user);
                       }}>
                         Unfollow

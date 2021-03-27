@@ -32,8 +32,7 @@ const FollowingList = (props) => {
           <ul className="list-group">
             { list ? list.map((user, index) => {
                   return <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                    <Link to={`/profile/${user.id}`}
-                    className="btn btn-link">{user.handle}</Link>
+                    <a className="btn btn-link">{user.handle}</a>
 
                     <div className="btn-group-vertical">
                       <Button type="button" className="btn btn-outline-dark" onClick={() => unfollowUser(user)}>

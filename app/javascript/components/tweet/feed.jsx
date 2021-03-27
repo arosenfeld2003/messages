@@ -8,10 +8,15 @@ import Likes from './likes';
 import CommentsList from "../comments-list/comments-list";
 
 const Feed = (props) => {
-  const {currentUser, fetchUserFeed, userFeed} = props;
+  const {currentUser, fetchUserFeed, userFeed, user} = props;
 
   const loadUserFeed = function () {
-    fetchUserFeed(currentUser);
+    // if we want feed of other user
+    if (user) {
+      fetchUserFeed(user);
+    } else {
+      fetchUserFeed(currentUser);
+    }
   }
 
   useEffect(() => {
