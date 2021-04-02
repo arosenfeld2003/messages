@@ -142,7 +142,7 @@ const onGetUserFeed = (currentUser) => {
   return (dispatch) => {
     API.get("feed", {params: {userId: currentUser.id}})
     .then((res) => {
-      console.log("Getted feed");
+      console.log("Successful Get of Feed");
       dispatch(getUserFeed(res.data));
     }).catch((error) => {
       console.log(error);
