@@ -8,7 +8,7 @@ const {user, tweet} = props;
 const [newTweet, setNewTweet] = useState({});
 
 const handleRetweet = (user, tweet) => {
-  setNewTweet({user: user, body: tweet.body, isRetweet: true, originalTweeter: tweet.user_id })
+  setNewTweet({ user: user, body: tweet.body, parent_id: tweet.user_id })
   return (dispatch, getState) => {
     API.post("tweets", newTweet)
     .then((res) => {
