@@ -19,3 +19,8 @@ export const favoriteTweet = (tweet) => ({
   type: tweetTypes.FAVORITE_TWEET,
   payload: tweet
 })
+
+export const retweet = (tweet) => ({
+  type: tweetTypes.RETWEET,
+  payload: tweet
+})

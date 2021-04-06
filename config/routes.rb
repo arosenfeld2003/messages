@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post '/tweets' => 'tweets#create'
+  post 'tweets/retweet' => 'tweets#retweet'
+  get 'tweets/retweet' => 'tweets#get_retweets'
   delete '/tweets' => 'tweets#delete'
   
   get '/feed' => 'tweets#get_user_feed'

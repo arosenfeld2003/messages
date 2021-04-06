@@ -4,11 +4,36 @@ import { onGetLikedByList } from '../../redux/tweet/tweet-reducer';
 import { onGetUserFeed } from '../../redux/user/user-reducer';
 import DeleteTweetButton from './delete-tweet-button';
 import FavoriteTweetButton from './favorite-tweet-button';
+import RetweetButton from './retweet-button';
+import RetweetIcon from './retweet-icon';
 import { Link } from "react-router-dom";
 import CommentsList from "../comments-list/comments-list";
+import API from "../../api";
 
 const Feed = (props) => {
   const {currentUser, fetchUserFeed, userFeed, user} = props;
+  const [retweets, setRetweets] = useState([]);
+
+  const fetchUserRetweets = (currentUser) => {
+    API.get('/tweets/retweet', {
+      params: {user_id: currentUser.id}
+    }).then((res) => {
+      setRetweets(res.data);
+      console.log(res.data);
+    }).catch((error) => {
+      alert("Cannot load user retweets");
+      console.log(error);
+    })
+  }
+
+  const notRetweeted = (currentTweet) => {
+    retweets.forEach(tweet => {
+      if (tweet.parent_id === currentTweet.id) {
+        return false;
+      }
+    })
+    return true;
+  }
 
   const loadUserFeed = function () {
     // if we want feed of other user
@@ -21,6 +46,7 @@ const Feed = (props) => {
 
   useEffect(() => {
     loadUserFeed();
+    fetchUserRetweets(currentUser);
   }, [user])
 
   return <div>
@@ -32,6 +58,9 @@ const Feed = (props) => {
             <div key={index}>
               <div className="card">
                 <div className="card-header card-title">
+                  { tweet.parent_id &&
+                    <RetweetIcon currentUser={currentUser}/>
+                  }
                   <Link to={`/profile/${tweet.user_id}`}><strong>@{tweet.handle}</strong></Link>, <small>{tweet.created_at.slice(0, 10)}</small>
                 </div>
                 <div className="card-body">
@@ -40,15 +69,15 @@ const Feed = (props) => {
                 <div className="card-footer text-muted text-right">
                   <div className="row">
                     <div className="col text-right d-flex justify-content-end">
-                      { tweet.user_id != currentUser.id &&
-                        <RetweetButton tweet={tweet} user={currentUser} />
+                      { notRetweeted(tweet) && (tweet.user_id !== currentUser.id) &&
+                        <RetweetButton tweet={tweet} currentUser={currentUser} />
                       }
                       <FavoriteTweetButton tweet={tweet} user={currentUser} />
-                      {currentUser.handle === tweet.handle &&
+                      {currentUser.id === tweet.user_id &&
                         <DeleteTweetButton tweet={tweet}/>
                       }
                     </div>
-                    
+
                   </div>
                   <CommentsList
                     tweet={tweet}

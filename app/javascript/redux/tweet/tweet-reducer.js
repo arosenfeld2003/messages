@@ -24,6 +24,19 @@ const onNewTweet = (newTweet) => {
   }
 }
 
+const onRetweet = (tweet, currentUser) => {
+  return (dispatch, getState) => {
+    API.post("tweets/retweet", {currentUser: currentUser, tweet: tweet})
+    .then((res) => {
+      if (res) {
+        dispatch(onGetUserFeed(getState().user.currentUser));
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 const onDeleteTweet = (tweetId) => {
   return (dispatch, getState) => {
     API.delete("tweets", {data: {id: tweetId}})
@@ -114,6 +127,11 @@ const tweetReducer = (state = INITIAL_STATE, action) => {
         ...state,
         likedByList: action.payload
       }
+    case tweetTypes.RETWEET:
+      return {
+        ...state,
+        retweet: action.payload
+      }
     default:
       return state;
   }
@@ -124,5 +142,6 @@ export {
   onNewTweet,
   onDeleteTweet,
   onFavoriteTweet,
-  onGetLikedByList
+  onGetLikedByList,
+  onRetweet
 };

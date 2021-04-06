@@ -16,6 +16,32 @@ class TweetsController < ApplicationController
     end
   end
 
+  def retweet
+    @user = User.find_by(handle: params[:currentUser][:handle])
+    @tweet = Tweet.find_by(id: params[:tweet])
+    @tweet_body = params[:tweet][:body]
+    @tweet_handle = params[:tweet][:handle]
+    @tweet_id = params[:tweet][:id]
+
+    # throw error if not currentUser ??
+    @retweet = @user.tweets.build(
+      body: @tweet_body,
+      handle: @tweet_handle,
+      parent_id: @tweet_id
+    )
+    if @retweet.save
+      render json: {retweet: @retweet}
+    else
+      # we need better error message?
+      render json: {message: "Error: Retweet Unsuccessful"}, status: :unauthorized
+    end
+  end
+
+  def get_retweets
+    @retweets = Tweet.where("parent_id IS NOT NULL AND user_id = ?", params[:user_id])
+    render json: @retweets
+  end
+
   def delete
     @tweet = Tweet.find(params[:id].to_i)
     @tweet.destroy

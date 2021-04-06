@@ -56,8 +56,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_020134) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
-    t.bigint "parent_id"
-    t.index ["parent_id"], name: "index_tweets_on_parent_id"
+    t.integer "parent_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
