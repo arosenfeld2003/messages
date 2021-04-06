@@ -26,13 +26,14 @@ const Feed = (props) => {
     })
   }
 
-  const notRetweeted = (currentTweet) => {
+  const isRetweeted = (currentTweet) => {
+    let retweeted = {};
     retweets.forEach(tweet => {
       if (tweet.parent_id === currentTweet.id) {
-        return false;
+        retweeted[currentTweet.id] = true;
       }
     })
-    return true;
+    return retweeted;
   }
 
   const loadUserFeed = function () {
@@ -69,8 +70,8 @@ const Feed = (props) => {
                 <div className="card-footer text-muted text-right">
                   <div className="row">
                     <div className="col text-right d-flex justify-content-end">
-                      { notRetweeted(tweet) && (tweet.user_id !== currentUser.id) &&
-                        <RetweetButton tweet={tweet} currentUser={currentUser} />
+                      { tweet.user_id !== currentUser.id &&
+                        <RetweetButton tweet={tweet} currentUser={currentUser} isRetweeted={isRetweeted(tweet)}/>
                       }
                       <FavoriteTweetButton tweet={tweet} user={currentUser} />
                       {currentUser.id === tweet.user_id &&
