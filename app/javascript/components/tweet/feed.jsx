@@ -62,7 +62,7 @@ const Feed = (props) => {
                   { tweet.parent_id &&
                     <RetweetIcon currentUser={currentUser}/>
                   }
-                  <Link to={`/profile/${tweet.user_id}`}><strong>@{tweet.handle}</strong></Link>, <small>{tweet.created_at.slice(0, 10)}</small>
+                  <Link to={`/profile/${tweet.user_id}`}><strong>@{tweet.handle}</strong></Link>,  <small> {tweet.created_at.slice(0, 10)}</small>
                 </div>
                 <div className="card-body">
                   <p className="card-text">{tweet.body}</p>
