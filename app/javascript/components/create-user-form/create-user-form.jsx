@@ -13,7 +13,13 @@ const CreateUserForm = (props) => {
     const handleChange = (evt) => {
         const { target } = evt;
         const { name, value } = target;
-        setUserValues({ ...userValues, [name]: value });
+
+        if (evt.target.checked) {
+          setUserValues({ ...userValues, [name]: evt.target.checked });
+        } else {
+          setUserValues({ ...userValues, [name]: value });
+        }
+        
     };
     
     const handleSignup = (evt) => {
@@ -65,6 +71,11 @@ const CreateUserForm = (props) => {
         placeholder="Confirm password"
         handleChange={handleChange}
         />
+        <div className="form-check text-muted">
+          <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin" onChange={handleChange}/>
+          <label className="form-check-label" htmlFor="is_admin">Admin</label>
+        </div>
+
         <Button
         type="submit"
         className="btn btn-primary btn-block my-4 waves-effect waves-light"

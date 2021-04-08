@@ -34,7 +34,7 @@ const SignUpPage = (props) => {
   return <div className="sign-up-page">
     <div className="text-center border border-light p-5">
       <form method="" action="">
-        <h2 className="h4 mb-4">Signup</h2>
+        <h2 className="h4 mb-4">Sign Up</h2>
         <FormInput
           id="email"
           name="email"
