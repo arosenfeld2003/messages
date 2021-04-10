@@ -72,7 +72,7 @@ const CreateUserForm = (props) => {
         handleChange={handleChange}
         />
         <div className="form-check text-muted">
-          <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin" onChange={handleChange}/>
+          <input type="checkbox" className="form-check-input" id="is_admin" name="is_admin" onChange={handleChange}/>
           <label className="form-check-label" htmlFor="is_admin">Admin</label>
         </div>
 

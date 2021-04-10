@@ -3,7 +3,7 @@ import Header from "../header/header";
 import ProfileContent from "../profile-content/profile-content";
 import { connect } from "react-redux";
 import { onGetProfile } from "../../redux/profile/profile-reducer";
-import { setUserProfile } from "../../redux//user/user-actions";
+import { setUserProfile, setNewUserFromAdmin } from "../../redux//user/user-actions";
 import { Redirect, useHistory  } from "react-router-dom";
 import Button from "../button/button";
 
@@ -69,6 +69,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   resetUserProfile: () => {
     dispatch(setUserProfile(null));
+    dispatch(setNewUserFromAdmin(null));
   }
 })
 
