@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 import Header from "../header/header";
 import CreateUserForm from "../create-user-form/create-user-form";
-// import { onGetProfileFeed } from "../../redux/user/user-reducer";
 
 import "./dashboard.scss";
 
