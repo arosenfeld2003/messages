@@ -73,12 +73,14 @@ const ProfileCard = (props) => {
 
   const handleFollowAction = () => {
     onCreateNewRelationship(currentUser, profile);
-    window.location.reload();
+    // window.location.reload();
+    history.push("/");
   }
 
   const handleUnfollowAction = () => {
     onDeleteExistRelationship(currentUser, profile);
-    window.location.reload();
+    // window.location.reload();
+    history.push("/");
   }
 
   if (!profile) {
