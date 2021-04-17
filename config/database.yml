@@ -81,8 +81,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  url: <%= ENV['DATABASE_URL'] %>
-  # <<: *default
-  # database: my_newspaper_production
+  # url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  database: my_newspaper_production
   # username: my_newspaper
   # password: <%= ENV['MY_NEWSPAPER_DATABASE_PASSWORD'] %>
