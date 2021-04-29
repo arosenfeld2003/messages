@@ -22,7 +22,11 @@ const SignUpPage = (props) => {
 
   const handleSignup = (evt) => {
     evt.preventDefault();
-    handleSignUpRequest(userValues);
+    if (userValues.password.length < 6) {
+      alert("Password must be at least 6 characters");
+    } else {
+      handleSignUpRequest(userValues);
+    }
   }
 
   if (isLoggedIn === true) {

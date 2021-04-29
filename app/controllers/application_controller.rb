@@ -11,9 +11,7 @@ class ApplicationController < ActionController::Base
         :iat => iat,
       })
 
-    if @jwt.save
-      p @jwt
-    end
+    @jwt.save
   end
 
   def token_exist_in_db(current_token)
@@ -56,20 +54,15 @@ class ApplicationController < ActionController::Base
 
     tokens = Token.where("exp < :max", max: current_time)
     tokens.destroy_all
-    tokens.each do |token|
-      p token
-    end
   end
 
   def get_user_followers(params)
     @relationships = Relationship.where("followed_id = ?", params[:userId])
-    p @relationships
     @followers = []
     @relationships.each do |rel|
       follower = User.where(id: rel.follower_id)
       @followers.push(follower[0])
     end
-    p @followers
     return @followers
   end
 

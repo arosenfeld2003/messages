@@ -1,5 +1,4 @@
 class SessionsController < Devise::SessionsController
-  before_action :authenticate_user!
 
   @token = nil
 
@@ -17,7 +16,7 @@ class SessionsController < Devise::SessionsController
       @iat = Time.now
 
       #add 2 hours 
-      @exp = @iat + 7200 
+      @exp = @iat + 7200
       
       @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, Rails.application.secrets.secret_key_base) # for production use ENV["SECRET_KEY"]
       
