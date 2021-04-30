@@ -18,8 +18,7 @@ class SessionsController < Devise::SessionsController
       #add 2 hours 
       @exp = @iat + 7200
 
-      # for production use ENV["SECRET_KEY"]
-      @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i}, ENV["SECRET_KEY"]) # Rails.application.secrets.secret_key_base)
+      @token = JWT.encode({sub: @user.id, iat: @iat.to_i, exp: @exp.to_i},  Rails.application.secret_key_base) # for production use ENV["SECRET_KEY"]
 
       #add token in db (table Tokens)
       add_token_in_db(@user, @token, @exp, @iat)
