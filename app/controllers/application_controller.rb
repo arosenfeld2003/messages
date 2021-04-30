@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   #before_action :clear_tokens_in_db
 
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
+  protect_from_forgery :secret => ENV["SECRET_KEY_BASE"]
 
   def add_token_in_db(user, token, exp, iat) 
     @jwt = Token.create({
